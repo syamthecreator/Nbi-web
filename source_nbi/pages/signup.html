@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up – NBI (Notice Board India)</title>
+  <meta name="description" content="Sign up for Notice Board India - School & College Communication Platform">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Style Sheets -->
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/signup.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body class="signup-page">
+
+  <!-- Main Sign Up Layout Container -->
+  <main class="signup-container">
+
+    <!-- Top-Right Organic Orange Shape -->
+    <img src="../assets/images/Splash-1.png" alt="" class="bg-shape top-right" aria-hidden="true">
+
+    <!-- Inner Grid Shell Wrapper -->
+    <div class="signup-wrapper">
+
+      <!-- Left Hero Branding Card -->
+      <aside class="signup-hero-card">
+        <!-- Bottom-Left Organic Wave Shape inside Hero Card -->
+        <!-- <img src="../assets/images/Splash-2.png" alt="" class="hero-card-shape bottom-left" aria-hidden="true"> -->
+
+        <div class="hero-content">
+          <!-- Top Blackboard Mini Logo -->
+          <div class="hero-logo-wrapper">
+            <img src="../assets/logos/Logo.png" alt="NBI Blackboard Logo" class="hero-logo">
+          </div>
+
+          <!-- Headline -->
+          <h1 class="hero-title">
+            School &amp; College <br>
+            <span class="text-orange">Communication</span>
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="hero-subtitle">
+            Bridging The Gap Between Institutions And Parents. Stay Informed, Stay Connected Grow Together.
+          </p>
+
+          <!-- 3D School Building Illustration with Floating Glass Badges -->
+          <div class="hero-illustration-wrapper">
+
+
+
+
+            <img src="../assets/images/Login-1.png" alt="School &amp; College Building Illustration"
+              class="hero-illustration">
+          </div>
+        </div>
+      </aside>
+
+      <!-- Right Form Section -->
+      <section class="signup-form-section">
+        <div class="signup-form-wrapper">
+
+
+
+          <!-- Header -->
+          <div class="form-header" id="formHeader">
+            <h2 class="form-title">
+              <span class="text-black">Sign</span> <span class="text-orange">Up</span>
+            </h2>
+            <p class="form-subtitle">Join The NBI Community</p>
+          </div>
+
+          <!-- Form -->
+          <form class="signup-form" id="signupForm" autocomplete="on">
+
+            <!-- Step 1: Initial Form State -->
+            <div class="form-step active" id="step1">
+
+              <!-- Full Name Input Group -->
+              <div class="form-group">
+                <label for="fullname" class="form-label">Full Name *</label>
+                <div class="input-icon-wrapper">
+                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  <input type="text" id="fullname" name="fullname" class="form-input" placeholder="Rahul Sharma"
+                    value="Rahul Sharma" required>
+                </div>
+              </div>
+
+              <!-- Email Input Group -->
+              <div class="form-group">
+                <label for="email" class="form-label">Email *</label>
+                <div class="input-icon-wrapper">
+                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                  <input type="email" id="email" name="email" class="form-input" placeholder="email@gmail.com"
+                    value="email@gmail.com" required>
+                </div>
+              </div>
+
+              <!-- Phone / Contact Input Group -->
+              <div class="form-group">
+                <label for="phone" class="form-label">Contact / Phone *</label>
+                <div class="input-icon-wrapper phone-wrapper">
+                  <span class="country-prefix">🇮🇳 +91</span>
+                  <input type="tel" id="phone" name="phone" class="form-input phone-input" placeholder="8787878888"
+                    value="8787878888" maxlength="10" required>
+                </div>
+              </div>
+
+              <!-- Terms Checkbox -->
+              <div class="form-options">
+                <label class="checkbox-container">
+                  <input type="checkbox" id="termsCheck" checked required>
+                  <span class="checkmark"></span>
+                  <span class="terms-text">I agree to the <a href="#" class="link-orange">Terms of Service</a> &amp; <a
+                      href="#" class="link-orange">Privacy Policy</a></span>
+                </label>
+              </div>
+
+              <!-- Primary Submit Button -->
+              <button type="submit" class="btn-primary" id="btnSendOtp">
+                <span class="btn-text">Send OTP</span>
+                <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+                <span class="btn-spinner" aria-hidden="true"></span>
+              </button>
+
+            </div>
+
+            <!-- Step 2: OTP Verification State (Hidden initially) -->
+            <div class="form-step" id="step2">
+              <div class="otp-header">
+
+                <p class="otp-sent-info">Enter 4-digit OTP sent to <strong id="sentTarget">+91 8787878888</strong></p>
+              </div>
+
+              <div class="otp-inputs-wrapper">
+                <input type="text" maxlength="1" class="otp-digit" pattern="[0-9]" inputmode="numeric" autofocus>
+                <input type="text" maxlength="1" class="otp-digit" pattern="[0-9]" inputmode="numeric">
+                <input type="text" maxlength="1" class="otp-digit" pattern="[0-9]" inputmode="numeric">
+                <input type="text" maxlength="1" class="otp-digit" pattern="[0-9]" inputmode="numeric">
+              </div>
+
+              <div class="otp-timer-row">
+                <span>Didn't receive OTP?</span>
+                <button type="button" class="btn-resend" id="btnResend" disabled>Resend OTP (<span
+                    id="resendCountdown">30</span>s)</button>
+              </div>
+
+              <button type="button" class="btn-primary" id="btnVerifyOtp">
+                <span class="btn-text">Verify &amp; Create Account</span>
+                <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </button>
+
+              <div class="otp-change-details">
+                <button type="button" class="link-change-details" id="btnChangeDetails">Wrong email or phone number?
+                  <u>Change Details</u></button>
+              </div>
+            </div>
+
+            <!-- Step 3: Animated Success Screen State -->
+            <div class="form-step" id="step3">
+              <div class="success-screen-wrapper">
+
+                <!-- Animated Success Icon Badge -->
+                <div class="success-icon-badge">
+                  <div class="success-icon-bg"></div>
+                  <svg class="checkmark-svg" viewBox="0 0 52 52">
+                    <circle class="checkmark-circle" cx="26" cy="26" r="23" fill="none" />
+                    <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                  </svg>
+
+                </div>
+
+                <!-- Success Header -->
+                <h3 class="success-title">Account Verified!</h3>
+                <p class="success-subtitle">Welcome to Notice Board India. Your account has been verified successfully.
+                </p>
+
+                <!-- Verified Account Summary Card -->
+                <div class="success-card">
+                  <div class="success-card-row">
+                    <span class="card-label">Full Name:</span>
+                    <strong class="card-value" id="successName">Rahul Sharma</strong>
+                  </div>
+                  <div class="success-card-row">
+                    <span class="card-label">Email:</span>
+                    <strong class="card-value" id="successEmail">email@gmail.com</strong>
+                  </div>
+                  <div class="success-card-row">
+                    <span class="card-label">Phone:</span>
+                    <strong class="card-value" id="successPhone">+91 8787878888</strong>
+                  </div>
+                  <div class="success-card-row">
+                    <span class="card-label">Account Status:</span>
+                    <span class="badge-status-active">🟢 Active Member</span>
+                  </div>
+                </div>
+
+                <!-- Continue to Select Institution Button -->
+                <a href="select-institution.html" class="btn-primary btn-success-action" id="btnGoHome">
+                  <span class="btn-text">Continue to Select Institution</span>
+                  <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+
+                <!-- Auto Redirect Timer Bar -->
+                <div class="redirect-info-row">
+                  <span>Redirecting to Dashboard in <strong id="redirectTimer">5</strong>s...</span>
+                  <div class="redirect-progress-track">
+                    <div class="redirect-progress-bar" id="redirectBar"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </form>
+
+          <!-- Divider -->
+          <div class="form-divider" id="formDivider">
+            <span>Welcome</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- JavaScript -->
+  <script src="../js/components.js"></script>
+  <script src="../js/signup.js"></script>
+</body>
+
+</html>

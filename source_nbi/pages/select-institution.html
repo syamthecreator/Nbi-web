@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Institution – NBI (Notice Board India)</title>
+  <meta name="description" content="Find and follow your educational institution on Notice Board India.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Style Sheets -->
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/select-institution.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body class="institution-select-page">
+
+  <!-- TOP SECTION (Background: #FEF8F5) -->
+  <div class="top-hero-wrapper">
+
+    <!-- Top Navigation Header -->
+    <header class="app-header">
+      <div class="header-container">
+
+        <!-- Centered Branding -->
+        <div class="header-brand">
+          <img src="../assets/logos/Logo.png" alt="NBI Logo" class="brand-logo">
+          <span class="brand-title">
+            <span class="text-orange">Notice Board</span> <span class="text-black">India</span>
+          </span>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Hero / Search Banner Section -->
+    <section class="search-hero-section">
+      <div class="hero-inner-container">
+
+        <!-- Left Column: Step Tag, Heading, Subtitle & Search Bar -->
+        <div class="search-hero-left">
+          <span class="step-badge">Step 1 of 2</span>
+          <h1 class="hero-heading">Find Your Educational Institutions</h1>
+          <p class="hero-subtext">Search for your child's school to get started.</p>
+
+          <!-- Search Input Bar -->
+          <div class="search-bar-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="institutionSearch" class="search-input"
+              placeholder="Enter school name, city, or pincode..." aria-label="Search educational institution">
+            <button type="button" class="search-clear-btn" id="btnClearSearch" aria-label="Clear search"
+              style="display: none;">✕</button>
+          </div>
+        </div>
+
+        <!-- Right Column: School Building Illustration -->
+        <div class="search-hero-right">
+          <img src="../assets/images/Loginimg-2.png" alt="Educational Institution Building Illustration"
+            class="school-hero-illustration">
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <!-- BOTTOM SECTION (Background: #FFFFFF) -->
+  <main class="bottom-cards-wrapper">
+    <div class="cards-inner-container">
+
+      <!-- Institution Cards Grid Section -->
+      <section class="cards-grid-section">
+
+        <!-- Live Search Status Counter -->
+        <div class="search-results-meta" id="resultsMeta">
+          Showing available institutions
+        </div>
+
+        <!-- Institution Cards Grid -->
+        <div class="institution-grid" id="institutionGrid">
+          <!-- Dynamically rendered via JS -->
+        </div>
+
+        <!-- Empty State Container (Hidden initially) -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+          <div class="empty-icon">🔍</div>
+          <h3>No Institutions Found</h3>
+          <p>We couldn't find any school matching your search. Please check the spelling or search by city / pincode.
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- Bottom Action Bar / Continue Button -->
+    <footer class="bottom-action-bar">
+      <div class="bottom-action-container">
+        <div class="selection-status-text" id="selectionStatus">
+          Select at least one institution to continue
+        </div>
+        <button type="button" class="btn-continue-institution" id="btnContinueInstitution" disabled>
+          <span>Continue</span>
+          <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JavaScript Components & Router -->
+  <script src="../js/components.js"></script>
+  <script src="../js/select-institution.js"></script>
+</body>
+
+</html>

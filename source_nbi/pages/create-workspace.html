@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Workspace – Notice Board India</title>
+  <meta name="description" content="Complete your institution details to create your secure NBI workspace.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/create-workspace.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body class="create-workspace-page">
+
+  <!-- Top-Right Organic Orange Background Shape -->
+  <img src="../assets/images/Splash-1.png" alt="" class="bg-shape top-right" aria-hidden="true">
+
+  <!-- Main Container Wrapper -->
+  <div class="workspace-main-container">
+
+    <!-- Top Header & Hero Row -->
+    <header class="workspace-header-row">
+
+      <!-- Left Header Block -->
+      <div class="header-left-block">
+        <!-- NBI Blackboard Logo -->
+        <div class="workspace-brand-logo-wrapper">
+          <img src="../assets/logos/Logo.png" alt="NBI Logo" class="workspace-brand-logo">
+        </div>
+
+        <h1 class="workspace-main-title">
+          Create <span class="text-orange">Workspace</span>
+        </h1>
+        <p class="workspace-subtitle">
+          Complete Your Institution Details To Create Your Secure Workspace.
+        </p>
+      </div>
+
+      <!-- Right 3D Team Illustration -->
+      <div class="header-right-illustration">
+        <img src="../assets/images/imgz1.png" alt="Team Collaboration Workspace Illustration"
+          class="workspace-hero-img">
+      </div>
+
+    </header>
+
+    <!-- Step Progress Indicator Bar -->
+    <div class="workspace-progress-section">
+      <div class="progress-step-label">Step 1/2</div>
+      <div class="progress-track-bg">
+        <div class="progress-bar-fill" style="width: 50%;"></div>
+      </div>
+    </div>
+
+    <!-- Workspace Form Container -->
+    <form class="workspace-form" id="createWorkspaceForm" autocomplete="off">
+
+      <!-- STEP 1: Institution Details -->
+      <div class="form-step-block active" id="step1Block">
+        <div class="workspace-form-grid">
+
+          <!-- Field 1: School / Institution Name -->
+          <div class="form-field-group">
+            <label for="institutionName" class="workspace-label">
+              School / Institution Name <span class="required-star">*</span>
+            </label>
+            <input type="text" id="institutionName" name="institutionName" class="workspace-input"
+              placeholder="enter institution name" required>
+          </div>
+
+          <!-- Field 2: Workspace Name -->
+          <div class="form-field-group">
+            <label for="workspaceName" class="workspace-label">
+              Workspace Name <span class="required-star">*</span>
+            </label>
+            <input type="text" id="workspaceName" name="workspaceName" class="workspace-input"
+              placeholder="enter workspace name" required>
+          </div>
+
+          <!-- Field 3: Institution Type (Custom Select2 UI) -->
+          <div class="form-field-group">
+            <label for="institutionType" class="workspace-label">
+              Institution Type <span class="required-star">*</span>
+            </label>
+            <div class="custom-dropdown-container" id="dropdownInstitutionType">
+              <input type="hidden" id="institutionType" name="institutionType" required>
+
+              <div class="custom-dropdown-trigger" tabindex="0">
+                <span class="selected-option-text placeholder">select institution type</span>
+                <svg class="dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+
+              <div class="custom-dropdown-menu">
+                <div class="dropdown-option" data-value="Higher Secondary School">
+                  <span>Higher Secondary School</span>
+                  <svg class="option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="dropdown-option" data-value="High School & Primary">
+                  <span>High School &amp; Primary</span>
+                  <svg class="option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="dropdown-option" data-value="Degree College / University">
+                  <span>Degree College / University</span>
+                  <svg class="option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="dropdown-option" data-value="Coaching & Entrance Academy">
+                  <span>Coaching &amp; Entrance Academy</span>
+                  <svg class="option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="dropdown-option" data-value="International School">
+                  <span>International School</span>
+                  <svg class="option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Field 4: Institution Code -->
+          <div class="form-field-group">
+            <label for="institutionCode" class="workspace-label">
+              Institution Code <span class="required-star">*</span>
+            </label>
+            <input type="text" id="institutionCode" name="institutionCode" class="workspace-input"
+              placeholder="enter institution code" required>
+          </div>
+
+          <!-- Field 5: School Logo (Optional) -->
+          <div class="form-field-group logo-field-group">
+            <label class="workspace-label">School Logo (Optional)</label>
+            <div class="logo-upload-dropzone" id="logoDropzone">
+              <input type="file" id="logoFileInput" accept="image/*" class="hidden-file-input">
+
+              <div class="upload-inner-content" id="uploadPlaceholder">
+                <div class="upload-cloud-circle">
+                  <svg viewBox="0 0 24 24" class="cloud-upload-svg" fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 16l-4-4-4 4"></path>
+                    <path d="M12 12v9"></path>
+                    <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
+                  </svg>
+                </div>
+                <span class="upload-title-text">Click to Upload Logo</span>
+                <span class="upload-hint-text">PNG, JPG or SVG &bull; Optional</span>
+              </div>
+
+              <div class="logo-preview-box hidden" id="logoPreviewBox">
+                <img src="" alt="Uploaded Logo Preview" id="logoPreviewImg" class="uploaded-logo-preview">
+                <div class="logo-preview-info">
+                  <span class="logo-file-title">Uploaded School Logo</span>
+                  <button type="button" class="btn-remove-logo" id="btnRemoveLogo" title="Remove logo">&times; Remove
+                    Logo</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Action Row for Step 1 -->
+        <div class="workspace-action-row">
+          <button type="button" class="btn-workspace-next" id="btnGoToStep2">
+            <span>Next</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Admin Details -->
+      <div class="form-step-block hidden" id="step2Block">
+
+        <!-- 2-Column Admin Fields Grid -->
+        <div class="workspace-form-grid">
+
+          <!-- Field 1: Full Name -->
+          <div class="form-field-group">
+            <label for="adminFullName" class="workspace-label">
+              Full Name <span class="required-star">*</span>
+            </label>
+            <input type="text" id="adminFullName" name="adminFullName" class="workspace-input"
+              placeholder="enter display name for dashboard">
+          </div>
+
+          <!-- Field 2: Select Designation (Custom Select2 UI) -->
+          <div class="form-field-group">
+            <label for="adminDesignation" class="workspace-label">
+              Select Designation <span class="required-star">*</span>
+            </label>
+            <div class="custom-dropdown-container" id="dropdownAdminDesignation">
+              <input type="hidden" id="adminDesignation" name="adminDesignation">
+
+              <div class="custom-dropdown-trigger" tabindex="0">
+                <span class="selected-option-text placeholder">select designation</span>
+                <svg class="dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+
+              <div class="custom-dropdown-menu">
+                <div class="dropdown-option" data-value="Principal / Headmaster">
+                  <span>Principal / Headmaster</span>
+                  <svg class="option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="dropdown-option" data-value="Director / Chairperson">
+                  <span>Director / Chairperson</span>
+                  <svg class="option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="dropdown-option" data-value="Dean / Administrator">
+                  <span>Dean / Administrator</span>
+                  <svg class="option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="dropdown-option" data-value="Vice Principal">
+                  <span>Vice Principal</span>
+                  <svg class="option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="dropdown-option" data-value="IT Admin / Technical Officer">
+                  <span>IT Admin / Technical Officer</span>
+                  <svg class="option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="dropdown-option" data-value="Trustee / Correspondent">
+                  <span>Trustee / Correspondent</span>
+                  <svg class="option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Field 3: Email -->
+          <div class="form-field-group">
+            <label for="adminEmail" class="workspace-label">
+              Email <span class="required-star">*</span>
+            </label>
+            <input type="email" id="adminEmail" name="adminEmail" class="workspace-input"
+              placeholder="enter email address">
+          </div>
+
+          <!-- Field 4: Mobile Number -->
+          <div class="form-field-group">
+            <label for="adminMobile" class="workspace-label">
+              Mobile Number <span class="required-star">*</span>
+            </label>
+            <input type="tel" id="adminMobile" name="adminMobile" class="workspace-input"
+              placeholder="enter mobile number" maxlength="10">
+          </div>
+
+        </div>
+
+        <!-- Action Row for Step 2: Back & Create Workspace -->
+        <div class="workspace-action-row step2-actions">
+          <button type="button" class="btn-workspace-back" id="btnBackToStep1">
+            <span>Back</span>
+          </button>
+          <button type="submit" class="btn-workspace-next" id="btnCreateWorkspace">
+            <span>Create Workspace</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- STEP 3: Premium Animated Success Screen State -->
+      <div class="form-step-block hidden" id="step3Block">
+        <div class="workspace-success-container">
+
+          <!-- Top NBI Blackboard Logo -->
+
+
+          <!-- Animated Success Celebration Badge -->
+          <div class="success-icon-badge">
+            <div class="success-icon-bg"></div>
+            <svg class="checkmark-svg" viewBox="0 0 52 52">
+              <circle class="checkmark-circle" cx="26" cy="26" r="23" fill="none" />
+              <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+            </svg>
+            <span class="confetti-sparkle s1">✨</span>
+            <span class="confetti-sparkle s2">🎉</span>
+            <span class="confetti-sparkle s3">⭐</span>
+          </div>
+
+          <!-- Success Header -->
+          <h2 class="workspace-success-title">
+            Workspace <span class="text-orange">Created!</span>
+          </h2>
+          <p class="workspace-success-subtitle">
+            Congratulations! Your secure institution workspace is live and ready to connect.
+          </p>
+
+          <!-- Premium Workspace Card -->
+          <div class="workspace-success-card">
+
+            <!-- Card Header (Logo + Name + Tag) -->
+            <div class="success-card-header">
+              <div class="success-inst-logo-preview" id="summaryLogoPreview">
+                <span class="logo-fallback-icon">🏫</span>
+              </div>
+              <div class="success-inst-meta">
+                <h3 class="success-inst-name" id="summaryInstName">Oxford High School</h3>
+                <span class="success-inst-type-badge" id="summaryInstType">Higher Secondary School</span>
+              </div>
+            </div>
+
+            <div class="success-card-divider"></div>
+
+            <!-- Details 4-Cell Grid -->
+            <div class="success-details-grid">
+              <div class="success-detail-box">
+                <span class="detail-label">Workspace URL</span>
+                <strong class="detail-value text-orange" id="summaryWsName">nbi.in/oxford-hs-workspace</strong>
+              </div>
+              <div class="success-detail-box">
+                <span class="detail-label">Institution Code</span>
+                <strong class="detail-value" id="summaryInstCode">NBI-SCH-8842</strong>
+              </div>
+              <div class="success-detail-box">
+                <span class="detail-label">Primary Admin</span>
+                <strong class="detail-value" id="summaryAdminName">Rahul Sharma</strong>
+              </div>
+              <div class="success-detail-box">
+                <span class="detail-label">Designation</span>
+                <strong class="detail-value" id="summaryAdminRole">Principal / Headmaster</strong>
+              </div>
+            </div>
+
+            <!-- Active Status Row -->
+            <div class="success-status-badge-row">
+              <span class="badge-status-active">
+                <span class="status-dot"></span> Workspace Status: Active &amp; Verified
+              </span>
+            </div>
+
+          </div>
+
+          <!-- Action Button & Redirect Timer -->
+          <div class="success-actions-wrapper">
+            <a href="school-feed.html" class="btn-workspace-success-action" id="btnGoToFeed">
+              <span>Go to Institution Feed</span>
+              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+
+            <!-- Redirect Timer Track -->
+            <div class="redirect-info-row">
+              <span>Redirecting to Feed in <strong id="redirectTimer">5</strong>s...</span>
+              <div class="redirect-progress-track">
+                <div class="redirect-progress-bar" id="redirectBar"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+  <!-- Toast Notification Alert -->
+  <div class="toast-alert" id="workspaceToastAlert">
+    <span id="workspaceToastMsg">✅ Workspace created successfully!</span>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="../js/components.js"></script>
+  <script src="../js/create-workspace.js"></script>
+</body>
+
+</html>

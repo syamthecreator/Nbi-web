@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Profile – Notice Board India</title>
+  <meta name="description"
+    content="View student profile details, academic attendance, digital ID card, and saved homework assignments on Notice Board India.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/profile.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body class="feed-page-body">
+
+  <!-- App Main Layout Wrapper -->
+  <div class="feed-app-container">
+
+    <!-- LEFT SIDEBAR NAVIGATION -->
+    <aside class="feed-sidebar">
+      <div class="sidebar-inner">
+
+        <!-- Top Branding Header -->
+        <div class="sidebar-brand-box">
+          <div class="brand-logo-frame">
+            <img src="../assets/logos/Logo.png" alt="NBI Logo" class="nbi-brand-logo">
+          </div>
+          <div class="brand-text-block">
+            <h1 class="brand-name">
+              <span class="text-orange">Notice Board</span> <span class="text-black">India</span>
+            </h1>
+            <p class="brand-tagline">Stay Informed. Stay connected.</p>
+          </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <nav class="sidebar-nav">
+          <a href="school-feed.html" class="nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            <span class="nav-text">School Feed</span>
+          </a>
+
+
+          <a href="settings.html" class="nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+              </path>
+            </svg>
+            <span class="nav-text">Settings</span>
+          </a>
+
+          <a href="profile.html" class="nav-item active">
+            <div class="active-indicator"></div>
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span class="nav-text">Profile</span>
+          </a>
+        </nav>
+
+        <!-- Bottom Building Line Sketch Illustration & Footer -->
+        <div class="sidebar-bottom-illustration-box">
+          <img src="../assets/images/building-sketch.png" alt="School Building Illustration"
+            class="sidebar-building-sketch">
+          <p class="sidebar-copyright">
+            &copy; 2024 Notice Board India<br>
+            All rights reserved.
+          </p>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- CENTER MAIN CONTENT COLUMN -->
+    <main class="feed-main-content">
+
+      <!-- Profile Container -->
+      <div class="profile-container">
+
+        <!-- Hero Card -->
+        <section class="profile-hero-card">
+          <div class="profile-cover-banner"></div>
+          <div class="profile-avatar-wrapper">
+            <div class="profile-avatar-frame">
+              <img src="../assets/images/teacher-avatar.jpg" alt="Rahul Sharma Avatar" class="profile-avatar-img">
+            </div>
+            <div class="profile-hero-actions">
+              <button type="button" class="btn-profile-edit" id="btnOpenEditModal">
+                <svg class="btn-icon btn-edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+                <span>Edit Profile</span>
+              </button>
+              <button type="button" class="btn-profile-logout" id="btnLogoutUser">
+                <svg class="btn-icon btn-logout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                  <line x1="12" y1="2" x2="12" y2="12"></line>
+                </svg>
+                <span>Log Out</span>
+              </button>
+            </div>
+          </div>
+          <div class="profile-meta-info">
+            <h2 class="profile-user-name">
+              <span id="profileHeaderNameText">Rahul Sharma</span>
+              <span class="verified-badge-icon" id="verifiedBadgeIcon" title="Verified Account (OTP Authenticated)">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="#0095F6">
+                  <path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.38-1.93-4.31-4.31-4.31-.495 0-.965.084-1.4.238C14.23 2.145 12.86 1.27 11.28 1.27c-1.58 0-2.95.875-3.6 2.148-.435-.154-.905-.238-1.4-.238-2.38 0-4.31 1.93-4.31 4.31 0 .495.084.965.238 1.4C.875 9.55 0 10.92 0 12.5c0 1.58.875 2.95 2.148 3.6-.154.435-.238.905-.238 1.4 0 2.38 1.93 4.31 4.31 4.31.495 0 .965-.084 1.4-.238 1.27 1.273 2.64 2.148 4.22 2.148 1.58 0 2.95-.875 3.6-2.148.435.154.905.238 1.4.238 2.38 0 4.31-1.93 4.31-4.31 0-.495-.084-.965-.238-1.4 1.273-1.27 2.148-2.64 2.148-4.22zm-12.8 4.4l-4.2-4.2 1.4-1.4 2.8 2.8 7.4-7.4 1.4 1.4-8.8 8.8z"/>
+                </svg>
+              </span>
+            </h2>
+            <div class="profile-subtext">
+              <!-- Select2 Style Custom Role Dropdown UI -->
+              <div class="custom-role-dropdown" id="customRoleDropdown">
+                <button type="button" class="role-dropdown-btn" id="roleDropdownBtn" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="role-icon" id="selectedRoleIcon">🎓</span>
+                  <span class="role-text" id="selectedRoleText">Student</span>
+                  <svg class="role-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <ul class="role-dropdown-menu" id="roleDropdownMenu" role="listbox">
+                  <li class="role-dropdown-item active" data-value="Student" role="option" aria-selected="true">
+                    <span class="item-icon">🎓</span>
+                    <span class="item-text">Student</span>
+                    <svg class="item-check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </li>
+                  <li class="role-dropdown-item" data-value="Parent" role="option" aria-selected="false">
+                    <span class="item-icon">👨‍👩‍👧</span>
+                    <span class="item-text">Parent</span>
+                    <svg class="item-check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Verified Account Status Pill Tag -->
+              <span class="verified-status-pill" id="verifiedStatusPill" title="Verified Account (OTP Authenticated)">
+                <span class="pulse-green-dot"></span> Verified Account
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION: Essential Profile Details -->
+        <section class="profile-section-card">
+          <div class="profile-section-header">
+            <div class="profile-section-icon">👤</div>
+            <div>
+              <h3 class="profile-section-title">User Details</h3>
+              <p class="profile-section-subtitle">Basic user identity &amp; contact info</p>
+            </div>
+          </div>
+          <div class="info-fields-grid">
+            <div class="info-field-item">
+              <span class="field-label">Full Name</span>
+              <span class="field-value" id="profileFullName">Rahul Dev Sharma</span>
+            </div>
+            <div class="info-field-item">
+              <span class="field-label">Registered Email</span>
+              <span class="field-value" id="profileEmail">rahul.sharma@nbi-school.edu.in</span>
+            </div>
+            <div class="info-field-item">
+              <span class="field-label">Contact Number</span>
+              <span class="field-value" id="profilePhone">+91 98765 43210</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION: Following Schools, Class & Division -->
+        <section class="profile-section-card">
+          <div class="profile-section-header">
+            <div class="profile-section-icon">🏫</div>
+            <div>
+              <h3 class="profile-section-title">Following Schools, Class &amp; Division</h3>
+              <p class="profile-section-subtitle">Subscribed educational institutions and selected class views</p>
+            </div>
+          </div>
+          <div class="following-schools-list" id="followingSchoolsList">
+            <!-- School 1 Card Item -->
+            <div class="following-school-card">
+              <div class="school-card-left">
+                <div class="school-icon-frame">
+                  <img src="../assets/images/salford-crest.png" alt="St. Mary's School Logo" class="school-card-logo">
+                </div>
+                <div class="school-details-text">
+                  <h4 class="school-card-title" id="followingSchoolNameCard1">St. Mary's Higher Secondary School</h4>
+                  <div class="school-tags-row">
+                    <span class="meta-tag class-tag" id="followingClassTag1">Class 10</span>
+                    <span class="meta-tag div-tag" id="followingDivTag1">Division A</span>
+                    <span class="badge-status-active">🟢 Active Feed</span>
+                  </div>
+                </div>
+              </div>
+              <div class="school-card-actions">
+                <a href="select-institution.html" class="btn-manage-school">Change School</a>
+                <a href="select-class-division.html" class="btn-manage-class">Change Class/Div</a>
+              </div>
+            </div>
+
+            <!-- School 2 Card Item -->
+            <div class="following-school-card">
+              <div class="school-card-left">
+                <div class="school-icon-frame">
+                  <img src="../assets/images/carmel-crest.png" alt="Carmel Girls School Logo" class="school-card-logo">
+                </div>
+                <div class="school-details-text">
+                  <h4 class="school-card-title" id="followingSchoolNameCard2">Carmel Girls Higher Secondary School</h4>
+                  <div class="school-tags-row">
+                    <span class="meta-tag class-tag" id="followingClassTag2">Class 8</span>
+                    <span class="meta-tag div-tag" id="followingDivTag2">Division B</span>
+                    <span class="badge-status-active">🟢 Active Feed</span>
+                  </div>
+                </div>
+              </div>
+              <div class="school-card-actions">
+                <a href="select-institution.html" class="btn-manage-school">Change School</a>
+                <a href="select-class-division.html" class="btn-manage-class">Change Class/Div</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+
+      </div>
+
+    </main>
+
+    <!-- RIGHT SIDEBAR WIDGETS -->
+    <aside class="feed-right-sidebar">
+
+      <!-- 5. SOCIAL MEDIA & OFFICIAL COMMUNITY CHANNELS -->
+      <div class="widget-card social-community-card">
+        <div class="widget-header">
+          <h3 class="widget-title">Join NBI Community</h3>
+        </div>
+        <p class="social-subtext">Stay connected with live school notifications &amp; exam updates.</p>
+
+        <div class="social-links-grid">
+          <a href="#" class="social-pill-btn whatsapp">
+            <span class="social-icon-box">💬</span>
+            <div class="social-info">
+              <span class="social-name">WhatsApp Channel</span>
+              <span class="social-badge">50k+ Members</span>
+            </div>
+            <span class="social-action">Join</span>
+          </a>
+
+          <a href="#" class="social-pill-btn telegram">
+            <span class="social-icon-box">✈️</span>
+            <div class="social-info">
+              <span class="social-name">Telegram Updates</span>
+              <span class="social-badge">Instant Alerts</span>
+            </div>
+            <span class="social-action">Join</span>
+          </a>
+
+          <a href="#" class="social-pill-btn instagram">
+            <span class="social-icon-box">📸</span>
+            <div class="social-info">
+              <span class="social-name">Instagram</span>
+              <span class="social-badge">@NoticeBoardIndia</span>
+            </div>
+            <span class="social-action">Follow</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- SPONSORED STORE AD AUTO SLIDESHOW -->
+      <div class="widget-card store-ad-card ad-slideshow-widget" id="adSlideshowWidget">
+        <!-- Top Badge Header -->
+        <div class="ad-top-badge">
+          <span class="ad-tag">🔥 SPONSORED STORE</span>
+          <span class="ad-discount" id="adDiscountBadge">UP TO 40% OFF</span>
+        </div>
+
+        <!-- Carousel Viewport & Track -->
+        <div class="ad-slideshow-viewport">
+          <!-- Glassmorphic Floating Slide Dots -->
+          <div class="ad-slideshow-dots-overlay" id="adSlideshowDots">
+            <span class="dot active" data-slide="0" aria-label="Slide 1"></span>
+            <span class="dot" data-slide="1" aria-label="Slide 2"></span>
+            <span class="dot" data-slide="2" aria-label="Slide 3"></span>
+          </div>
+
+          <div class="ad-slideshow-track" id="adSlideshowTrack">
+            
+            <!-- SLIDE 1 (1st View): Featured Video Ad 2 (vid2.mp4) -->
+            <div class="ad-slide active" data-slide-index="0">
+              <div class="ad-banner-frame video-frame">
+                <video id="adSlideVideo2" class="ad-banner-video" autoplay loop muted playsinline>
+                  <source src="../assets/video/vid2.mp4" type="video/mp4">
+                  Your browser does not support HTML5 video.
+                </video>
+                <div class="video-overlay-badge">
+                  <span class="video-pulse-dot"></span> HD VIDEO
+                </div>
+              </div>
+              <div class="ad-content-box">
+                <h4 class="ad-title">🎬 Student Life &amp; Sports Highlights</h4>
+                <p class="ad-description">Explore sports meets, science exhibitions, robotics clubs &amp; annual cultural fest moments.</p>
+                <a href="#" class="btn-ad-action btn-ad-video">
+                  <span>Watch Highlights</span>
+                  <svg class="ad-btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- SLIDE 2 (2nd View): Books Image Ad -->
+            <div class="ad-slide" data-slide-index="1">
+              <div class="ad-banner-frame">
+                <img src="../assets/images/school_books_ad.jpg" alt="School Textbooks &amp; Exam Guides" class="ad-banner-img">
+              </div>
+              <div class="ad-content-box">
+                <h4 class="ad-title">📚 School Textbooks &amp; Exam Guides</h4>
+                <p class="ad-description">Order CBSE, ICSE &amp; State Board textbooks, lab manuals &amp; sample papers delivered to your doorstep.</p>
+                <a href="#" class="btn-ad-action">
+                  <span>Shop Books Now</span>
+                  <svg class="ad-btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- SLIDE 3 (3rd View): Featured Video Ad 1 (vid.mp4) -->
+            <div class="ad-slide" data-slide-index="2">
+              <div class="ad-banner-frame video-frame">
+                <video id="adSlideVideo1" class="ad-banner-video" loop muted playsinline>
+                  <source src="../assets/video/vid.mp4" type="video/mp4">
+                  Your browser does not support HTML5 video.
+                </video>
+                <div class="video-overlay-badge">
+                  <span class="video-pulse-dot"></span> HD VIDEO
+                </div>
+              </div>
+              <div class="ad-content-box">
+                <h4 class="ad-title">🎥 Smart Learning &amp; Campus Tour</h4>
+                <p class="ad-description">Discover interactive digital learning tools, lab resources &amp; smart classrooms in action.</p>
+                <a href="#" class="btn-ad-action btn-ad-video">
+                  <span>Watch Campus Tour</span>
+                  <svg class="ad-btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <button type="button" class="ad-slide-arrow prev" id="adSlidePrev" aria-label="Previous Slide">‹</button>
+        <button type="button" class="ad-slide-arrow next" id="adSlideNext" aria-label="Next Slide">›</button>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- Mobile Bottom Tab Navigation -->
+  <nav class="mobile-bottom-nav">
+    <a href="school-feed.html" class="mobile-nav-item">
+      <svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+      </svg>
+      <span>Feed</span>
+    </a>
+    <a href="settings.html" class="mobile-nav-item">
+      <svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path
+          d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+        </path>
+      </svg>
+      <span>Settings</span>
+    </a>
+    <a href="profile.html" class="mobile-nav-item active">
+      <svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+  <!-- Edit Profile Modal Overlay -->
+  <div class="edit-profile-modal-overlay" id="editProfileModal">
+    <div class="edit-profile-modal-card">
+      <div class="edit-modal-header">
+        <div class="edit-modal-title-group">
+          <span class="edit-modal-icon">✏️</span>
+          <div>
+            <h3 class="edit-modal-title">Edit Profile Information</h3>
+            <p class="edit-modal-subtitle">Update your personal account details</p>
+          </div>
+        </div>
+        <button type="button" class="btn-close-modal" id="btnCloseEditModal" aria-label="Close edit modal">✕</button>
+      </div>
+
+      <form id="editProfileForm" class="edit-modal-form">
+        <div class="modal-form-group">
+          <label for="editFullName" class="modal-form-label">Full Name *</label>
+          <input type="text" id="editFullName" class="modal-form-input" placeholder="Rahul Sharma" required>
+        </div>
+
+        <div class="modal-form-group">
+          <label for="editEmail" class="modal-form-label">Registered Email *</label>
+          <input type="email" id="editEmail" class="modal-form-input" placeholder="email@gmail.com" required>
+        </div>
+
+        <div class="modal-form-group">
+          <label for="editPhone" class="modal-form-label">Contact / Phone Number *</label>
+          <div class="modal-phone-wrapper">
+            <span class="modal-country-prefix">🇮🇳 +91</span>
+            <input type="tel" id="editPhone" class="modal-form-input" placeholder="8787878888" maxlength="10" required>
+          </div>
+        </div>
+
+        <div class="edit-modal-actions">
+          <button type="button" class="btn-cancel-modal" id="btnCancelEditModal">Cancel</button>
+          <button type="submit" class="btn-save-modal" id="btnSaveEditModal">
+            <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+              <polyline points="17 21 17 13 7 13 7 21"></polyline>
+              <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
+            <span>Save Changes</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Alert -->
+  <div class="toast-alert" id="toastAlert">
+    <span>✅ Profile updated successfully!</span>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="../js/components.js"></script>
+  <script src="../js/profile.js"></script>
+  <script src="../js/school-feed.js"></script>
+</body>
+
+</html>

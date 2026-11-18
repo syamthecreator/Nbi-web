@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Your Role – NBI (Notice Board India)</title>
+  <meta name="description" content="Choose your role on Notice Board India - Institution, Teacher, or Parent/Student">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Style Sheets -->
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/select-role.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body class="role-select-page">
+
+  <!-- Main Container -->
+  <main class="role-container">
+
+    <!-- Top-Right Organic Orange Background Shape -->
+    <img src="../assets/images/Splash-1.png" alt="" class="bg-shape top-right" aria-hidden="true">
+
+    <!-- Bottom-Left Organic Orange Background Shape -->
+    <img src="../assets/images/Splash-2.png" alt="" class="bg-shape bottom-left" aria-hidden="true">
+
+    <!-- Main Content Wrapper -->
+    <div class="role-wrapper">
+
+      <!-- Top Header Branding -->
+      <header class="role-header">
+        <div class="logo-wrapper">
+          <img src="../assets/logos/Logo.png" alt="NBI Blackboard Logo" class="nbi-logo">
+        </div>
+        <h1 class="page-title">
+          Welcome To <span class="text-orange">NBI</span>
+        </h1>
+        <p class="page-tagline">“Stay Connected. Stay Informed.”</p>
+      </header>
+
+      <!-- Main Selection Card Container -->
+      <section class="role-card-container">
+
+        <!-- Card Header -->
+        <div class="card-header">
+          <h2 class="card-title">Choose Your Role</h2>
+          <p class="card-subtitle">
+            Your role helps us personalize your experience and show you what matters most.
+          </p>
+        </div>
+
+        <div class="header-divider"></div>
+
+        <!-- 3 Interactive Role Selection Cards Grid -->
+        <div class="role-grid">
+
+          <!-- Role Card 1: Institution (Active / Selected by default) -->
+          <div class="role-card active" data-role="institution" tabindex="0" role="radio" aria-checked="true">
+            <!-- Top Right Checkmark Badge -->
+            <div class="check-badge">
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+
+            <!-- Role Circular Icon (Orange) -->
+            <div class="role-icon-circle icon-orange">
+              <svg class="role-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+              </svg>
+            </div>
+
+            <h3 class="role-title">Institution</h3>
+            <p class="role-desc">
+              I manage the overall operations, staff, students and institutional activities.
+            </p>
+
+            <div class="role-tag tag-orange">
+              Admins &amp; Management
+            </div>
+          </div>
+
+          <!-- Role Card 2: Teacher / Staff -->
+          <div class="role-card" data-role="teacher" tabindex="0" role="radio" aria-checked="false">
+            <!-- Top Right Checkmark Badge -->
+            <div class="check-badge">
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+
+            <!-- Role Circular Icon (Blue) -->
+            <div class="role-icon-circle icon-blue">
+              <svg class="role-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+
+            <h3 class="role-title">Teacher / Staff</h3>
+            <p class="role-desc">
+              I manage classes, create posts, track student progress and engage with students.
+            </p>
+
+            <div class="role-tag tag-blue">
+              Teachers &amp; Staff Members
+            </div>
+          </div>
+
+          <!-- Role Card 3: Parent / Student -->
+          <div class="role-card" data-role="parent" tabindex="0" role="radio" aria-checked="false">
+            <!-- Top Right Checkmark Badge -->
+            <div class="check-badge">
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+
+            <!-- Role Circular Icon (Green) -->
+            <div class="role-icon-circle icon-green">
+              <svg class="role-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M9 21v-2a4 4 0 0 1 3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+              </svg>
+            </div>
+
+            <h3 class="role-title">Parent / Student</h3>
+            <p class="role-desc">
+              I want to stay updated on my child's academic progress and institution activities.
+            </p>
+
+            <div class="role-tag tag-green">
+              Parents &amp; Students
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Continue Button -->
+        <div class="card-footer">
+          <button type="button" class="btn-continue" id="btnContinue">
+            <span>Continue</span>
+            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </div>
+
+      </section>
+
+      <!-- Footer Links -->
+      <footer class="page-footer">
+        <p class="copyright-text">
+          &copy; 2024 NBI. All rights reserved.
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <a href="#" class="footer-link">Terms of Service</a>
+          <a href="#" class="footer-link">Contact Support</a>
+          <a href="#" class="footer-link">Legal</a>
+        </p>
+      </footer>
+
+    </div>
+
+  </main>
+
+  <!-- JavaScript -->
+  <script src="../js/components.js"></script>
+  <script src="../js/select-role.js"></script>
+</body>
+
+</html>

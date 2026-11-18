@@ -1,0 +1,427 @@
+/* =============================================================
+   SETTINGS PAGE STYLES - Notice Board India
+============================================================= */
+
+@import url('school-feed.css');
+
+/* Settings Content Layout */
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Category Nav Tabs in Header */
+.settings-category-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+
+.settings-category-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.settings-tab-btn {
+  background-color: #F2F3F5;
+  color: #555555;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-family: var(--font-family-base);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  outline: none;
+}
+
+.settings-tab-btn:hover {
+  background-color: #E5E7EB;
+  color: #111111;
+}
+
+.settings-tab-btn.active {
+  background-color: var(--color-primary-orange);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(255, 90, 0, 0.25);
+}
+
+/* Settings Section Card */
+.settings-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.settings-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.settings-card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.settings-icon-frame {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.settings-icon-frame.notification-icon-bg {
+  background: #FFF8E7;
+  color: #D97706;
+}
+
+.settings-icon-frame.privacy-icon-bg {
+  background: #EFF6FF;
+  color: #2563EB;
+}
+
+.settings-card-title {
+  font-family: var(--font-family-base);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #111111;
+  margin: 0;
+}
+
+.settings-card-subtitle {
+  font-size: 0.78rem;
+  color: #6B7280;
+  margin-top: 2px;
+}
+
+/* Form Item Rows */
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #FAFAFA;
+}
+
+.setting-row:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.setting-info {
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+}
+
+.setting-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #111111;
+}
+
+.setting-desc {
+  font-size: 0.78rem;
+  color: #6B7280;
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+/* Modern Premium Custom Toggle Switch */
+.custom-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.custom-toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #E5E7EB;
+  border-radius: 30px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.toggle-thumb {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
+}
+
+.custom-toggle-switch input:checked + .toggle-track {
+  background: linear-gradient(135deg, #FF6000 0%, #FF4500 100%);
+  box-shadow: 0 4px 12px rgba(255, 90, 0, 0.3);
+}
+
+.custom-toggle-switch input:checked + .toggle-track .toggle-thumb {
+  transform: translateX(22px);
+}
+
+.setting-select {
+  background-color: #F9FAFB;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-family: var(--font-family-base);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #111111;
+  outline: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.setting-select:focus {
+  border-color: var(--color-primary-orange);
+  background-color: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(255, 90, 0, 0.12);
+}
+
+.setting-input {
+  background-color: #F9FAFB;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 8px 14px;
+  font-family: var(--font-family-base);
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: #111111;
+  outline: none;
+  width: 220px;
+  transition: all 0.2s ease;
+}
+
+.setting-input:focus {
+  border-color: var(--color-primary-orange);
+  background-color: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(255, 90, 0, 0.12);
+}
+
+.btn-setting-action {
+  background-color: #F3F4F6;
+  color: #374151;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 8px 16px;
+  font-family: var(--font-family-base);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-setting-action:hover {
+  background-color: #FFF0E6;
+  color: var(--color-primary-orange);
+  border-color: #FFB380;
+}
+
+.btn-setting-save {
+  background: linear-gradient(135deg, #FF6000 0%, #FF4500 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 14px;
+  padding: 10px 24px;
+  font-family: var(--font-family-base);
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(255, 90, 0, 0.25);
+}
+
+.btn-setting-save:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 90, 0, 0.35);
+}
+
+/* Active Institution Card Component */
+.school-active-badge-card {
+  background: #FFFDFC;
+  border: 1.5px solid #FFD8BF;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.school-active-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.school-active-icon {
+  width: 42px;
+  height: 42px;
+  background-color: var(--color-primary-orange);
+  color: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.school-active-name {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #111111;
+  margin: 0;
+}
+
+.school-active-meta {
+  font-size: 0.78rem;
+  color: #6B7280;
+  margin-top: 2px;
+}
+
+/* Security Score Widget Card */
+.security-score-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 22px 24px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.score-circle {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: conic-gradient(var(--color-primary-orange) 95%, #E5E7EB 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 6px 0;
+}
+
+.score-inner {
+  width: 68px;
+  height: 68px;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--color-primary-orange);
+}
+
+.score-title {
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: #111111;
+  margin: 0;
+}
+
+.score-subtext {
+  font-size: 0.78rem;
+  color: #6B7280;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Save Toast Alert */
+.toast-alert {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #10B981;
+  color: #FFFFFF;
+  padding: 12px 22px;
+  border-radius: 14px;
+  font-family: var(--font-family-base);
+  font-size: 0.88rem;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast-alert.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Privacy Status Badges */
+.privacy-status-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-family: var(--font-family-base);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.privacy-status-badge.green {
+  background-color: #ECFDF5;
+  color: #059669;
+  border: 1px solid #A7F3D0;
+}
+
+.privacy-status-badge.blue {
+  background-color: #EFF6FF;
+  color: #2563EB;
+  border: 1px solid #BFDBFE;
+}

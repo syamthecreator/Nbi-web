@@ -1,0 +1,785 @@
+/* =============================================================
+   CHOOSE YOUR ROLE SCREEN - Fixed Non-Scroll Viewport Layout
+============================================================= */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-family-base);
+  background-color: var(--color-bg-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+body.role-select-page {
+  background-color: var(--color-bg-white);
+  height: 100vh;
+  overflow: hidden;
+}
+
+.role-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 24px;
+  box-sizing: border-box;
+  background-color: var(--color-bg-white);
+  overflow: hidden;
+}
+
+/* Organic Background Shapes - Flush & Properly Rotated */
+.role-container .bg-shape.top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 320px;
+  max-width: 24vw;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  transform: scaleX(-1);
+  object-fit: contain;
+}
+
+.role-container .bg-shape.bottom-left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 340px;
+  max-width: 26vw;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  object-fit: contain;
+  transform: scaleX(-1);
+}
+
+/* Main Inner Wrapper */
+.role-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1040px;
+  max-height: calc(100vh - 32px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Header Branding - Perfectly Centered Logo & Title */
+.role-header {
+  text-align: center;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.nbi-logo {
+  width: 72px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 4px;
+  filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.08));
+}
+
+.page-title {
+  font-family: var(--font-family-base);
+  font-size: 2.35rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-dark);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+  margin: 0;
+  text-align: center;
+}
+
+.page-title .text-orange {
+  color: var(--color-primary-orange);
+}
+
+.page-tagline {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #555555;
+  margin-top: 4px;
+  margin-bottom: 0;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Main Role Selection Card Container */
+.role-card-container {
+  width: 100%;
+  background-color: #FFFFFF;
+  border: 1.5px solid #FFE4D6;
+  border-radius: 28px;
+  padding: 30px 44px 32px 44px;
+  box-shadow: 0 14px 36px rgba(255, 90, 0, 0.04);
+  box-sizing: border-box;
+}
+
+.card-header {
+  text-align: center;
+}
+
+.card-title {
+  font-family: var(--font-family-base);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 4px;
+  margin-top: 0;
+}
+
+.card-subtitle {
+  font-size: 0.88rem;
+  color: #666666;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.45;
+}
+
+.header-divider {
+  height: 1px;
+  background-color: #F0F0F0;
+  margin: 18px 0 24px 0;
+  width: 100%;
+}
+
+/* 3 Cards Grid - Stretch Equal Height */
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  width: 100%;
+  align-items: stretch;
+}
+
+/* Role Card Component */
+.role-card {
+  position: relative;
+  background-color: #FFFFFF;
+  border: 1.5px solid #EDEDED;
+  border-radius: 20px;
+  padding: 28px 20px 24px 20px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.role-card:hover {
+  border-color: #FFB380;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(255, 90, 0, 0.08);
+}
+
+/* Active Selected Role Card State */
+.role-card.active {
+  border: 2.5px solid var(--color-primary-orange);
+  background: linear-gradient(180deg, #FFF8F3 0%, #FFF0E6 100%);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(255, 90, 0, 0.14), 0 0 0 1px var(--color-primary-orange);
+}
+
+/* Top Right Checkmark Badge */
+.check-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid #D0D0D0;
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.check-icon {
+  width: 13px;
+  height: 13px;
+  color: #FFFFFF;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: all 0.2s ease;
+}
+
+.role-card.active .check-badge {
+  background-color: var(--color-primary-orange);
+  border-color: var(--color-primary-orange);
+}
+
+.role-card.active .check-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Circle Icons */
+.role-icon-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  transition: transform 0.25s ease;
+}
+
+.role-card:hover .role-icon-circle {
+  transform: scale(1.06);
+}
+
+.role-svg {
+  width: 30px;
+  height: 30px;
+}
+
+.icon-orange {
+  background-color: #FFEADF;
+  color: var(--color-primary-orange);
+}
+
+.icon-blue {
+  background-color: #E0F2FE;
+  color: #0284C7;
+}
+
+.icon-green {
+  background-color: #DCFCE7;
+  color: #16A34A;
+}
+
+/* Text & Tag Styling */
+.role-title {
+  font-family: var(--font-family-base);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 8px;
+  margin-top: 0;
+}
+
+.role-desc {
+  font-size: 0.84rem;
+  color: #666666;
+  line-height: 1.48;
+  margin-bottom: 18px;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.role-tag {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  margin-top: auto;
+}
+
+.tag-orange {
+  background-color: #FFEADF;
+  color: #D94800;
+}
+
+.tag-blue {
+  background-color: #E0F2FE;
+  color: #0369A1;
+}
+
+.tag-green {
+  background-color: #DCFCE7;
+  color: #15803D;
+}
+
+/* Card Footer & Continue Button */
+.card-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.btn-continue {
+  width: 210px;
+  height: 46px;
+  background: linear-gradient(135deg, #FF6000 0%, #FF4500 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 23px;
+  font-family: var(--font-family-base);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 18px rgba(255, 90, 0, 0.28);
+}
+
+.arrow-icon {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+}
+
+.btn-continue:hover {
+  background: linear-gradient(135deg, #E05300 0%, #E03B00 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(255, 90, 0, 0.38);
+}
+
+.btn-continue:hover .arrow-icon {
+  transform: translateX(4px);
+}
+
+.btn-continue:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(255, 90, 0, 0.2);
+}
+
+/* Page Footer */
+.page-footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.copyright-text {
+  font-size: 0.82rem;
+  color: #777777;
+  margin: 0;
+}
+
+.footer-link {
+  color: #555555;
+  text-decoration: none;
+  margin-left: 10px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: var(--color-primary-orange);
+  text-decoration: underline;
+}
+
+/* -------------------------------------------------------------
+   RESPONSIVE BREAKPOINTS & VIEWPORT BEHAVIOR
+------------------------------------------------------------- */
+
+/* Short Desktop / Small Laptop Screens (Height <= 768px) -> Enable Scroll */
+@media (max-height: 768px) {
+  html,
+  body,
+  .role-container {
+    height: auto !important;
+    min-height: 100vh !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+  }
+
+  .role-container {
+    padding: 20px 24px;
+    align-items: flex-start;
+  }
+
+  .role-wrapper {
+    max-height: none !important;
+    margin: auto 0;
+  }
+
+  .role-header {
+    margin-bottom: 12px;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .nbi-logo {
+    width: 60px;
+  }
+
+  .role-card-container {
+    padding: 22px 32px;
+  }
+
+  .role-card {
+    padding: 20px 16px 18px 16px;
+  }
+
+  .role-icon-circle {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 10px;
+  }
+
+  .role-svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .role-desc {
+    font-size: 0.8rem;
+    min-height: 44px;
+    margin-bottom: 12px;
+  }
+
+  .card-footer {
+    margin-top: 18px;
+  }
+
+  .page-footer {
+    margin-top: 12px;
+  }
+}
+
+/* Tablets & Small Laptops (Width <= 992px) -> Enable Scroll & Stack Grid */
+@media (max-width: 992px) {
+  html,
+  body,
+  .role-container {
+    height: auto !important;
+    min-height: 100vh !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+  }
+
+  .role-container {
+    padding: 24px 20px;
+    align-items: flex-start;
+  }
+
+  .role-wrapper {
+    max-height: none !important;
+  }
+
+  .role-card-container {
+    padding: 26px 24px;
+  }
+
+  .role-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .role-desc {
+    min-height: auto;
+  }
+
+  .page-title {
+    font-size: 1.85rem;
+  }
+
+  .page-tagline {
+    font-size: 0.88rem;
+  }
+}
+
+/* Tablet & Large Mobile (Width <= 768px) -> Low Text Size & Smooth Scroll */
+@media (max-width: 768px) {
+  .role-container {
+    padding: 16px 14px;
+  }
+
+  .role-container .bg-shape.top-right {
+    width: 160px;
+    max-width: 32vw;
+  }
+
+  .role-container .bg-shape.bottom-left {
+    width: 170px;
+    max-width: 34vw;
+  }
+
+  .role-header {
+    margin-bottom: 14px;
+  }
+
+  .nbi-logo {
+    width: 54px;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .page-tagline {
+    font-size: 0.82rem;
+  }
+
+  .role-card-container {
+    padding: 20px 16px 22px 16px;
+    border-radius: 20px;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+  }
+
+  .card-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .header-divider {
+    margin: 12px 0 16px 0;
+  }
+
+  .role-grid {
+    gap: 14px;
+  }
+
+  .role-card {
+    padding: 16px 14px 14px 14px;
+    border-radius: 16px;
+  }
+
+  .check-badge {
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .check-icon {
+    width: 11px;
+    height: 11px;
+  }
+
+  .role-icon-circle {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 8px;
+  }
+
+  .role-svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .role-title {
+    font-size: 0.98rem;
+    margin-bottom: 4px;
+  }
+
+  .role-desc {
+    font-size: 0.78rem;
+    line-height: 1.38;
+    margin-bottom: 10px;
+  }
+
+  .role-tag {
+    font-size: 0.72rem;
+    padding: 4px 11px;
+  }
+
+  .card-footer {
+    margin-top: 18px;
+  }
+
+  .btn-continue {
+    width: 100%;
+    height: 42px;
+    font-size: 0.9rem;
+    border-radius: 21px;
+  }
+
+  .page-footer {
+    margin-top: 16px;
+  }
+
+  .copyright-text {
+    font-size: 0.75rem;
+  }
+
+  .footer-link {
+    font-size: 0.75rem;
+    margin: 3px 5px;
+    display: inline-block;
+  }
+}
+
+/* Phone Devices (Width <= 480px) - Text Size Low & Scroll */
+@media (max-width: 480px) {
+  .role-container {
+    padding: 12px 10px;
+  }
+
+  .role-container .bg-shape.top-right {
+    width: 120px;
+    max-width: 30vw;
+  }
+
+  .role-container .bg-shape.bottom-left {
+    width: 130px;
+    max-width: 32vw;
+  }
+
+  .role-header {
+    margin-bottom: 10px;
+  }
+
+  .nbi-logo {
+    width: 46px;
+  }
+
+  .page-title {
+    font-size: 1.32rem;
+    letter-spacing: -0.3px;
+  }
+
+  .page-tagline {
+    font-size: 0.76rem;
+  }
+
+  .role-card-container {
+    padding: 15px 12px 16px 12px;
+    border-radius: 16px;
+  }
+
+  .card-title {
+    font-size: 1.12rem;
+  }
+
+  .card-subtitle {
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+
+  .header-divider {
+    margin: 10px 0 12px 0;
+  }
+
+  .role-grid {
+    gap: 10px;
+  }
+
+  .role-card {
+    padding: 12px 10px 12px 10px;
+    border-radius: 14px;
+  }
+
+  .check-badge {
+    top: 8px;
+    right: 8px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .check-icon {
+    width: 10px;
+    height: 10px;
+  }
+
+  .role-icon-circle {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 6px;
+  }
+
+  .role-svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .role-title {
+    font-size: 0.9rem;
+    margin-bottom: 3px;
+  }
+
+  .role-desc {
+    font-size: 0.73rem;
+    line-height: 1.35;
+    margin-bottom: 8px;
+  }
+
+  .role-tag {
+    font-size: 0.67rem;
+    padding: 3px 9px;
+    border-radius: 12px;
+  }
+
+  .card-footer {
+    margin-top: 14px;
+  }
+
+  .btn-continue {
+    height: 38px;
+    font-size: 0.84rem;
+    border-radius: 19px;
+  }
+
+  .page-footer {
+    margin-top: 12px;
+  }
+
+  .copyright-text {
+    font-size: 0.7rem;
+  }
+
+  .footer-link {
+    font-size: 0.7rem;
+    margin: 2px 4px;
+  }
+}
+
+/* Extra Small Phone Screens (Width <= 360px) */
+@media (max-width: 360px) {
+  .page-title {
+    font-size: 1.2rem;
+  }
+
+  .card-title {
+    font-size: 1.02rem;
+  }
+
+  .card-subtitle {
+    font-size: 0.7rem;
+  }
+
+  .role-card {
+    padding: 10px 8px 10px 8px;
+  }
+
+  .role-title {
+    font-size: 0.85rem;
+  }
+
+  .role-desc {
+    font-size: 0.68rem;
+  }
+
+  .role-tag {
+    font-size: 0.64rem;
+  }
+}

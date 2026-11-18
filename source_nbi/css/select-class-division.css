@@ -1,0 +1,722 @@
+/* =============================================================
+   SELECT CLASS & DIVISION SCREEN STYLES - NBI System (Step 2)
+============================================================= */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  font-family: var(--font-family-base);
+  background-color: #FAF9F8;
+  color: var(--color-text-dark);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body.class-division-select-page {
+  background-color: #FFFFFF;
+  overflow-x: hidden;
+}
+
+/* -------------------------------------------------------------
+   TOP SECTION (Background: #FEF8F5) - Fixed at top of viewport
+------------------------------------------------------------- */
+.top-hero-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: #FEF8F5;
+  border-bottom: 1px solid #F2E8E2;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* Top Navigation Header */
+.app-header {
+  width: 100%;
+  height: 72px;
+  background-color: #FEF8F5;
+}
+
+.header-container {
+  max-width: 1380px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  gap: 12px;
+}
+
+.brand-logo {
+  width: 48px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.brand-title {
+  font-family: var(--font-family-base);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.brand-title .text-orange {
+  color: var(--color-primary-orange);
+}
+
+.brand-title .text-black {
+  color: #111111;
+}
+
+/* Progress Indicator (Step 2 of 2) */
+.progress-indicator {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-pill {
+  width: 28px;
+  height: 6px;
+  border-radius: 3px;
+  background-color: #E2E8F0;
+  transition: all 0.3s ease;
+}
+
+.progress-pill.active {
+  background-color: var(--color-primary-orange);
+}
+
+.progress-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #CBD5E1;
+}
+
+.header-spacer {
+  width: 48px;
+}
+
+/* Hero Banner Section */
+.search-hero-section {
+  width: 100%;
+  padding: 16px 0 28px 0;
+  background-color: #FEF8F5;
+}
+
+.hero-inner-container {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  align-items: center;
+}
+
+.search-hero-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.step-badge {
+  background-color: #FFF0E6;
+  color: var(--color-primary-orange);
+  font-family: var(--font-family-base);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 8px;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+.hero-heading {
+  font-family: var(--font-family-base);
+  font-size: 2.35rem;
+  font-weight: 800;
+  color: #111111;
+  line-height: 1.18;
+  letter-spacing: -0.5px;
+  margin: 0 0 10px 0;
+}
+
+.hero-subtext {
+  font-size: 1.02rem;
+  color: #666666;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.search-hero-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.school-hero-illustration {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 260px;
+  object-fit: contain;
+  object-position: right center;
+  mix-blend-mode: multiply;
+}
+
+/* -------------------------------------------------------------
+   BOTTOM SECTION (Background: #FFFFFF) - Scrolls under top hero
+------------------------------------------------------------- */
+.bottom-cards-wrapper {
+  position: relative;
+  z-index: 1;
+  background-color: #FFFFFF;
+  width: 100%;
+  margin-top: 300px;
+  min-height: calc(100vh - 300px);
+}
+
+.cards-inner-container {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 24px 40px 120px 40px;
+}
+
+.cards-grid-section {
+  width: 100%;
+}
+
+.institution-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  width: 100%;
+}
+
+/* -------------------------------------------------------------
+   CLASS & DIVISION SELECTION CARD COMPONENT
+------------------------------------------------------------- */
+.institution-card {
+  background-color: #FFFFFF;
+  border: 1.5px solid #EDEDED;
+  border-radius: 20px;
+  padding: 28px 28px 26px 28px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+}
+
+.institution-card:hover {
+  border-color: #FFC099;
+  box-shadow: 0 10px 24px rgba(255, 90, 0, 0.06);
+}
+
+.institution-card.is-configured {
+  border: 1.5px solid #FF8C42;
+  box-shadow: 0 8px 24px rgba(255, 90, 0, 0.08);
+}
+
+.card-top-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.card-logo-box {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  border: 1px solid #EDEDED;
+  background-color: #FFFFFF;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.school-crest-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.card-info-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.institution-name {
+  font-family: var(--font-family-base);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111111;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.school-subtitle {
+  font-size: 0.9rem;
+  color: #666666;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Card Section Divider */
+.card-divider {
+  height: 1px;
+  background-color: #EEEEEE;
+  margin: 20px 0 22px 0;
+  width: 100%;
+}
+
+/* Selector Group Label */
+.selector-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #888888;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+/* SELECT CLASS Pills Row */
+.class-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.class-pill-btn {
+  min-width: 48px;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: 1.5px solid #E5E7EB;
+  background-color: #FFFFFF;
+  color: #333333;
+  font-family: var(--font-family-base);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.class-pill-btn:hover {
+  border-color: #FFC099;
+  background-color: #FFFDFB;
+}
+
+.class-pill-btn.selected {
+  border: 1.5px solid #FF8C42;
+  background-color: #FFF0E6;
+  color: var(--color-primary-orange);
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(255, 90, 0, 0.1);
+}
+
+/* SELECT DIVISION Circles Row */
+.division-circles-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.division-circle-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid #E5E7EB;
+  background-color: #FFFFFF;
+  color: #333333;
+  font-family: var(--font-family-base);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.division-circle-btn:hover {
+  border-color: #FFC099;
+  background-color: #FFFDFB;
+}
+
+.division-circle-btn.selected {
+  border: 2px solid #FF8C42;
+  background-color: #FFF0E6;
+  color: var(--color-primary-orange);
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(255, 90, 0, 0.1);
+}
+
+/* -------------------------------------------------------------
+   STICKY BOTTOM ACTION BAR & NEXT BUTTON
+------------------------------------------------------------- */
+.bottom-action-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #FFFFFF;
+  border-top: 1px solid #EAEAEA;
+  padding: 16px 0;
+  z-index: 90;
+  box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.08);
+  display: none !important;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.bottom-action-bar.is-visible {
+  display: block !important;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.bottom-action-container {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.selection-status-text {
+  font-size: 0.9rem;
+  color: #666666;
+  font-weight: 500;
+}
+
+.selection-status-text.active-status {
+  color: var(--color-primary-orange);
+  font-weight: 700;
+}
+
+.btn-next-step {
+  width: auto;
+  min-width: 200px;
+  padding: 0 28px;
+  height: 50px;
+  border-radius: 25px;
+  font-family: var(--font-family-base);
+  font-size: 1.05rem;
+  font-weight: 700;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #FF6000 0%, #FF4500 100%);
+  color: #FFFFFF;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(255, 90, 0, 0.28);
+  transition: all 0.2s ease;
+}
+
+.btn-next-step:hover {
+  background: linear-gradient(135deg, #E05300 0%, #E03B00 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(255, 90, 0, 0.38);
+}
+
+.btn-next-step:disabled {
+  background-color: #D1D5DB;
+  color: #FFFFFF;
+  cursor: not-allowed;
+  opacity: 0.75;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+/* -------------------------------------------------------------
+   RESPONSIVE BREAKPOINTS
+------------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .institution-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .header-spacer {
+    display: none;
+  }
+
+  .institution-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .school-hero-illustration {
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    height: 62px;
+  }
+
+  .header-container {
+    padding: 0 18px;
+    justify-content: space-between;
+  }
+
+  .brand-logo {
+    width: 38px;
+  }
+
+  .brand-title {
+    font-size: 1.05rem;
+  }
+
+  .progress-indicator {
+    display: none !important;
+  }
+
+  .header-spacer {
+    display: none;
+  }
+
+  .hero-inner-container {
+    grid-template-columns: 1fr;
+    padding: 0 18px;
+  }
+
+  .search-hero-right {
+    display: none !important;
+  }
+
+  .search-hero-section {
+    padding: 12px 0 20px 0;
+  }
+
+  .step-badge {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+  }
+
+  .hero-heading {
+    font-size: 1.45rem;
+    line-height: 1.22;
+    letter-spacing: -0.3px;
+    margin-bottom: 6px;
+  }
+
+  .hero-subtext {
+    font-size: 0.86rem;
+    line-height: 1.4;
+    color: #666666;
+  }
+
+  .cards-inner-container {
+    padding: 16px 18px 110px 18px;
+  }
+
+  .institution-grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
+  }
+
+  .institution-card {
+    padding: 20px 18px 18px 18px;
+    border-radius: 16px;
+  }
+
+  .card-top-row {
+    gap: 14px;
+  }
+
+  .card-logo-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+  }
+
+  .institution-name {
+    font-size: 1.05rem;
+  }
+
+  .school-subtitle {
+    font-size: 0.84rem;
+  }
+
+  .class-pill-btn {
+    min-width: 44px;
+    height: 38px;
+    padding: 0 12px;
+    font-size: 0.84rem;
+  }
+
+  .division-circle-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 0.88rem;
+  }
+
+  .bottom-action-bar {
+    padding: 12px 0;
+  }
+
+  .bottom-action-container {
+    padding: 0 18px;
+  }
+
+  .selection-status-text {
+    font-size: 0.82rem;
+  }
+
+  .btn-next-step {
+    min-width: 150px;
+    height: 44px;
+    font-size: 0.92rem;
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    height: 58px;
+  }
+
+  .header-container {
+    padding: 0 14px;
+    justify-content: center;
+  }
+
+  .header-brand {
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .brand-logo {
+    width: 34px;
+  }
+
+  .brand-title {
+    font-size: 0.95rem;
+  }
+
+  .hero-inner-container {
+    padding: 0 14px;
+  }
+
+  .hero-heading {
+    font-size: 1.32rem;
+  }
+
+  .hero-subtext {
+    font-size: 0.82rem;
+  }
+
+  .cards-inner-container {
+    padding: 14px 14px 100px 14px;
+  }
+
+  .institution-card {
+    padding: 16px 14px;
+    border-radius: 14px;
+  }
+
+  .card-top-row {
+    gap: 12px;
+  }
+
+  .card-logo-box {
+    width: 44px;
+    height: 44px;
+  }
+
+  .institution-name {
+    font-size: 0.98rem;
+  }
+
+  .school-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .class-pill-btn {
+    min-width: 40px;
+    height: 36px;
+    padding: 0 10px;
+    font-size: 0.8rem;
+  }
+
+  .division-circle-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 0.84rem;
+  }
+
+  .bottom-action-container {
+    padding: 0 14px;
+    gap: 10px;
+  }
+
+  .selection-status-text {
+    display: none;
+  }
+
+  .btn-next-step {
+    width: 100%;
+    height: 44px;
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .brand-title {
+    font-size: 0.88rem;
+  }
+
+  .hero-inner-container {
+    padding: 0 12px;
+  }
+
+  .cards-inner-container {
+    padding: 12px 12px 90px 12px;
+  }
+
+  .bottom-action-container {
+    padding: 0 12px;
+  }
+}

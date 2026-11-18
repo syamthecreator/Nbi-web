@@ -1,0 +1,158 @@
+/* Splash Container Layout */
+.splash-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-white);
+  overflow: hidden;
+}
+
+/* Organic Background Decorative Shapes */
+.bg-shape {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: both;
+}
+
+.bg-shape.top-left {
+  top: 0;
+  left: 0;
+  width: 22vw;
+  max-width: 320px;
+  min-width: 140px;
+  animation-name: shapeSlideTopLeft;
+}
+
+.bg-shape.bottom-right {
+  bottom: 0;
+  right: 0;
+  width: 22vw;
+  max-width: 320px;
+  min-width: 140px;
+  animation-name: shapeSlideBottomRight;
+}
+
+/* Center Content Composition */
+.splash-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-md);
+  margin-top: -15px; /* Subtle optical vertical balance */
+}
+
+/* Central Blackboard Frame Logo */
+.splash-logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 34px;
+  animation: logoEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+.splash-logo {
+  width: 440px;
+  max-width: 82vw;
+  height: auto;
+  border-radius: 0px;
+  filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.06));
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.splash-logo-wrapper:hover .splash-logo {
+  transform: translateY(-4px) scale(1.015);
+  filter: drop-shadow(0px 8px 20px rgba(255, 90, 0, 0.15));
+}
+
+/* Typography "NOTICE BOARD INDIA" */
+.splash-title {
+  font-family: var(--font-family-base);
+  font-size: 3.85rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1.1;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  animation: titleFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+}
+
+.splash-title .text-orange {
+  color: var(--color-primary-orange);
+  display: inline-block;
+  animation: textPop 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+}
+
+.splash-title .text-black {
+  color: var(--color-text-dark);
+  display: inline-block;
+  animation: textPop 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+}
+
+/* Keyframe Animations */
+@keyframes shapeSlideTopLeft {
+  0% {
+    opacity: 0;
+    transform: translate(-40px, -40px) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes shapeSlideBottomRight {
+  0% {
+    opacity: 0;
+    transform: translate(40px, 40px) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes logoEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes titleFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes textPop {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

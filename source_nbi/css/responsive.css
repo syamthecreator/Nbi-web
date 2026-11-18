@@ -1,0 +1,56 @@
+/* Media Queries for Responsive Scaling */
+
+@media (max-width: 1024px) {
+  .splash-logo {
+    width: 380px;
+  }
+
+  .splash-title {
+    font-size: 2.35rem;
+  }
+
+  .bg-shape.top-left,
+  .bg-shape.bottom-right {
+    width: 25vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .splash-logo {
+    width: 330px;
+  }
+
+  .splash-title {
+    font-size: 1.95rem;
+    letter-spacing: 0px;
+  }
+
+  .splash-logo-wrapper {
+    margin-bottom: 26px;
+  }
+
+  .bg-shape.top-left,
+  .bg-shape.bottom-right {
+    width: 30vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .splash-logo {
+    width: 280px;
+  }
+
+  .splash-title {
+    font-size: 1.5rem;
+  }
+
+  .splash-logo-wrapper {
+    margin-bottom: 20px;
+  }
+
+  .bg-shape.top-left,
+  .bg-shape.bottom-right {
+    width: 38vw;
+    min-width: 110px;
+  }
+}
