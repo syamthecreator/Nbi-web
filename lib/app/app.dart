@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../features/auth/providers/auth_provider.dart';
 import '../features/class_division/providers/class_division_provider.dart';
 import '../features/feed/providers/feed_provider.dart';
@@ -15,7 +16,7 @@ import 'theme/app_theme.dart';
 
 /// Root Application Widget with MultiProvider state management.
 /// Complete separation of concerns: UI, Providers, Repositories, Services, Models.
-/// Strict Zero setState().
+
 class NbiApp extends StatelessWidget {
   const NbiApp({super.key});
 

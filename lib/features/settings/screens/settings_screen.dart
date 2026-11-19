@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../../app/routes/app_routes.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_typography.dart';
@@ -11,7 +12,6 @@ import '../providers/settings_provider.dart';
 import '../widgets/settings_toggle_tile.dart';
 
 /// Settings Screen - Production architecture using Provider.
-/// Pure Stateless architecture with Provider. Zero setState().
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
@@ -52,14 +52,18 @@ class SettingsScreen extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   color: AppColors.bgWhite,
                                   borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(color: AppColors.borderLight),
+                                  border: Border.all(
+                                    color: AppColors.borderLight,
+                                  ),
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       'Settings & Preferences',
-                                      style: AppTypography.heading1(fontSize: 22),
+                                      style: AppTypography.heading1(
+                                        fontSize: 22,
+                                      ),
                                     ),
                                     const SizedBox(height: 16),
 
@@ -71,17 +75,21 @@ class SettingsScreen extends StatelessWidget {
                                         _TabButton(
                                           title: 'All Settings',
                                           isActive: activeTab == 'all',
-                                          onTap: () => settingsProvider.setActiveTab('all'),
+                                          onTap: () => settingsProvider
+                                              .setActiveTab('all'),
                                         ),
                                         _TabButton(
                                           title: 'Notification Preferences',
-                                          isActive: activeTab == 'notifications',
-                                          onTap: () => settingsProvider.setActiveTab('notifications'),
+                                          isActive:
+                                              activeTab == 'notifications',
+                                          onTap: () => settingsProvider
+                                              .setActiveTab('notifications'),
                                         ),
                                         _TabButton(
                                           title: 'Privacy & Security',
                                           isActive: activeTab == 'security',
-                                          onTap: () => settingsProvider.setActiveTab('security'),
+                                          onTap: () => settingsProvider
+                                              .setActiveTab('security'),
                                         ),
                                       ],
                                     ),
@@ -91,7 +99,8 @@ class SettingsScreen extends StatelessWidget {
                               const SizedBox(height: 24),
 
                               // SECTION 1: Notification Preferences
-                              if (activeTab == 'all' || activeTab == 'notifications') ...[
+                              if (activeTab == 'all' ||
+                                  activeTab == 'notifications') ...[
                                 _SectionCard(
                                   iconEmoji: '🔔',
                                   title: 'Notification Alerts & Channels',
@@ -100,22 +109,37 @@ class SettingsScreen extends StatelessWidget {
                                     SettingsToggleTile(
                                       title: 'Push Notifications',
                                       subtitle: 'Receive real-time push alerts for school announcements',
-                                      value: settingsProvider.settings.pushNotifications,
-                                      onChanged: settingsProvider.togglePushNotifications,
+                                      value: settingsProvider
+                                          .settings
+                                          .pushNotifications,
+                                      onChanged: settingsProvider
+                                          .togglePushNotifications,
                                     ),
-                                    const Divider(color: AppColors.borderLight, height: 20),
+                                    const Divider(
+                                      color: AppColors.borderLight,
+                                      height: 20,
+                                    ),
                                     SettingsToggleTile(
                                       title: 'SMS Emergency Weather Alerts',
                                       subtitle: 'Receive SMS texts for urgent school closure notices',
-                                      value: settingsProvider.settings.smsWeatherAlerts,
-                                      onChanged: settingsProvider.toggleSmsWeatherAlerts,
+                                      value: settingsProvider
+                                          .settings
+                                          .smsWeatherAlerts,
+                                      onChanged: settingsProvider
+                                          .toggleSmsWeatherAlerts,
                                     ),
-                                    const Divider(color: AppColors.borderLight, height: 20),
+                                    const Divider(
+                                      color: AppColors.borderLight,
+                                      height: 20,
+                                    ),
                                     SettingsToggleTile(
                                       title: 'Daily Homework Digest Email',
                                       subtitle: 'Receive a daily 06:00 PM email summary of all assigned homework',
-                                      value: settingsProvider.settings.dailyDigestEmail,
-                                      onChanged: settingsProvider.toggleDailyDigestEmail,
+                                      value: settingsProvider
+                                          .settings
+                                          .dailyDigestEmail,
+                                      onChanged: settingsProvider
+                                          .toggleDailyDigestEmail,
                                     ),
                                   ],
                                 ),
@@ -123,41 +147,46 @@ class SettingsScreen extends StatelessWidget {
                               ],
 
                               // SECTION 2: Privacy & Security
-                              if (activeTab == 'all' || activeTab == 'security') ...[
+                              if (activeTab == 'all' ||
+                                  activeTab == 'security') ...[
                                 const _SectionCard(
                                   iconEmoji: '🛡️',
                                   title: 'Privacy & Account Security',
-                                  subtitle:
-                                      'Notice Board India strictly protects user privacy — We do not collect or track your personal data',
+                                  subtitle: 'Notice Board India strictly protects user privacy — We do not collect or track your personal data',
                                   children: [
                                     _PrivacyRow(
                                       title: 'Zero Data Collection Policy',
-                                      subtitle:
-                                          'We do not collect, harvest, or store your personal browsing history, location, or private device contacts.',
+                                      subtitle: 'We do not collect, harvest, or store your personal browsing history, location, or private device contacts.',
                                       badgeText: '🔒 100% Private',
                                       isGreen: true,
                                     ),
-                                    Divider(color: AppColors.borderLight, height: 20),
+                                    Divider(
+                                      color: AppColors.borderLight,
+                                      height: 20,
+                                    ),
                                     _PrivacyRow(
                                       title: 'School Content Display Only',
-                                      subtitle:
-                                          'This platform is built exclusively to publish and view official school announcements, circulars, and feed updates.',
+                                      subtitle: 'This platform is built exclusively to publish and view official school announcements, circulars, and feed updates.',
                                       badgeText: '📢 Content Only',
                                       isGreen: false,
                                     ),
-                                    Divider(color: AppColors.borderLight, height: 20),
+                                    Divider(
+                                      color: AppColors.borderLight,
+                                      height: 20,
+                                    ),
                                     _PrivacyRow(
                                       title: 'Local Device Storage',
-                                      subtitle:
-                                          'Your profile preferences and followed school selections are stored safely and locally on your own device.',
+                                      subtitle: 'Your profile preferences and followed school selections are stored safely and locally on your own device.',
                                       badgeText: '📱 Saved Locally',
                                       isGreen: true,
                                     ),
-                                    Divider(color: AppColors.borderLight, height: 20),
+                                    Divider(
+                                      color: AppColors.borderLight,
+                                      height: 20,
+                                    ),
                                     _PrivacyRow(
                                       title: 'No Third-Party Tracking',
-                                      subtitle:
-                                          'No ad trackers, behavioral profiling, or invasive analytics cookies are used on Notice Board India.',
+                                      subtitle: 'No ad trackers, behavioral profiling, or invasive analytics cookies are used on Notice Board India.',
                                       badgeText: '🛡️ Verified Safe',
                                       isGreen: false,
                                     ),

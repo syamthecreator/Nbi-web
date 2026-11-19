@@ -1,9 +1,10 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+
 import '../models/splash_model.dart';
 import '../repositories/splash_repository.dart';
 
-/// Pure Stateless architecture with Provider. Zero setState().
 class SplashProvider extends ChangeNotifier {
   final SplashRepository _repository;
   SplashModel _model = const SplashModel();
@@ -11,7 +12,7 @@ class SplashProvider extends ChangeNotifier {
   bool _isNavigated = false;
 
   SplashProvider({SplashRepository? repository})
-      : _repository = repository ?? SplashRepositoryImpl();
+    : _repository = repository ?? SplashRepositoryImpl();
 
   SplashModel get model => _model;
   bool get isNavigated => _isNavigated;

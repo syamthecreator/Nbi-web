@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+
 import '../models/class_division_model.dart';
 import '../repositories/class_division_repository.dart';
 
-/// Pure Stateless architecture with Provider. Zero setState().
 class ClassDivisionProvider extends ChangeNotifier {
   final ClassDivisionRepository _repository;
   ClassDivisionRepository get repository => _repository;
@@ -10,7 +10,7 @@ class ClassDivisionProvider extends ChangeNotifier {
   List<SchoolConfigModel> get schools => List.unmodifiable(_schools);
 
   ClassDivisionProvider({ClassDivisionRepository? repository})
-      : _repository = repository ?? ClassDivisionRepositoryImpl() {
+    : _repository = repository ?? ClassDivisionRepositoryImpl() {
     _initDefaults();
   }
 
@@ -26,7 +26,7 @@ class ClassDivisionProvider extends ChangeNotifier {
       const SchoolConfigModel(
         id: 'inst-carmel-girls',
         name: 'Carmel Girls Higher Secondary School',
-        crestAsset: 'assets/images/carmel-crest.png',
+        crestAsset: 'assets/images/salford-crest.png',
         classes: ['LKG', 'UKG', '1st', '2nd', '3rd', '4th', '5rd', '6th'],
         divisions: ['A', 'B', 'C', 'D', 'E'],
       ),
@@ -49,13 +49,15 @@ class ClassDivisionProvider extends ChangeNotifier {
       } else {
         id = (item as dynamic).id as String;
         name = (item as dynamic).name as String;
-        crestAsset = (item as dynamic).crestAsset as String? ?? 'assets/images/salford-crest.png';
+        crestAsset =
+            (item as dynamic).crestAsset as String? ??
+            'assets/images/salford-crest.png';
       }
 
       final existing = _schools.cast<SchoolConfigModel?>().firstWhere(
-            (s) => s?.id == id || s?.name == name,
-            orElse: () => null,
-          );
+        (s) => s?.id == id || s?.name == name,
+        orElse: () => null,
+      );
 
       return SchoolConfigModel(
         id: id,
@@ -101,7 +103,9 @@ class ClassDivisionProvider extends ChangeNotifier {
   }
 
   bool get hasAnySelection {
-    return _schools.any((s) => s.selectedClass != null || s.selectedDivision != null);
+    return _schools.any(
+      (s) => s.selectedClass != null || s.selectedDivision != null,
+    );
   }
 
   bool get isAllConfigured {

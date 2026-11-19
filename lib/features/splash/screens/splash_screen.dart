@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../../app/routes/app_routes.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/widgets/background_shapes.dart';
 import '../providers/splash_provider.dart';
 import '../widgets/splash_logo_view.dart';
 
-/// Pure Stateless architecture with Provider. Zero setState().
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
@@ -36,10 +36,7 @@ class SplashScreen extends StatelessWidget {
         child: Stack(
           children: [
             // Organic Background Shapes (Top-Left & Bottom-Right)
-            const BackgroundShapes(
-              showTopLeft: true,
-              showBottomRight: true,
-            ),
+            const BackgroundShapes(showTopLeft: true, showBottomRight: true),
 
             // Center Content
             const Center(

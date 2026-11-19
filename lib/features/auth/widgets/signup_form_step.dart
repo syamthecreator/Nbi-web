@@ -7,7 +7,6 @@ import '../providers/auth_provider.dart';
 import 'signup_input_fields.dart';
 
 /// Step 1: Initial Form State with inputs and terms agreement.
-/// 1:1 match with source_nbi signup.html & signup.css (#step1)
 class SignupFormStep extends StatelessWidget {
   const SignupFormStep({super.key});
 

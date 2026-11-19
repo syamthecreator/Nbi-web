@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_typography.dart';
 import '../providers/auth_provider.dart';
 import 'signup_input_fields.dart';
 
 /// Step 2: OTP Verification step with 4-digit input grid, resend timer, and change details.
-/// 1:1 match with source_nbi signup.html & signup.css (#step2)
 class OtpVerificationStep extends StatelessWidget {
   const OtpVerificationStep({super.key});
 
@@ -113,7 +113,10 @@ class OtpVerificationStep extends StatelessWidget {
                 onTap: authProvider.goToStep1,
                 borderRadius: BorderRadius.circular(4),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
                   child: RichText(
                     text: TextSpan(
                       children: [
@@ -176,7 +179,9 @@ class _OtpDigitBox extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(14),
             border: Border.all(
-              color: hasFocus ? AppColors.primaryOrange : const Color(0xFFFF8C42),
+              color: hasFocus
+                  ? AppColors.primaryOrange
+                  : const Color(0xFFFF8C42),
               width: 2.0,
             ),
             boxShadow: hasFocus

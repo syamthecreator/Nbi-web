@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import '../../../app/routes/app_routes.dart';
 import '../../../shared/models/user_role.dart';
 import '../providers/auth_provider.dart';
 import 'signup_input_fields.dart';
 
-/// Step 3: Verified Account State and Summary Card matching source_nbi signup.html & signup.css (#step3)
 class SignupSuccessStep extends StatelessWidget {
   const SignupSuccessStep({super.key});
 
@@ -49,12 +49,28 @@ class SignupSuccessStep extends StatelessWidget {
                     ],
                   ),
                   child: const Center(
-                    child: Icon(Icons.check_rounded, size: 52, color: Colors.white),
+                    child: Icon(
+                      Icons.check_rounded,
+                      size: 52,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-                const Positioned(top: -10, left: -10, child: Text('✨', style: TextStyle(fontSize: 20))),
-                const Positioned(top: -12, right: -12, child: Text('🎉', style: TextStyle(fontSize: 20))),
-                const Positioned(bottom: -8, right: 10, child: Text('⭐', style: TextStyle(fontSize: 18))),
+                const Positioned(
+                  top: -10,
+                  left: -10,
+                  child: Text('✨', style: TextStyle(fontSize: 20)),
+                ),
+                const Positioned(
+                  top: -12,
+                  right: -12,
+                  child: Text('🎉', style: TextStyle(fontSize: 20)),
+                ),
+                const Positioned(
+                  bottom: -8,
+                  right: 10,
+                  child: Text('⭐', style: TextStyle(fontSize: 18)),
+                ),
               ],
             ),
             const SizedBox(height: 20),
@@ -93,11 +109,20 @@ class SignupSuccessStep extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  _SummaryRow(label: 'Full Name:', value: authProvider.currentUser.fullName),
+                  _SummaryRow(
+                    label: 'Full Name:',
+                    value: authProvider.currentUser.fullName,
+                  ),
                   const SizedBox(height: 12),
-                  _SummaryRow(label: 'Email:', value: authProvider.currentUser.email),
+                  _SummaryRow(
+                    label: 'Email:',
+                    value: authProvider.currentUser.email,
+                  ),
                   const SizedBox(height: 12),
-                  _SummaryRow(label: 'Phone:', value: '+91 ${authProvider.currentUser.phone}'),
+                  _SummaryRow(
+                    label: 'Phone:',
+                    value: '+91 ${authProvider.currentUser.phone}',
+                  ),
                   const SizedBox(height: 12),
                   const _SummaryRow(
                     label: 'Account Status:',
@@ -144,7 +169,8 @@ class SignupSuccessStep extends StatelessWidget {
                   ),
                   child: FractionallySizedBox(
                     alignment: Alignment.centerLeft,
-                    widthFactor: ((5 - authProvider.redirectCountdown) / 5.0).clamp(0.0, 1.0),
+                    widthFactor: ((5 - authProvider.redirectCountdown) / 5.0)
+                        .clamp(0.0, 1.0),
                     child: Container(
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
@@ -190,7 +216,10 @@ class _SummaryRow extends StatelessWidget {
         ),
         isStatusBadge
             ? Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFFE6F9EE),
                   borderRadius: BorderRadius.circular(20),

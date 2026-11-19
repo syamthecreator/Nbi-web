@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_typography.dart';
 import '../../../core/widgets/background_shapes.dart';
@@ -12,7 +13,6 @@ import '../widgets/signup_hero_section.dart';
 import '../widgets/signup_success_step.dart';
 
 /// Sign Up Screen - Refactored production architecture using Provider.
-/// Pure Stateless architecture with Provider. Zero setState().
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
 
@@ -31,15 +31,16 @@ class SignupScreen extends StatelessWidget {
               ? Row(
                   children: [
                     // Left 50vw Hero Branding Section
-                    const Expanded(
-                      child: SignupDesktopHero(),
-                    ),
+                    const Expanded(child: SignupDesktopHero()),
 
                     // Right 50vw Form Section
                     Expanded(
                       child: Center(
                         child: SingleChildScrollView(
-                          padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 40),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 48,
+                            vertical: 40,
+                          ),
                           child: ConstrainedBox(
                             constraints: const BoxConstraints(maxWidth: 400),
                             child: const _SignupFormContainer(),
@@ -54,7 +55,10 @@ class SignupScreen extends StatelessWidget {
                     children: [
                       const SignupMobileHero(),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 32,
+                        ),
                         child: ConstrainedBox(
                           constraints: const BoxConstraints(maxWidth: 400),
                           child: const _SignupFormContainer(),
@@ -129,20 +133,32 @@ class _SignupFormContainer extends StatelessWidget {
               const SizedBox(height: 16),
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.urgentBg,
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: AppColors.urgentText.withValues(alpha: 0.3)),
+                  border: Border.all(
+                    color: AppColors.urgentText.withValues(alpha: 0.3),
+                  ),
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.error_outline, size: 18, color: AppColors.urgentText),
+                    const Icon(
+                      Icons.error_outline,
+                      size: 18,
+                      color: AppColors.urgentText,
+                    ),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         authProvider.errorMessage!,
-                        style: AppTypography.bodySmall(color: AppColors.urgentText, fontSize: 13),
+                        style: AppTypography.bodySmall(
+                          color: AppColors.urgentText,
+                          fontSize: 13,
+                        ),
                       ),
                     ),
                   ],
@@ -155,7 +171,9 @@ class _SignupFormContainer extends StatelessWidget {
               const SizedBox(height: 32),
               Row(
                 children: [
-                  const Expanded(child: Divider(color: Color(0xFFEEEEEE), thickness: 1)),
+                  const Expanded(
+                    child: Divider(color: Color(0xFFEEEEEE), thickness: 1),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 14),
                     child: Text(
@@ -167,7 +185,9 @@ class _SignupFormContainer extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Expanded(child: Divider(color: Color(0xFFEEEEEE), thickness: 1)),
+                  const Expanded(
+                    child: Divider(color: Color(0xFFEEEEEE), thickness: 1),
+                  ),
                 ],
               ),
             ],

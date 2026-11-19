@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Floating Toast Notification Alert matching source_nbi create-workspace.css .toast-alert
 class ToastNotification extends StatelessWidget {
   final String message;
   final VoidCallback? onDismiss;
 
-  const ToastNotification({
-    super.key,
-    required this.message,
-    this.onDismiss,
-  });
+  const ToastNotification({super.key, required this.message, this.onDismiss});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +50,11 @@ class ToastNotification extends StatelessWidget {
                 const SizedBox(width: 12),
                 InkWell(
                   onTap: onDismiss,
-                  child: const Icon(Icons.close, color: Colors.white70, size: 16),
+                  child: const Icon(
+                    Icons.close,
+                    color: Colors.white70,
+                    size: 16,
+                  ),
                 ),
               ],
             ],
@@ -65,4 +64,3 @@ class ToastNotification extends StatelessWidget {
     );
   }
 }
-

@@ -14,7 +14,6 @@ import '../widgets/role_card.dart';
 import '../widgets/role_footer_links.dart';
 
 /// Choose Your Role Screen - 1:1 match with select-role.html and select-role.css.
-/// Pure Stateless architecture with Provider. Zero setState().
 class SelectRoleScreen extends StatelessWidget {
   const SelectRoleScreen({super.key});
 

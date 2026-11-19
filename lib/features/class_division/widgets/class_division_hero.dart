@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_typography.dart';
-import '../../../core/widgets/app_logo.dart';
 
-/// Top hero section for Class & Division selection.
+/// Top hero section for Class & Division selection (Step 2 of 2)
 class ClassDivisionHero extends StatelessWidget {
   final bool isDesktop;
 
@@ -13,109 +13,154 @@ class ClassDivisionHero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xFFFEF8F5),
-      padding: EdgeInsets.symmetric(
-        horizontal: isDesktop ? 48 : 20,
-        vertical: 24,
+      width: double.infinity,
+      decoration: const BoxDecoration(
+        color: Color(0xFFFEF8F5),
+        border: Border(
+          bottom: BorderSide(color: Color(0xFFF2E8E2), width: 1.0),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x0A000000), // rgba(0,0,0,0.04)
+            blurRadius: 20,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
-      child: SafeArea(
-        bottom: false,
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 1140),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
+        children: [
+          // Top Navigation Header
+          Container(
+            width: double.infinity,
+            height: 72,
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  children: [
-                    const AppLogo(width: 44),
-                    const SizedBox(width: 12),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Notice Board ',
-                            style: AppTypography.heading3(
-                              fontSize: 18,
-                              color: AppColors.primaryOrange,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'India',
-                            style: AppTypography.heading3(
-                              fontSize: 18,
-                              color: const Color(0xFF111111),
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  child: Image.asset(
+                    AppAssets.logo,
+                    width: 48,
+                    height: 48,
+                    fit: BoxFit.contain,
+                  ),
                 ),
-                const SizedBox(height: 28),
+                const SizedBox(width: 12),
+                RichText(
+                  text: TextSpan(
+                    style: GoogleFonts.montserrat(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: -0.3,
+                    ),
+                    children: const [
+                      TextSpan(
+                        text: 'Notice Board ',
+                        style: TextStyle(color: AppColors.primaryOrange),
+                      ),
+                      TextSpan(
+                        text: 'India',
+                        style: TextStyle(color: Color(0xFF111111)),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
 
-                Row(
+          // Hero Banner Section
+          Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1380),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: isDesktop ? 40 : 18,
+                  vertical: isDesktop ? 16 : 12,
+                ).copyWith(bottom: isDesktop ? 28 : 20),
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    // Left Column: Step Tag, Heading & Subtitle
                     Expanded(
-                      flex: 3,
+                      flex: 6,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // Step Badg
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 5,
+                            ),
                             decoration: BoxDecoration(
                               color: const Color(0xFFFFF0E6),
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
                               'Step 2 of 2',
-                              style: AppTypography.caption(
-                                fontSize: 12,
+                              style: GoogleFonts.montserrat(
+                                fontSize: 13,
                                 fontWeight: FontWeight.w700,
                                 color: AppColors.primaryOrange,
                               ),
                             ),
                           ),
                           const SizedBox(height: 14),
+
+                          // Heading
                           Text(
                             'Find Your Educational Institutions',
-                            style: AppTypography.heading1(
-                              fontSize: isDesktop ? 34 : 24,
+                            style: GoogleFonts.montserrat(
+                              fontSize: isDesktop ? 37 : 24,
                               fontWeight: FontWeight.w800,
                               color: const Color(0xFF111111),
+                              height: 1.18,
+                              letterSpacing: -0.5,
                             ),
                           ),
-                          const SizedBox(height: 6),
+                          const SizedBox(height: 10),
+
+                          // Subtitle
                           Text(
                             "Search for your child's school to get started.",
-                            style: AppTypography.subtitle(
-                              fontSize: 15,
-                              color: const Color(0xFF555555),
+                            style: GoogleFonts.inter(
+                              fontSize: isDesktop ? 16 : 14,
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xFF666666),
+                              height: 1.5,
                             ),
                           ),
                         ],
                       ),
                     ),
+
+                    // Right Column: School Building Illustration
                     if (isDesktop) ...[
                       const SizedBox(width: 32),
                       Expanded(
-                        flex: 2,
-                        child: Image.asset(
-                          AppAssets.loginIllustration1,
-                          height: 180,
-                          fit: BoxFit.contain,
+                        flex: 5,
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(maxHeight: 260),
+                            child: Image.asset(
+                              AppAssets.loginIllustration2,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

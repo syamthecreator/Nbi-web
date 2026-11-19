@@ -14,7 +14,6 @@ import '../providers/profile_provider.dart';
 import '../widgets/edit_profile_dialog.dart';
 
 /// Profile Screen - Production architecture using Provider.
-/// Pure Stateless architecture with Provider. Zero setState().
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 

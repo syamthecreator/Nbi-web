@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'app_colors.dart';
 
 /// Typography definitions matching the client's approved Montserrat and Inter styling.
@@ -7,7 +8,10 @@ class AppTypography {
   AppTypography._();
 
   // Headings with Montserrat
-  static TextStyle splashTitle({double fontSize = 42, FontWeight fontWeight = FontWeight.w800}) {
+  static TextStyle splashTitle({
+    double fontSize = 42,
+    FontWeight fontWeight = FontWeight.w800,
+  }) {
     return GoogleFonts.montserrat(
       fontSize: fontSize,
       fontWeight: fontWeight,
@@ -58,7 +62,6 @@ class AppTypography {
     );
   }
 
-  // Base text styles using Inter to match source_nbi prototype variables.css
   static TextStyle subtitle({
     double fontSize = 14,
     FontWeight fontWeight = FontWeight.w500,

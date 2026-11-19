@@ -1,15 +1,18 @@
 import 'dart:async';
+import 'dart:typed_data';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+
 import '../models/workspace_model.dart';
 import '../repositories/workspace_repository.dart';
 
 enum WorkspaceStep {
   institutionDetails, // Step 1
-  adminDetails,       // Step 2
-  success,            // Step 3
+  adminDetails, // Step 2
+  success, // Step 3
 }
 
-/// Pure Stateless architecture with Provider. Zero setState().
 class WorkspaceProvider extends ChangeNotifier {
   final WorkspaceRepository _repository;
 
@@ -19,6 +22,8 @@ class WorkspaceProvider extends ChangeNotifier {
   String _institutionType = '';
   String _institutionCode = '';
   String? _schoolLogoAsset;
+  Uint8List? _schoolLogoBytes;
+  String? _schoolLogoFileName;
   bool _userEditedWorkspaceName = false;
 
   String get institutionName => _institutionName;
@@ -26,6 +31,8 @@ class WorkspaceProvider extends ChangeNotifier {
   String get institutionType => _institutionType;
   String get institutionCode => _institutionCode;
   String? get schoolLogoAsset => _schoolLogoAsset;
+  Uint8List? get schoolLogoBytes => _schoolLogoBytes;
+  String? get schoolLogoFileName => _schoolLogoFileName;
 
   // Step 2 Fields
   String _adminFullName = 'Rahul Sharma';
@@ -80,12 +87,13 @@ class WorkspaceProvider extends ChangeNotifier {
   late final TextEditingController adminMobileController;
 
   WorkspaceProvider({WorkspaceRepository? repository})
-      : _repository = repository ?? WorkspaceRepositoryImpl() {
+    : _repository = repository ?? WorkspaceRepositoryImpl() {
     _initDefaults();
   }
 
   void _initDefaults() {
-    _institutionCode = 'NBI-SCH-${1000 + (DateTime.now().millisecondsSinceEpoch % 8999)}';
+    _institutionCode =
+        'NBI-SCH-${1000 + (DateTime.now().millisecondsSinceEpoch % 8999)}';
     institutionNameController = TextEditingController(text: _institutionName);
     workspaceNameController = TextEditingController(text: _workspaceName);
     institutionCodeController = TextEditingController(text: _institutionCode);
@@ -124,12 +132,35 @@ class WorkspaceProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> pickSchoolLogo() async {
+    try {
+      final file = await FilePicker.pickFile(
+        type: FileType.custom,
+        allowedExtensions: ['png', 'jpg', 'jpeg', 'svg', 'webp'],
+      );
+
+      if (file != null) {
+        final bytes = await file.readAsBytes();
+        _schoolLogoBytes = bytes;
+        _schoolLogoFileName = file.name;
+        _schoolLogoAsset = null;
+        notifyListeners();
+      }
+    } catch (e) {
+      _showToast('⚠️ Could not open gallery / file picker');
+    }
+  }
+
   void selectSchoolLogo(String? assetPath) {
     _schoolLogoAsset = assetPath;
+    _schoolLogoBytes = null;
+    _schoolLogoFileName = null;
     notifyListeners();
   }
 
   void removeSchoolLogo() {
+    _schoolLogoBytes = null;
+    _schoolLogoFileName = null;
     _schoolLogoAsset = null;
     notifyListeners();
   }
@@ -191,6 +222,7 @@ class WorkspaceProvider extends ChangeNotifier {
       institutionType: _institutionType,
       institutionCode: _institutionCode.trim(),
       schoolLogoUrl: _schoolLogoAsset,
+      schoolLogoBytes: _schoolLogoBytes,
       adminFullName: _adminFullName.trim(),
       adminDesignation: _adminDesignation,
       adminEmail: _adminEmail.trim(),

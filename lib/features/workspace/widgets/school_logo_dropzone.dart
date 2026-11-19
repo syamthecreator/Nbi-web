@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../core/constants/app_assets.dart';
+
 import '../../../core/constants/app_colors.dart';
 import '../providers/workspace_provider.dart';
 
-/// School Logo upload dropzone box with 1:1 dashed border matching create-workspace.css .logo-upload-dropzone
+/// Opens system file picker / gallery on click and displays uploaded logo preview.
 class SchoolLogoDropzone extends StatelessWidget {
   final WorkspaceProvider wsProvider;
 
@@ -12,6 +12,10 @@ class SchoolLogoDropzone extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasLogo =
+        wsProvider.schoolLogoBytes != null ||
+        wsProvider.schoolLogoAsset != null;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -27,14 +31,12 @@ class SchoolLogoDropzone extends StatelessWidget {
         InkWell(
           borderRadius: BorderRadius.circular(16),
           onTap: () {
-            if (wsProvider.schoolLogoAsset == null) {
-              wsProvider.selectSchoolLogo(AppAssets.crestSalford);
-            } else {
-              wsProvider.removeSchoolLogo();
+            if (!hasLogo) {
+              wsProvider.pickSchoolLogo();
             }
           },
           child: CustomPaint(
-            painter: DashedBorderPainter(
+            foregroundPainter: DashedBorderPainter(
               color: const Color(0xFFFCA5A5),
               radius: 16,
               strokeWidth: 1.5,
@@ -43,12 +45,13 @@ class SchoolLogoDropzone extends StatelessWidget {
             ),
             child: Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+              constraints: const BoxConstraints(minHeight: 124),
+              padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 20),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: const Color(0xFFFFFBF8),
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: wsProvider.schoolLogoAsset == null
+              child: !hasLogo
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -71,7 +74,7 @@ class SchoolLogoDropzone extends StatelessWidget {
                         Text(
                           'Click to Upload Logo',
                           style: GoogleFonts.montserrat(
-                            fontSize: 13.5,
+                            fontSize: 13.6,
                             fontWeight: FontWeight.w700,
                             color: AppColors.primaryOrange,
                           ),
@@ -89,38 +92,76 @@ class SchoolLogoDropzone extends StatelessWidget {
                     )
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        // Circular preview matching .uploaded-logo-preview
                         Container(
-                          width: 60,
-                          height: 60,
+                          width: 72,
+                          height: 72,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(color: AppColors.primaryOrange, width: 2.5),
+                            color: Colors.white,
+                            border: Border.all(
+                              color: AppColors.primaryOrange,
+                              width: 2.5,
+                            ),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Color(0x29FF5A00),
+                                blurRadius: 14,
+                                offset: Offset(0, 4),
+                              ),
+                            ],
                           ),
                           clipBehavior: Clip.antiAlias,
-                          child: Image.asset(wsProvider.schoolLogoAsset!, fit: BoxFit.cover),
+                          child: wsProvider.schoolLogoBytes != null
+                              ? Image.memory(
+                                  wsProvider.schoolLogoBytes!,
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.asset(
+                                  wsProvider.schoolLogoAsset!,
+                                  fit: BoxFit.cover,
+                                ),
                         ),
-                        const SizedBox(width: 16),
+                        const SizedBox(width: 18),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
                               'Uploaded School Logo',
                               style: GoogleFonts.inter(
-                                fontSize: 13.5,
+                                fontSize: 13.8,
                                 fontWeight: FontWeight.w700,
                                 color: const Color(0xFF1E293B),
                               ),
                             ),
-                            const SizedBox(height: 4),
+                            if (wsProvider.schoolLogoFileName != null) ...[
+                              const SizedBox(height: 2),
+                              Text(
+                                wsProvider.schoolLogoFileName!,
+                                style: GoogleFonts.inter(
+                                  fontSize: 11.5,
+                                  color: const Color(0xFF64748B),
+                                ),
+                              ),
+                            ],
+                            const SizedBox(height: 6),
                             InkWell(
                               onTap: wsProvider.removeSchoolLogo,
+                              borderRadius: BorderRadius.circular(8),
                               child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 14,
+                                  vertical: 5,
+                                ),
                                 decoration: BoxDecoration(
                                   color: const Color(0xFFFFEEEC),
                                   borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(color: const Color(0xFFFECDD3)),
+                                  border: Border.all(
+                                    color: const Color(0xFFFECDD3),
+                                  ),
                                 ),
                                 child: Text(
                                   '× Remove Logo',
@@ -162,21 +203,20 @@ class DashedBorderPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (size.width <= 0 || size.height <= 0) return;
+
     final paint = Paint()
       ..color = color
       ..strokeWidth = strokeWidth
       ..style = PaintingStyle.stroke;
 
-    final rrect = RRect.fromRectAndRadius(
-      Rect.fromLTWH(
-        strokeWidth / 2,
-        strokeWidth / 2,
-        size.width - strokeWidth,
-        size.height - strokeWidth,
-      ),
-      Radius.circular(radius),
+    final rect = Rect.fromLTWH(
+      strokeWidth / 2,
+      strokeWidth / 2,
+      size.width - strokeWidth,
+      size.height - strokeWidth,
     );
-
+    final rrect = RRect.fromRectAndRadius(rect, Radius.circular(radius));
     final path = Path()..addRRect(rrect);
     final dashedPath = Path();
 
@@ -211,6 +251,8 @@ class DashedBorderPainter extends CustomPainter {
   bool shouldRepaint(covariant DashedBorderPainter oldDelegate) {
     return oldDelegate.color != color ||
         oldDelegate.strokeWidth != strokeWidth ||
-        oldDelegate.radius != radius;
+        oldDelegate.radius != radius ||
+        oldDelegate.dashLength != dashLength ||
+        oldDelegate.dashGap != dashGap;
   }
 }

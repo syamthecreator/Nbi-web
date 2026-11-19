@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../../app/routes/app_routes.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_typography.dart';
@@ -13,7 +14,6 @@ import '../widgets/post_card_widget.dart';
 import '../widgets/sponsored_store_widget.dart';
 
 /// School Feed Screen - Production architecture using Provider.
-/// Pure Stateless architecture with Provider. Zero setState().
 class SchoolFeedScreen extends StatelessWidget {
   const SchoolFeedScreen({super.key});
 
@@ -54,24 +54,34 @@ class SchoolFeedScreen extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     color: AppColors.bgWhite,
                                     borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(color: AppColors.borderLight),
+                                    border: Border.all(
+                                      color: AppColors.borderLight,
+                                    ),
                                   ),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       // Title & Updates Count Badge
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             'School Feed',
-                                            style: AppTypography.heading1(fontSize: 22),
+                                            style: AppTypography.heading1(
+                                              fontSize: 22,
+                                            ),
                                           ),
                                           Container(
-                                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 10,
+                                              vertical: 4,
+                                            ),
                                             decoration: BoxDecoration(
                                               color: AppColors.orangeLight,
-                                              borderRadius: BorderRadius.circular(20),
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
                                             ),
                                             child: Text(
                                               '${posts.length} ${posts.length == 1 ? 'Update' : 'Updates'}',
@@ -90,19 +100,33 @@ class SchoolFeedScreen extends StatelessWidget {
                                       if (isDesktop)
                                         Row(
                                           children: [
-                                            Expanded(flex: 3, child: FeedSearchBar(feedProvider: feedProvider)),
+                                            Expanded(
+                                              flex: 3,
+                                              child: FeedSearchBar(
+                                                feedProvider: feedProvider,
+                                              ),
+                                            ),
                                             const SizedBox(width: 16),
-                                            Expanded(flex: 4, child: CategoryFilterChips(feedProvider: feedProvider)),
+                                            Expanded(
+                                              flex: 4,
+                                              child: CategoryFilterChips(
+                                                feedProvider: feedProvider,
+                                              ),
+                                            ),
                                           ],
                                         )
                                       else
                                         Column(
                                           children: [
-                                            FeedSearchBar(feedProvider: feedProvider),
+                                            FeedSearchBar(
+                                              feedProvider: feedProvider,
+                                            ),
                                             const SizedBox(height: 12),
                                             SingleChildScrollView(
                                               scrollDirection: Axis.horizontal,
-                                              child: CategoryFilterChips(feedProvider: feedProvider),
+                                              child: CategoryFilterChips(
+                                                feedProvider: feedProvider,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -123,7 +147,8 @@ class SchoolFeedScreen extends StatelessWidget {
                             padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
                             sliver: SliverList(
                               delegate: SliverChildBuilderDelegate(
-                                (context, index) => PostCardWidget(post: posts[index]),
+                                (context, index) =>
+                                    PostCardWidget(post: posts[index]),
                                 childCount: posts.length,
                               ),
                             ),
@@ -179,7 +204,10 @@ class _EmptyFeedState extends StatelessWidget {
           children: [
             const Text('🔍', style: TextStyle(fontSize: 44)),
             const SizedBox(height: 12),
-            Text('No Notices Found', style: AppTypography.heading2(fontSize: 18)),
+            Text(
+              'No Notices Found',
+              style: AppTypography.heading2(fontSize: 18),
+            ),
             const SizedBox(height: 6),
             Text(
               'No announcements match your search or selected filter.',

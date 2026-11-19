@@ -1,10 +1,11 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+
 import '../models/ad_slide_model.dart';
 import '../models/post_model.dart';
 import '../repositories/feed_repository.dart';
 
-/// Pure Stateless architecture with Provider. Zero setState().
 class FeedProvider extends ChangeNotifier {
   final FeedRepository _repository;
 
@@ -29,7 +30,7 @@ class FeedProvider extends ChangeNotifier {
   List<PostModel> get posts => List.unmodifiable(_posts);
 
   FeedProvider({FeedRepository? repository})
-      : _repository = repository ?? FeedRepositoryImpl() {
+    : _repository = repository ?? FeedRepositoryImpl() {
     _initData();
   }
 
@@ -49,7 +50,8 @@ class FeedProvider extends ChangeNotifier {
 
   List<PostModel> get filteredPosts {
     return _posts.where((post) {
-      final matchesCategory = _selectedCategory == 'all' || post.category == _selectedCategory;
+      final matchesCategory =
+          _selectedCategory == 'all' || post.category == _selectedCategory;
       if (!matchesCategory) return false;
 
       if (_searchQuery.trim().isEmpty) return true;
@@ -194,7 +196,8 @@ class FeedProvider extends ChangeNotifier {
 
   void prevAdSlide() {
     if (_adSlides.isEmpty) return;
-    _currentAdSlide = (_currentAdSlide - 1 + _adSlides.length) % _adSlides.length;
+    _currentAdSlide =
+        (_currentAdSlide - 1 + _adSlides.length) % _adSlides.length;
     _startAdSlideshow();
     notifyListeners();
   }

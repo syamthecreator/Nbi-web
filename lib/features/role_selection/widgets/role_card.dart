@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_typography.dart';
 import '../models/role_item_model.dart';
 
 /// Interactive Role Selection Card with radio checkmark and category badge.
-/// 1:1 match with source_nbi select-role.css (.role-card)
 class RoleCard extends StatelessWidget {
   final RoleItemModel model;
   final bool isSelected;
@@ -36,7 +36,9 @@ class RoleCard extends StatelessWidget {
               : null,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isSelected ? AppColors.primaryOrange : const Color(0xFFEDEDED),
+            color: isSelected
+                ? AppColors.primaryOrange
+                : const Color(0xFFEDEDED),
             width: isSelected ? 2.5 : 1.5,
           ),
           boxShadow: isSelected
@@ -62,7 +64,9 @@ class RoleCard extends StatelessWidget {
                   shape: BoxShape.circle,
                   color: isSelected ? AppColors.primaryOrange : Colors.white,
                   border: Border.all(
-                    color: isSelected ? AppColors.primaryOrange : const Color(0xFFD0D0D0),
+                    color: isSelected
+                        ? AppColors.primaryOrange
+                        : const Color(0xFFD0D0D0),
                     width: 1.5,
                   ),
                 ),
@@ -93,7 +97,11 @@ class RoleCard extends StatelessWidget {
                           shape: BoxShape.circle,
                         ),
                         child: Center(
-                          child: Icon(model.icon, color: model.iconColor, size: 28),
+                          child: Icon(
+                            model.icon,
+                            color: model.iconColor,
+                            size: 28,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 14),

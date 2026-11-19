@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_typography.dart';
 import '../../../core/widgets/background_shapes.dart';
 import '../../../core/widgets/toast_notification.dart';
 import '../providers/workspace_provider.dart';
@@ -11,8 +12,6 @@ import '../widgets/workspace_step2_form.dart';
 import '../widgets/workspace_success_step.dart';
 
 /// Create Workspace Screen - Clean production architecture using Provider.
-/// Pure Stateless architecture with Provider. Zero setState().
-/// 1:1 match with source_nbi/pages/create-workspace.html and create-workspace.css.
 class CreateWorkspaceScreen extends StatelessWidget {
   const CreateWorkspaceScreen({super.key});
 
@@ -42,7 +41,10 @@ class CreateWorkspaceScreen extends StatelessWidget {
                       final step = wsProvider.currentStep;
 
                       if (step == WorkspaceStep.success) {
-                        return WorkspaceSuccessStep(wsProvider: wsProvider, isDesktop: isDesktop);
+                        return WorkspaceSuccessStep(
+                          wsProvider: wsProvider,
+                          isDesktop: isDesktop,
+                        );
                       }
 
                       return Column(
@@ -58,9 +60,15 @@ class CreateWorkspaceScreen extends StatelessWidget {
 
                           // Form Content sits DIRECTLY on page background (no outer container card)
                           if (step == WorkspaceStep.institutionDetails)
-                            WorkspaceStep1Form(wsProvider: wsProvider, isDesktop: isDesktop)
+                            WorkspaceStep1Form(
+                              wsProvider: wsProvider,
+                              isDesktop: isDesktop,
+                            )
                           else if (step == WorkspaceStep.adminDetails)
-                            WorkspaceStep2Form(wsProvider: wsProvider, isDesktop: isDesktop),
+                            WorkspaceStep2Form(
+                              wsProvider: wsProvider,
+                              isDesktop: isDesktop,
+                            ),
                         ],
                       );
                     },
@@ -100,8 +108,8 @@ class _WorkspaceProgressBar extends StatelessWidget {
       children: [
         Text(
           step == WorkspaceStep.institutionDetails ? 'Step 1/2' : 'Step 2/2',
-          style: AppTypography.caption(
-            fontSize: 13.5,
+          style: GoogleFonts.inter(
+            fontSize: 14,
             fontWeight: FontWeight.w700,
             color: const Color(0xFF64748B),
           ),

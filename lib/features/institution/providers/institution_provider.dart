@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+
 import '../models/institution_model.dart';
 import '../repositories/institution_repository.dart';
 
-/// Pure Stateless architecture with Provider. Zero setState().
 class InstitutionProvider extends ChangeNotifier {
   final InstitutionRepository _repository;
   InstitutionRepository get repository => _repository;
@@ -33,7 +33,7 @@ class InstitutionProvider extends ChangeNotifier {
       city: 'Thiruvananthapuram',
       pincode: '695001',
       badgeColor: Color(0xFF991B1B),
-      crestAsset: 'assets/images/joseph-crest.png',
+      crestAsset: 'assets/images/salford-crest.png',
     ),
     const InstitutionModel(
       id: 'inst-4',
@@ -42,7 +42,7 @@ class InstitutionProvider extends ChangeNotifier {
       city: 'Thiruvananthapuram',
       pincode: '695017',
       badgeColor: Color(0xFF065F46),
-      crestAsset: 'assets/images/loyola-crest.png',
+      crestAsset: 'assets/images/salford-crest.png',
     ),
     const InstitutionModel(
       id: 'inst-5',
@@ -51,7 +51,7 @@ class InstitutionProvider extends ChangeNotifier {
       city: 'Thiruvananthapuram',
       pincode: '695035',
       badgeColor: Color(0xFF7C3AED),
-      crestAsset: 'assets/images/carmel-crest.png',
+      crestAsset: 'assets/images/salford-crest.png',
     ),
     const InstitutionModel(
       id: 'inst-6',
@@ -83,41 +83,83 @@ class InstitutionProvider extends ChangeNotifier {
   ];
 
   final Set<String> _selectedInstitutionIds = {};
-  Set<String> get selectedInstitutionIds => Set.unmodifiable(_selectedInstitutionIds);
+  Set<String> get selectedInstitutionIds =>
+      Set.unmodifiable(_selectedInstitutionIds);
 
   String _searchQuery = '';
   String get searchQuery => _searchQuery;
+  final TextEditingController searchController = TextEditingController();
+  final FocusNode searchFocusNode = FocusNode();
+  bool _isSearchFocused = false;
+  bool get isSearchFocused => _isSearchFocused;
 
   bool get hasSelection => _selectedInstitutionIds.isNotEmpty;
   int get selectedCount => _selectedInstitutionIds.length;
 
   List<InstitutionModel> get institutions => filteredInstitutions;
-  List<InstitutionModel> get followedInstitutions =>
-      _allInstitutions.where((i) => _selectedInstitutionIds.contains(i.id)).toList();
+  List<InstitutionModel> get followedInstitutions => _allInstitutions
+      .where((i) => _selectedInstitutionIds.contains(i.id))
+      .toList();
 
   List<InstitutionModel> get filteredInstitutions {
     if (_searchQuery.trim().isEmpty) {
       return _allInstitutions.map((inst) {
-        return inst.copyWith(isFollowing: _selectedInstitutionIds.contains(inst.id));
+        return inst.copyWith(
+          isFollowing: _selectedInstitutionIds.contains(inst.id),
+        );
       }).toList();
     }
     final q = _searchQuery.toLowerCase().trim();
-    return _allInstitutions.where((inst) {
-      return inst.name.toLowerCase().contains(q) ||
-          inst.location.toLowerCase().contains(q) ||
-          inst.city.toLowerCase().contains(q) ||
-          inst.pincode.contains(q);
-    }).map((inst) {
-      return inst.copyWith(isFollowing: _selectedInstitutionIds.contains(inst.id));
-    }).toList();
+    return _allInstitutions
+        .where((inst) {
+          return inst.name.toLowerCase().contains(q) ||
+              inst.location.toLowerCase().contains(q) ||
+              inst.city.toLowerCase().contains(q) ||
+              inst.pincode.contains(q);
+        })
+        .map((inst) {
+          return inst.copyWith(
+            isFollowing: _selectedInstitutionIds.contains(inst.id),
+          );
+        })
+        .toList();
   }
 
   InstitutionProvider({InstitutionRepository? repository})
-      : _repository = repository ?? InstitutionRepositoryImpl();
+    : _repository = repository ?? InstitutionRepositoryImpl() {
+    searchFocusNode.addListener(_onSearchFocusChanged);
+  }
+
+  void _onSearchFocusChanged() {
+    if (_isSearchFocused != searchFocusNode.hasFocus) {
+      _isSearchFocused = searchFocusNode.hasFocus;
+      notifyListeners();
+    }
+  }
 
   void updateSearch(String query) {
     _searchQuery = query;
+    if (searchController.text != query) {
+      searchController.value = TextEditingValue(
+        text: query,
+        selection: TextSelection.collapsed(offset: query.length),
+      );
+    }
     notifyListeners();
+  }
+
+  void clearSearch() {
+    _searchQuery = '';
+    searchController.clear();
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    searchFocusNode.removeListener(_onSearchFocusChanged);
+    searchFocusNode.dispose();
+    searchController.dispose();
+    super.dispose();
   }
 
   void toggleFollow(String id) {

@@ -172,9 +172,11 @@ class WorkspaceSuccessStep extends StatelessWidget {
                             ],
                           ),
                           clipBehavior: Clip.antiAlias,
-                          child: ws?.schoolLogoUrl != null
-                              ? Image.asset(ws!.schoolLogoUrl!, fit: BoxFit.cover)
-                              : const Center(child: Text('🏫', style: TextStyle(fontSize: 26))),
+                          child: ws?.schoolLogoBytes != null
+                              ? Image.memory(ws!.schoolLogoBytes!, fit: BoxFit.cover)
+                              : (ws?.schoolLogoUrl != null
+                                  ? Image.asset(ws!.schoolLogoUrl!, fit: BoxFit.cover)
+                                  : const Center(child: Text('🏫', style: TextStyle(fontSize: 26)))),
                         ),
                         const SizedBox(width: 16),
                         Expanded(

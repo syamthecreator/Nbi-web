@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+
 import '../models/settings_model.dart';
 import '../repositories/settings_repository.dart';
 
-/// Pure Stateless architecture with Provider. Zero setState().
 class SettingsProvider extends ChangeNotifier {
   final SettingsRepository _repository;
 
@@ -16,7 +16,7 @@ class SettingsProvider extends ChangeNotifier {
   String? get toastMessage => _toastMessage;
 
   SettingsProvider({SettingsRepository? repository})
-      : _repository = repository ?? SettingsRepositoryImpl();
+    : _repository = repository ?? SettingsRepositoryImpl();
 
   void setActiveTab(String tab) {
     if (_activeTab != tab) {

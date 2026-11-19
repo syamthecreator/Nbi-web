@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+
 import '../models/profile_model.dart';
 import '../repositories/profile_repository.dart';
 
-/// Pure Stateless architecture with Provider. Zero setState().
 class ProfileProvider extends ChangeNotifier {
   final ProfileRepository _repository;
 
@@ -36,7 +36,7 @@ class ProfileProvider extends ChangeNotifier {
   String? get toastMessage => _toastMessage;
 
   ProfileProvider({ProfileRepository? repository})
-      : _repository = repository ?? ProfileRepositoryImpl();
+    : _repository = repository ?? ProfileRepositoryImpl();
 
   void setRole(String newRole) {
     if (_role != newRole) {
@@ -87,7 +87,9 @@ class ProfileProvider extends ChangeNotifier {
   }
 
   bool saveProfile() {
-    if (_editFullName.trim().isEmpty || _editEmail.trim().isEmpty || _editPhone.trim().isEmpty) {
+    if (_editFullName.trim().isEmpty ||
+        _editEmail.trim().isEmpty ||
+        _editPhone.trim().isEmpty) {
       return false;
     }
 

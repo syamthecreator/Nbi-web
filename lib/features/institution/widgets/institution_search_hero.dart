@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../../core/constants/app_assets.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_typography.dart';
-import '../../../core/widgets/app_logo.dart';
+import '../../../core/constants/app_assets.dart';
 import '../providers/institution_provider.dart';
 
-/// Top peach hero section with brand, search pill, and illustration.
+/// Top peach hero section
 class InstitutionSearchHero extends StatelessWidget {
   final InstitutionProvider instProvider;
   final bool isDesktop;
@@ -19,131 +19,189 @@ class InstitutionSearchHero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       decoration: const BoxDecoration(
         color: Color(0xFFFEF8F5),
-        border: Border(bottom: BorderSide(color: Color(0xFFFFE4D6), width: 1.2)),
+        border: Border(
+          bottom: BorderSide(color: Color(0xFFF2E8E2), width: 1.0),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x0A000000), // rgba(0,0,0,0.04)
+            blurRadius: 20,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 1140),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: isDesktop ? 48 : 20,
-              vertical: isDesktop ? 36 : 24,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
+        children: [
+          // Top Navigation Heade
+          Container(
+            width: double.infinity,
+            height: 72,
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Mini Logo Row
-                Row(
-                  children: [
-                    const AppLogo(width: 44),
-                    const SizedBox(width: 12),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Notice Board ',
-                            style: AppTypography.heading3(
-                              fontSize: 18,
-                              color: AppColors.primaryOrange,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'India',
-                            style: AppTypography.heading3(
-                              fontSize: 18,
-                              color: const Color(0xFF111111),
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  child: Image.asset(
+                    AppAssets.logo,
+                    width: 48,
+                    height: 48,
+                    fit: BoxFit.contain,
+                  ),
                 ),
-                const SizedBox(height: 28),
+                const SizedBox(width: 12),
+                RichText(
+                  text: TextSpan(
+                    style: GoogleFonts.montserrat(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: -0.3,
+                    ),
+                    children: const [
+                      TextSpan(
+                        text: 'Notice Board ',
+                        style: TextStyle(color: AppColors.primaryOrange),
+                      ),
+                      TextSpan(
+                        text: 'India',
+                        style: TextStyle(color: Color(0xFF111111)),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
 
-                // Hero Content Row (Left Search + Right Illustration)
-                Row(
+          // Search Hero Banner Section
+          Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1380),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: isDesktop ? 40 : 18,
+                  vertical: isDesktop ? 16 : 12,
+                ).copyWith(bottom: isDesktop ? 28 : 20),
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    // Left Column: Step Badge, Heading, Subtext, Search Bar
                     Expanded(
-                      flex: 3,
+                      flex: 6,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // Step Badge
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 5,
+                            ),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFFFE4D6),
-                              borderRadius: BorderRadius.circular(20),
+                              color: const Color(0xFFFFF0E6),
+                              borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
                               'Step 1 of 2',
-                              style: AppTypography.caption(
-                                fontSize: 12,
+                              style: GoogleFonts.montserrat(
+                                fontSize: 13,
                                 fontWeight: FontWeight.w700,
-                                color: const Color(0xFFD94800),
+                                color: AppColors.primaryOrange,
                               ),
                             ),
                           ),
                           const SizedBox(height: 14),
 
+                          // Heading
                           Text(
                             'Find Your Educational Institutions',
-                            style: AppTypography.heading1(
-                              fontSize: isDesktop ? 34 : 24,
+                            style: GoogleFonts.montserrat(
+                              fontSize: isDesktop ? 37 : 24,
                               fontWeight: FontWeight.w800,
                               color: const Color(0xFF111111),
+                              height: 1.18,
+                              letterSpacing: -0.5,
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 10),
 
+                          // Subtitle
                           Text(
-                            'Search and follow your school or college to receive real-time updates and notices.',
-                            style: AppTypography.subtitle(
-                              fontSize: 15,
+                            "Search for your child's school to get started.",
+                            style: GoogleFonts.inter(
+                              fontSize: isDesktop ? 16 : 14,
+                              fontWeight: FontWeight.w500,
                               color: const Color(0xFF666666),
+                              height: 1.5,
                             ),
                           ),
                           const SizedBox(height: 24),
 
-                          // Search Pill Input Box
-                          Container(
-                            height: 52,
+                          // Search Bar Input
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 200),
+                            curve: Curves.easeOut,
+                            height: isDesktop ? 52 : 46,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(26),
-                              border: Border.all(color: const Color(0xFFFF8C42), width: 1.5),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color(0xFFFF5A00).withValues(alpha: 0.08),
-                                  blurRadius: 16,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ],
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: instProvider.isSearchFocused
+                                    ? AppColors.primaryOrange
+                                    : const Color(0xFFE5E7EB),
+                                width: 1.5,
+                              ),
+                              boxShadow: instProvider.isSearchFocused
+                                  ? const [
+                                      BoxShadow(
+                                        color: Color(
+                                          0x1FFF5A00,
+                                        ), // rgba(255, 90, 0, 0.12)
+                                        spreadRadius: 3.5,
+                                        blurRadius: 0,
+                                        offset: Offset.zero,
+                                      ),
+                                    ]
+                                  : const [
+                                      BoxShadow(
+                                        color: Color(
+                                          0x08000000,
+                                        ), // rgba(0,0,0,0.03)
+                                        blurRadius: 16,
+                                        offset: Offset(0, 4),
+                                      ),
+                                    ],
                             ),
-                            padding: const EdgeInsets.symmetric(horizontal: 18),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: Row(
                               children: [
-                                const Icon(Icons.search, color: AppColors.primaryOrange, size: 22),
+                                const Icon(
+                                  Icons.search,
+                                  color: Color(0xFF666666),
+                                  size: 20,
+                                ),
                                 const SizedBox(width: 12),
                                 Expanded(
                                   child: TextField(
+                                    controller: instProvider.searchController,
+                                    focusNode: instProvider.searchFocusNode,
                                     onChanged: instProvider.updateSearch,
                                     cursorColor: AppColors.primaryOrange,
-                                    style: AppTypography.bodyMedium(
+                                    style: GoogleFonts.montserrat(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w500,
                                       color: const Color(0xFF111111),
                                     ),
                                     decoration: InputDecoration(
-                                      hintText: 'Search by institution name, location, city, or pincode...',
-                                      hintStyle: AppTypography.bodyMedium(
-                                        fontSize: 14.5,
+                                      hintText: 'Enter school name, city, or pincode...',
+                                      hintStyle: GoogleFonts.inter(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
                                         color: const Color(0xFF999999),
                                       ),
                                       border: InputBorder.none,
@@ -156,9 +214,20 @@ class InstitutionSearchHero extends StatelessWidget {
                                   ),
                                 ),
                                 if (instProvider.searchQuery.isNotEmpty)
-                                  IconButton(
-                                    icon: const Icon(Icons.close, size: 18, color: Color(0xFF888888)),
-                                    onPressed: () => instProvider.updateSearch(''),
+                                  GestureDetector(
+                                    onTap: instProvider.clearSearch,
+                                    behavior: HitTestBehavior.opaque,
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(4.0),
+                                      child: Text(
+                                        '✕',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Color(0xFF888888),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                               ],
                             ),
@@ -166,23 +235,30 @@ class InstitutionSearchHero extends StatelessWidget {
                         ],
                       ),
                     ),
+
+                    // Right Column: School Building Illustration
                     if (isDesktop) ...[
-                      const SizedBox(width: 48),
+                      const SizedBox(width: 32),
                       Expanded(
-                        flex: 2,
-                        child: Image.asset(
-                          AppAssets.loginIllustration1,
-                          height: 220,
-                          fit: BoxFit.contain,
+                        flex: 5,
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(maxHeight: 260),
+                            child: Image.asset(
+                              AppAssets.loginIllustration2,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

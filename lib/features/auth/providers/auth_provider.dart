@@ -1,12 +1,13 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../../../shared/models/user_model.dart';
 import '../../../shared/models/user_role.dart';
 import '../models/auth_state_model.dart';
 import '../repositories/auth_repository.dart';
 
-/// Pure Stateless architecture with Provider. Zero setState().
 class AuthProvider extends ChangeNotifier {
   final AuthRepository _repository;
 
@@ -17,7 +18,7 @@ class AuthProvider extends ChangeNotifier {
   late final TextEditingController phoneController;
 
   AuthProvider({AuthRepository? repository})
-      : _repository = repository ?? AuthRepositoryImpl() {
+    : _repository = repository ?? AuthRepositoryImpl() {
     nameController = TextEditingController(text: _state.fullName);
     emailController = TextEditingController(text: _state.email);
     phoneController = TextEditingController(text: _state.phone);
@@ -25,7 +26,8 @@ class AuthProvider extends ChangeNotifier {
     otpFocusNodes = List.generate(4, (index) {
       final node = FocusNode();
       node.onKeyEvent = (fNode, event) {
-        if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.backspace) {
+        if (event is KeyDownEvent &&
+            event.logicalKey == LogicalKeyboardKey.backspace) {
           if (otpControllers[index].text.isEmpty && index > 0) {
             otpFocusNodes[index - 1].requestFocus();
             return KeyEventResult.handled;
@@ -99,14 +101,20 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<bool> sendOtp() async {
-    if (_state.fullName.trim().isEmpty || _state.email.trim().isEmpty || _state.phone.trim().isEmpty) {
-      _state = _state.copyWith(errorMessage: 'Please fill in Name, Email, and Contact fields.');
+    if (_state.fullName.trim().isEmpty ||
+        _state.email.trim().isEmpty ||
+        _state.phone.trim().isEmpty) {
+      _state = _state.copyWith(
+        errorMessage: 'Please fill in Name, Email, and Contact fields.',
+      );
       notifyListeners();
       return false;
     }
 
     if (!_state.termsAgreed) {
-      _state = _state.copyWith(errorMessage: 'Please accept the Terms of Service to proceed.');
+      _state = _state.copyWith(
+        errorMessage: 'Please accept the Terms of Service to proceed.',
+      );
       notifyListeners();
       return false;
     }
@@ -129,7 +137,6 @@ class AuthProvider extends ChangeNotifier {
       _startResendTimer();
       notifyListeners();
 
-      // Automatically focus first box matching source_nbi signup.js
       Future.delayed(const Duration(milliseconds: 100), () {
         if (otpFocusNodes.isNotEmpty) {
           otpFocusNodes[0].requestFocus();
@@ -178,7 +185,9 @@ class AuthProvider extends ChangeNotifier {
   Future<bool> verifyOtp() async {
     final enteredOtp = otpControllers.map((c) => c.text).join();
     if (enteredOtp.length < 4) {
-      _state = _state.copyWith(errorMessage: 'Please enter a valid 4-digit OTP code.');
+      _state = _state.copyWith(
+        errorMessage: 'Please enter a valid 4-digit OTP code.',
+      );
       notifyListeners();
       return false;
     }
@@ -193,9 +202,15 @@ class AuthProvider extends ChangeNotifier {
         role: _state.selectedRole,
       );
       final verifiedUser = user.copyWith(
-        fullName: _state.fullName.trim().isNotEmpty ? _state.fullName.trim() : user.fullName,
-        email: _state.email.trim().isNotEmpty ? _state.email.trim() : user.email,
-        phone: _state.phone.trim().isNotEmpty ? _state.phone.trim() : user.phone,
+        fullName: _state.fullName.trim().isNotEmpty
+            ? _state.fullName.trim()
+            : user.fullName,
+        email: _state.email.trim().isNotEmpty
+            ? _state.email.trim()
+            : user.email,
+        phone: _state.phone.trim().isNotEmpty
+            ? _state.phone.trim()
+            : user.phone,
         role: _state.selectedRole,
       );
       _state = _state.copyWith(

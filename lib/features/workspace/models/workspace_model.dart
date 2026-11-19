@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 /// Strongly-typed Workspace entity.
 class WorkspaceModel {
   final String institutionName;
@@ -5,6 +7,7 @@ class WorkspaceModel {
   final String institutionType;
   final String institutionCode;
   final String? schoolLogoUrl;
+  final Uint8List? schoolLogoBytes;
   final String adminFullName;
   final String adminDesignation;
   final String adminEmail;
@@ -17,6 +20,7 @@ class WorkspaceModel {
     required this.institutionType,
     required this.institutionCode,
     this.schoolLogoUrl,
+    this.schoolLogoBytes,
     required this.adminFullName,
     required this.adminDesignation,
     required this.adminEmail,
@@ -30,6 +34,7 @@ class WorkspaceModel {
     String? institutionType,
     String? institutionCode,
     String? schoolLogoUrl,
+    Uint8List? schoolLogoBytes,
     String? adminFullName,
     String? adminDesignation,
     String? adminEmail,
@@ -42,6 +47,7 @@ class WorkspaceModel {
       institutionType: institutionType ?? this.institutionType,
       institutionCode: institutionCode ?? this.institutionCode,
       schoolLogoUrl: schoolLogoUrl ?? this.schoolLogoUrl,
+      schoolLogoBytes: schoolLogoBytes ?? this.schoolLogoBytes,
       adminFullName: adminFullName ?? this.adminFullName,
       adminDesignation: adminDesignation ?? this.adminDesignation,
       adminEmail: adminEmail ?? this.adminEmail,
