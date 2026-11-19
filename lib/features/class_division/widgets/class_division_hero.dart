@@ -113,7 +113,9 @@ class ClassDivisionHero extends StatelessWidget {
 
                           // Heading
                           Text(
-                            'Find Your Educational Institutions',
+                            isDesktop
+                                ? 'Find Your Educational\nInstitutions'
+                                : 'Find Your Educational Institutions',
                             style: GoogleFonts.montserrat(
                               fontSize: isDesktop ? 37 : 24,
                               fontWeight: FontWeight.w800,

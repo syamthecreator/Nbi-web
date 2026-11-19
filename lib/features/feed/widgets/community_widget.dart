@@ -12,16 +12,15 @@ class CommunityWidget extends StatelessWidget {
     final feedProvider = context.read<FeedProvider>();
 
     return Container(
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 22),
       decoration: BoxDecoration(
-        color: AppColors.bgWhite,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.borderLight),
-        boxShadow: [
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: const [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.02),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            color: Color(0x08000000),
+            blurRadius: 18,
+            offset: Offset(0, 4),
           ),
         ],
       ),
@@ -30,44 +29,49 @@ class CommunityWidget extends StatelessWidget {
         children: [
           Text(
             'Join NBI Community',
-            style: AppTypography.heading3(fontSize: 16),
+            style: AppTypography.heading3(
+              fontSize: 16.8,
+              fontWeight: FontWeight.w800,
+              color: const Color(0xFF111111),
+            ),
           ),
           const SizedBox(height: 4),
-          Text(
+          const Text(
             'Stay connected with live school notifications & exam updates.',
-            style: AppTypography.caption(fontSize: 12),
+            style: TextStyle(
+              fontSize: 12.8,
+              color: Color(0xFF6B7280),
+              height: 1.4,
+            ),
           ),
           const SizedBox(height: 16),
 
           // WhatsApp Channel
-          _SocialPill(
-            iconEmoji: '💬',
-            title: 'WhatsApp Channel',
-            subtitle: '50k+ Members',
+          _SocialPillBtn(
+            emoji: '💬',
+            name: 'WhatsApp Channel',
+            badge: '50k+ Members',
             actionText: 'Join',
-            actionColor: AppColors.whatsappGreen,
             onTap: () => feedProvider.showToast('🚀 Joining WhatsApp Channel...'),
           ),
           const SizedBox(height: 10),
 
-          // Telegram
-          _SocialPill(
-            iconEmoji: '✈️',
-            title: 'Telegram Updates',
-            subtitle: 'Instant Alerts',
+          // Telegram Updates
+          _SocialPillBtn(
+            emoji: '✈️',
+            name: 'Telegram Updates',
+            badge: 'Instant Alerts',
             actionText: 'Join',
-            actionColor: AppColors.telegramBlue,
             onTap: () => feedProvider.showToast('🚀 Opening Telegram Channel...'),
           ),
           const SizedBox(height: 10),
 
           // Instagram
-          _SocialPill(
-            iconEmoji: '📸',
-            title: 'Instagram',
-            subtitle: '@NoticeBoardIndia',
+          _SocialPillBtn(
+            emoji: '📸',
+            name: 'Instagram',
+            badge: '@NoticeBoardIndia',
             actionText: 'Follow',
-            actionColor: AppColors.instagramPurple,
             onTap: () => feedProvider.showToast('📸 Visiting Instagram Page...'),
           ),
         ],
@@ -76,69 +80,109 @@ class CommunityWidget extends StatelessWidget {
   }
 }
 
-class _SocialPill extends StatelessWidget {
-  final String iconEmoji;
-  final String title;
-  final String subtitle;
+class _SocialPillBtn extends StatefulWidget {
+  final String emoji;
+  final String name;
+  final String badge;
   final String actionText;
-  final Color actionColor;
   final VoidCallback onTap;
 
-  const _SocialPill({
-    required this.iconEmoji,
-    required this.title,
-    required this.subtitle,
+  const _SocialPillBtn({
+    required this.emoji,
+    required this.name,
+    required this.badge,
     required this.actionText,
-    required this.actionColor,
     required this.onTap,
   });
 
   @override
+  State<_SocialPillBtn> createState() => _SocialPillBtnState();
+}
+
+class _SocialPillBtnState extends State<_SocialPillBtn> {
+  bool _isHovered = false;
+
+  @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(8),
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: BoxDecoration(
-          color: AppColors.bgSurface,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Row(
-          children: [
-            Text(iconEmoji, style: const TextStyle(fontSize: 20)),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: AppTypography.bodyBold(fontSize: 13),
-                  ),
-                  Text(
-                    subtitle,
-                    style: AppTypography.caption(fontSize: 11),
-                  ),
-                ],
-              ),
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          transform: _isHovered
+              ? Matrix4.translationValues(0, -1, 0)
+              : Matrix4.identity(),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          decoration: BoxDecoration(
+            color: _isHovered ? Colors.white : const Color(0xFFF9FAFB),
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+              color: _isHovered ? const Color(0xFFFFB380) : const Color(0xFFF3F4F6),
+              width: 1,
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                color: actionColor,
-                borderRadius: BorderRadius.circular(4),
+            boxShadow: _isHovered
+                ? const [
+                    BoxShadow(
+                      color: Color(0x0A000000),
+                      blurRadius: 14,
+                      offset: Offset(0, 4),
+                    ),
+                  ]
+                : null,
+          ),
+          child: Row(
+            children: [
+              Text(
+                widget.emoji,
+                style: const TextStyle(fontSize: 20),
               ),
-              child: Text(
-                actionText,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.name,
+                      style: const TextStyle(
+                        fontSize: 13.8,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF111111),
+                      ),
+                    ),
+                    const SizedBox(height: 1),
+                    Text(
+                      widget.badge,
+                      style: const TextStyle(
+                        fontSize: 11.8,
+                        color: Color(0xFF6B7280),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ],
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: _isHovered
+                      ? AppColors.primaryOrange
+                      : const Color(0xFFFFF0E6),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  widget.actionText,
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w700,
+                    color: _isHovered ? Colors.white : AppColors.primaryOrange,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

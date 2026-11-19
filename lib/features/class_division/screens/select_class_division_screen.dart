@@ -47,51 +47,35 @@ class SelectClassDivisionScreen extends StatelessWidget {
                           child: LayoutBuilder(
                             builder: (context, constraints) {
                               final isTwoCol = constraints.maxWidth > 768;
-                              if (isTwoCol) {
-                                return Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                              const double gap = 24;
+
+                              // 2 columns on desktop, 1 column on mobile
+                              final double cardWidth = isTwoCol
+                                  ? (constraints.maxWidth - gap) / 2
+                                  : constraints.maxWidth;
+
+                              return SizedBox(
+                                width: constraints.maxWidth, // full width, so the Center can't shift the cards
+                                child: Wrap(
+                                  spacing: gap,
+                                  runSpacing: isTwoCol ? gap : 16,
+                                  alignment: WrapAlignment.start,
+                                  crossAxisAlignment: WrapCrossAlignment.start,
                                   children: [
-                                    for (
-                                      int i = 0;
-                                      i < schools.length;
-                                      i++
-                                    ) ...[
-                                      if (i > 0) const SizedBox(width: 24),
-                                      Expanded(
+                                    for (final school in schools)
+                                      SizedBox(
+                                        width: cardWidth,
                                         child: SchoolClassCard(
-                                          school: schools[i],
+                                          school: school,
                                           onSelectClass: (cls) => cdProvider
-                                              .selectClass(schools[i].id, cls),
-                                          onSelectDivision: (div) =>
-                                              cdProvider.selectDivision(
-                                                schools[i].id,
-                                                div,
-                                              ),
+                                              .selectClass(school.id, cls),
+                                          onSelectDivision: (div) => cdProvider
+                                              .selectDivision(school.id, div),
                                         ),
                                       ),
-                                    ],
                                   ],
-                                );
-                              } else {
-                                return Column(
-                                  children: [
-                                    for (
-                                      int i = 0;
-                                      i < schools.length;
-                                      i++
-                                    ) ...[
-                                      if (i > 0) const SizedBox(height: 16),
-                                      SchoolClassCard(
-                                        school: schools[i],
-                                        onSelectClass: (cls) => cdProvider
-                                            .selectClass(schools[i].id, cls),
-                                        onSelectDivision: (div) => cdProvider
-                                            .selectDivision(schools[i].id, div),
-                                      ),
-                                    ],
-                                  ],
-                                );
-                              }
+                                ),
+                              );
                             },
                           ),
                         ),

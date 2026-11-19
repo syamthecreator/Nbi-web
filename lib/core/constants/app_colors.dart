@@ -14,7 +14,8 @@ class AppColors {
   static const Color bgWhite = Color(0xFFFFFFFF);
   static const Color bgHeroCream = Color(0xFFFEF8F5);
   static const Color bgLightGrey = Color(0xFFF9FAFB);
-  static const Color bgSurface = Color(0xFFF3F4F6);
+  static const Color bgSurface = Color(0xFFF6F7F9);
+  static const Color feedBg = Color(0xFFF6F7F9);
 
   // Text Colors
   static const Color textDark = Color(0xFF000000);
@@ -36,18 +37,26 @@ class AppColors {
   static const Color roleGreenBg = Color(0xFFF0FDF4);
   static const Color roleGreenText = Color(0xFF16A34A);
 
-  // Badges & Categories
-  static const Color urgentBg = Color(0xFFFEF2F2);
+  // Badges & Categories (Exact source_nbi tokens)
+  static const Color urgentBg = Color(0xFFFEE2E2);
   static const Color urgentText = Color(0xFFDC2626);
   static const Color homeworkBg = Color(0xFFEFF6FF);
   static const Color homeworkText = Color(0xFF2563EB);
-  static const Color eventsBg = Color(0xFFFAF5FF);
-  static const Color eventsText = Color(0xFF9333EA);
-  static const Color feesBg = Color(0xFFFFFBEB);
-  static const Color feesText = Color(0xFFD97706);
-  static const Color announcementBg = Color(0xFFF0FDF4);
-  static const Color announcementText = Color(0xFF16A34A);
+  static const Color eventsBg = Color(0xFFFEF3C7);
+  static const Color eventsText = Color(0xFFD97706);
+  static const Color feesBg = Color(0xFFECFDF5);
+  static const Color feesText = Color(0xFF059669);
+  static const Color announcementBg = Color(0xFFF3E8FF);
+  static const Color announcementText = Color(0xFF7C3AED);
   static const Color activeGreen = Color(0xFF22C55E);
+
+  // Gradients & Buttons
+  static const Color orangeGradientStart = Color(0xFFFF6000);
+  static const Color orangeGradientEnd = Color(0xFFFF4500);
+  static const Color navyBtnStart = Color(0xFF1E293B);
+  static const Color navyBtnEnd = Color(0xFF0F172A);
+  static const Color adDiscountBg = Color(0xFFFFF0E6);
+  static const Color adDiscountText = Color(0xFFD94800);
 
   // Social Brand Colors
   static const Color whatsappGreen = Color(0xFF25D366);

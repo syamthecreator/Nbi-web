@@ -119,7 +119,7 @@ class InstitutionSearchHero extends StatelessWidget {
 
                           // Heading
                           Text(
-                            'Find Your Educational Institutions',
+                            'Find Your Educational\nInstitutions',
                             style: GoogleFonts.montserrat(
                               fontSize: isDesktop ? 37 : 24,
                               fontWeight: FontWeight.w800,

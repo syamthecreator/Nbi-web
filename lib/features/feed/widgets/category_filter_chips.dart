@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_typography.dart';
 import '../providers/feed_provider.dart';
@@ -24,40 +25,79 @@ class CategoryFilterChips extends StatelessWidget {
       runSpacing: 8,
       children: categories.map((cat) {
         final isSelected = feedProvider.selectedCategory == cat['key'];
-        return InkWell(
-          borderRadius: BorderRadius.circular(20),
+        return _FilterChipItem(
+          label: cat['label']!,
+          isSelected: isSelected,
           onTap: () => feedProvider.setCategory(cat['key']!),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 180),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
-            decoration: BoxDecoration(
-              color: isSelected ? AppColors.primaryOrange : const Color(0xFFF1F5F9),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: isSelected ? AppColors.primaryOrange : Colors.transparent,
-                width: 1.5,
-              ),
-              boxShadow: isSelected
-                  ? [
-                      BoxShadow(
-                        color: const Color(0xFFFF5A00).withValues(alpha: 0.25),
-                        blurRadius: 10,
-                        offset: const Offset(0, 3),
-                      ),
-                    ]
-                  : null,
-            ),
-            child: Text(
-              cat['label']!,
-              style: AppTypography.caption(
-                fontSize: 12,
-                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
-                color: isSelected ? Colors.white : const Color(0xFF475569),
-              ),
-            ),
-          ),
         );
       }).toList(),
+    );
+  }
+}
+
+class _FilterChipItem extends StatefulWidget {
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _FilterChipItem({
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  State<_FilterChipItem> createState() => _FilterChipItemState();
+}
+
+class _FilterChipItemState extends State<_FilterChipItem> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final bool active = widget.isSelected;
+    final Color bgColor = active
+        ? AppColors.primaryOrange
+        : (_isHovered ? const Color(0xFFE5E7EB) : const Color(0xFFF2F3F5));
+    final Color textColor = active
+        ? Colors.white
+        : (_isHovered ? const Color(0xFF111111) : const Color(0xFF555555));
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 180),
+          transform: _isHovered && !active
+              ? Matrix4.translationValues(0, -1, 0)
+              : Matrix4.identity(),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 7),
+          decoration: BoxDecoration(
+            color: bgColor,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: active
+                ? const [
+                    BoxShadow(
+                      color: Color(0x47FF5A00),
+                      blurRadius: 12,
+                      offset: Offset(0, 4),
+                    ),
+                  ]
+                : null,
+          ),
+          child: Text(
+            widget.label,
+            style: AppTypography.bodyMedium(
+              fontSize: 13.5,
+              fontWeight: FontWeight.w600,
+              color: textColor,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

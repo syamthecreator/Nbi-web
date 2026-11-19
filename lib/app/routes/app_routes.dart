@@ -30,7 +30,7 @@ class AppRoutes {
     createWorkspace: (context) => const CreateWorkspaceScreen(),
     selectInstitution: (context) => const SelectInstitutionScreen(),
     selectClassDivision: (context) => const SelectClassDivisionScreen(),
-    schoolFeed: (context) => const SchoolFeedScreen(),
+    schoolFeed: (context) => const SchoolFeedScreen(initialSection: AppRoutes.schoolFeed),
     profile: (context) => const ProfileScreen(),
     settings: (context) => const SettingsScreen(),
   };

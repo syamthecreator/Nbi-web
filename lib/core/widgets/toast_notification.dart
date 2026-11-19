@@ -10,39 +10,40 @@ class ToastNotification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 24,
-      right: 24,
+      bottom: 30,
+      right: 30,
       child: Material(
-        elevation: 10,
-        borderRadius: BorderRadius.circular(10),
+        elevation: 0,
+        borderRadius: BorderRadius.circular(14),
         color: Colors.transparent,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
+          padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
           constraints: const BoxConstraints(maxWidth: 420),
           decoration: BoxDecoration(
-            color: const Color(0xFF0F172A),
-            borderRadius: BorderRadius.circular(10),
-            border: const Border(
-              left: BorderSide(color: Color(0xFFFF5A00), width: 4),
+            gradient: const LinearGradient(
+              colors: [Color(0xFFFF6000), Color(0xFFFF4500)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
+            borderRadius: BorderRadius.circular(14),
             boxShadow: const [
               BoxShadow(
-                color: Color(0x33000000),
-                blurRadius: 30,
-                offset: Offset(0, 10),
+                color: Color(0x59FF5A00),
+                blurRadius: 24,
+                offset: Offset(0, 8),
               ),
             ],
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
+              Flexible(
                 child: Text(
                   message,
-                  style: GoogleFonts.inter(
+                  style: GoogleFonts.montserrat(
                     color: Colors.white,
                     fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
@@ -52,7 +53,7 @@ class ToastNotification extends StatelessWidget {
                   onTap: onDismiss,
                   child: const Icon(
                     Icons.close,
-                    color: Colors.white70,
+                    color: Colors.white,
                     size: 16,
                   ),
                 ),
