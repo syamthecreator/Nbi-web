@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_typography.dart';
 import '../providers/feed_provider.dart';
+import 'video_ad_player/video_ad_player.dart';
 
 class SponsoredStoreWidget extends StatefulWidget {
   const SponsoredStoreWidget({super.key});
@@ -32,6 +34,7 @@ class _SponsoredStoreWidgetState extends State<SponsoredStoreWidget> {
     return Consumer<FeedProvider>(
       builder: (context, feedProvider, _) {
         if (feedProvider.adSlides.isEmpty) return const SizedBox.shrink();
+
         final currentSlideIndex = feedProvider.currentAdSlide;
         final slide = feedProvider.adSlides[currentSlideIndex];
 
@@ -52,10 +55,15 @@ class _SponsoredStoreWidgetState extends State<SponsoredStoreWidget> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: const Color(0x0D000000)),
+              border: Border.all(
+                color: const Color(0x0A000000),
+                width: 1,
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: _isCardHovered ? const Color(0x12000000) : const Color(0x0A000000),
+                  color: _isCardHovered
+                      ? const Color(0x12000000)
+                      : const Color(0x0A000000),
                   blurRadius: _isCardHovered ? 28 : 24,
                   offset: Offset(0, _isCardHovered ? 10 : 8),
                 ),
@@ -69,10 +77,10 @@ class _SponsoredStoreWidgetState extends State<SponsoredStoreWidget> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Flexible(
+                    Flexible(
                       child: Text(
                         '🔥 SPONSORED STORE',
-                        style: TextStyle(
+                        style: GoogleFonts.montserrat(
                           color: AppColors.primaryOrange,
                           fontSize: 11.5,
                           fontWeight: FontWeight.w900,
@@ -94,8 +102,8 @@ class _SponsoredStoreWidgetState extends State<SponsoredStoreWidget> {
                       ),
                       child: Text(
                         slide.discountTag,
-                        style: const TextStyle(
-                          color: Color(0xFFD94800),
+                        style: GoogleFonts.montserrat(
+                          color: const Color(0xFFD94800),
                           fontSize: 11.5,
                           fontWeight: FontWeight.w800,
                         ),
@@ -112,52 +120,46 @@ class _SponsoredStoreWidgetState extends State<SponsoredStoreWidget> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(14),
                     border: Border.all(color: const Color(0x14000000)),
+                    color: Colors.black,
                   ),
                   clipBehavior: Clip.antiAlias,
                   child: Stack(
                     children: [
-                      // Banner Image
+                      // Video or Image Banner
                       Positioned.fill(
-                        child: AnimatedScale(
-                          scale: _isCardHovered ? 1.04 : 1.0,
-                          duration: const Duration(milliseconds: 350),
-                          curve: const Cubic(0.25, 1, 0.5, 1),
-                          child: Image.asset(
-                            slide.mediaAsset,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) => Container(
-                              color: const Color(0xFF0F172A),
-                              child: const Center(
-                                child: Icon(Icons.school, size: 48, color: Colors.white38),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      // Center Play Button Overlay on Video Slides
-                      if (slide.isVideo)
-                        Positioned.fill(
-                          child: Center(
-                            child: Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.black.withValues(alpha: 0.45),
-                                border: Border.all(
-                                  color: Colors.white.withValues(alpha: 0.4),
-                                  width: 1.5,
+                        child: slide.isVideo
+                            ? buildVideoAdView(
+                                videoAsset: slide.mediaAsset,
+                                videoId: '${slide.id}',
+                                isPlaying: !_isCardHovered,
+                                fallback: Container(
+                                  color: const Color(0xFF000000),
+                                  child: Image.asset(
+                                    slide.id == 1
+                                        ? 'assets/images/school_supplies_ad.jpg'
+                                        : 'assets/images/school_building_3d_hero.jpg',
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) =>
+                                        Container(color: const Color(0xFF0F172A)),
+                                  ),
+                                ),
+                              )
+                            : AnimatedScale(
+                                scale: _isCardHovered ? 1.04 : 1.0,
+                                duration: const Duration(milliseconds: 350),
+                                curve: const Cubic(0.25, 1, 0.5, 1),
+                                child: Image.asset(
+                                  slide.mediaAsset,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) => Container(
+                                    color: const Color(0xFF0F172A),
+                                    child: const Center(
+                                      child: Icon(Icons.school, size: 48, color: Colors.white38),
+                                    ),
+                                  ),
                                 ),
                               ),
-                              child: const Icon(
-                                Icons.play_arrow_rounded,
-                                size: 32,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
+                      ),
 
                       // HD Video Badge on Video Slides (Top Right)
                       if (slide.isVideo)
@@ -182,11 +184,11 @@ class _SponsoredStoreWidgetState extends State<SponsoredStoreWidget> {
                                   ),
                                 ),
                                 const SizedBox(width: 5),
-                                const Text(
-                                  'HD',
-                                  style: TextStyle(
+                                Text(
+                                  'HD VIDEO',
+                                  style: GoogleFonts.montserrat(
                                     color: Colors.white,
-                                    fontSize: 10.5,
+                                    fontSize: 10.8,
                                     fontWeight: FontWeight.w700,
                                     letterSpacing: 0.5,
                                   ),
@@ -329,7 +331,7 @@ class _SponsoredStoreWidgetState extends State<SponsoredStoreWidget> {
                 // Ad Content Box
                 Text(
                   slide.title,
-                  style: AppTypography.heading3(
+                  style: GoogleFonts.montserrat(
                     fontSize: 16.3,
                     fontWeight: FontWeight.w900,
                     color: const Color(0xFF111111),
@@ -338,9 +340,10 @@ class _SponsoredStoreWidgetState extends State<SponsoredStoreWidget> {
                 const SizedBox(height: 6),
                 Text(
                   slide.description,
-                  style: const TextStyle(
-                    fontSize: 13,
-                    color: Color(0xFF4B5563),
+                  style: GoogleFonts.inter(
+                    fontSize: 13.1,
+                    fontWeight: FontWeight.w400,
+                    color: const Color(0xFF4B5563),
                     height: 1.48,
                   ),
                 ),
@@ -390,8 +393,8 @@ class _SponsoredStoreWidgetState extends State<SponsoredStoreWidget> {
                         children: [
                           Text(
                             slide.actionText,
-                            style: AppTypography.bodyBold(
-                              fontSize: 13.7,
+                            style: GoogleFonts.montserrat(
+                              fontSize: 13.8,
                               fontWeight: FontWeight.w800,
                               color: Colors.white,
                             ),

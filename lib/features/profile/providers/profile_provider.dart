@@ -86,16 +86,18 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool saveProfile() {
-    if (_editFullName.trim().isEmpty ||
-        _editEmail.trim().isEmpty ||
-        _editPhone.trim().isEmpty) {
+  bool saveProfile({String? name, String? email, String? phone}) {
+    final newName = (name ?? _editFullName).trim();
+    final newEmail = (email ?? _editEmail).trim();
+    final newPhone = (phone ?? _editPhone).trim();
+
+    if (newName.isEmpty || newEmail.isEmpty || newPhone.isEmpty) {
       return false;
     }
 
-    _fullName = _editFullName.trim();
-    _email = _editEmail.trim();
-    _phone = _editPhone.trim();
+    _fullName = newName;
+    _email = newEmail;
+    _phone = newPhone;
     _isEditModalOpen = false;
 
     _repository.saveProfile(

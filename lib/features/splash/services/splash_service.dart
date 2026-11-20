@@ -12,6 +12,6 @@ class SplashServiceImpl extends SplashService {
   @override
   Future<void> prefetchInitialData() async {
     // Initial warmup / pre-fetch logic
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 1000));
   }
 }

@@ -18,6 +18,7 @@ class AppAssets {
   static const String schoolIllustration = 'assets/images/school-illustration.jpg';
   static const String buildingSketch = 'assets/images/building-sketch.png';
   static const String buildingSketchAlt = 'assets/images/imgz.png';
+  static const String splashKids = 'assets/images/imgz.png';
 
   // Crests
   static const String crestSalford = 'assets/images/salford-crest.png';

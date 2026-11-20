@@ -130,7 +130,7 @@ class FeedRepositoryImpl implements FeedRepository {
         title: '🎬 Student Life & Sports Highlights',
         description:
             'Explore sports meets, science exhibitions, robotics clubs & annual cultural fest moments.',
-        mediaAsset: 'assets/images/school_supplies_ad.jpg',
+        mediaAsset: 'assets/video/vid2.mp4',
         actionText: 'Watch Highlights',
         discountTag: 'UP TO 40% OFF',
         isVideo: true,
@@ -150,7 +150,7 @@ class FeedRepositoryImpl implements FeedRepository {
         title: '🎥 Smart Learning & Campus Tour',
         description:
             'Discover interactive digital learning tools, lab resources & smart classrooms in action.',
-        mediaAsset: 'assets/images/school_building_3d_hero.jpg',
+        mediaAsset: 'assets/video/vid.mp4',
         actionText: 'Watch Campus Tour',
         discountTag: 'UP TO 40% OFF',
         isVideo: true,

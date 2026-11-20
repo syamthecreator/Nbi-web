@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../app/routes/app_routes.dart';
 import '../constants/app_assets.dart';
 import '../constants/app_colors.dart';
@@ -133,17 +134,19 @@ class SidebarNavigation extends StatelessWidget {
                 ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 210),
                   child: Image.asset(
-                    AppAssets.buildingSketchAlt,
+                    activeRoute == AppRoutes.schoolFeed
+                        ? AppAssets.splashKids
+                        : AppAssets.buildingSketch,
                     fit: BoxFit.contain,
                   ),
                 ),
                 const SizedBox(height: 12),
-                const Text(
+                Text(
                   '© 2024 Notice Board India\nAll rights reserved.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     fontSize: 11.5,
-                    color: Color(0xFF888888),
+                    color: const Color(0xFF888888),
                     height: 1.4,
                   ),
                 ),
@@ -231,7 +234,7 @@ class _SidebarItemState extends State<_SidebarItem> {
                     const SizedBox(width: 14),
                     Text(
                       widget.title,
-                      style: AppTypography.bodyMedium(
+                      style: GoogleFonts.montserrat(
                         fontSize: 15.0,
                         fontWeight: active ? FontWeight.w700 : FontWeight.w600,
                         color: itemColor,

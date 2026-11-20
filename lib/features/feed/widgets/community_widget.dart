@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_typography.dart';
 import '../providers/feed_provider.dart';
 
 class CommunityWidget extends StatelessWidget {
@@ -29,18 +29,19 @@ class CommunityWidget extends StatelessWidget {
         children: [
           Text(
             'Join NBI Community',
-            style: AppTypography.heading3(
+            style: GoogleFonts.montserrat(
               fontSize: 16.8,
               fontWeight: FontWeight.w800,
               color: const Color(0xFF111111),
             ),
           ),
           const SizedBox(height: 4),
-          const Text(
+          Text(
             'Stay connected with live school notifications & exam updates.',
-            style: TextStyle(
+            style: GoogleFonts.inter(
               fontSize: 12.8,
-              color: Color(0xFF6B7280),
+              fontWeight: FontWeight.w400,
+              color: const Color(0xFF6B7280),
               height: 1.4,
             ),
           ),
@@ -146,18 +147,19 @@ class _SocialPillBtnState extends State<_SocialPillBtn> {
                   children: [
                     Text(
                       widget.name,
-                      style: const TextStyle(
+                      style: GoogleFonts.montserrat(
                         fontSize: 13.8,
                         fontWeight: FontWeight.w700,
-                        color: Color(0xFF111111),
+                        color: const Color(0xFF111111),
                       ),
                     ),
                     const SizedBox(height: 1),
                     Text(
                       widget.badge,
-                      style: const TextStyle(
+                      style: GoogleFonts.inter(
                         fontSize: 11.8,
-                        color: Color(0xFF6B7280),
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xFF6B7280),
                       ),
                     ),
                   ],
@@ -174,7 +176,7 @@ class _SocialPillBtnState extends State<_SocialPillBtn> {
                 ),
                 child: Text(
                   widget.actionText,
-                  style: TextStyle(
+                  style: GoogleFonts.montserrat(
                     fontSize: 12.5,
                     fontWeight: FontWeight.w700,
                     color: _isHovered ? Colors.white : AppColors.primaryOrange,

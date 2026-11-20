@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_typography.dart';
 import '../models/post_model.dart';
 import '../providers/feed_provider.dart';
 
@@ -109,10 +109,11 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                           child: Image.asset(
                             post.schoolLogo,
                             fit: BoxFit.contain,
-                            errorBuilder: (context, error, stackTrace) => const Icon(
-                              Icons.school,
-                              color: AppColors.primaryOrange,
-                            ),
+                            errorBuilder: (context, error, stackTrace) =>
+                                const Icon(
+                                  Icons.school,
+                                  color: AppColors.primaryOrange,
+                                ),
                           ),
                         ),
                       ),
@@ -125,8 +126,8 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                           children: [
                             Text(
                               post.schoolName,
-                              style: AppTypography.heading3(
-                                fontSize: 15.5,
+                              style: GoogleFonts.montserrat(
+                                fontSize: 15.6,
                                 fontWeight: FontWeight.w700,
                                 color: const Color(0xFF111111),
                               ),
@@ -135,10 +136,10 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                             const SizedBox(height: 2),
                             Text(
                               post.authorMeta,
-                              style: const TextStyle(
-                                fontSize: 13,
-                                color: Color(0xFF777777),
-                                fontWeight: FontWeight.w400,
+                              style: GoogleFonts.inter(
+                                fontSize: 12.0,
+                                color: const Color(0xFF888888),
+                                fontWeight: FontWeight.w600,
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -164,26 +165,35 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                       data: Theme.of(context).copyWith(
                         highlightColor: Colors.transparent,
                         splashColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
                       ),
                       child: PopupMenuButton<String>(
                         icon: Icon(
-                          Icons.more_horiz,
+                          Icons.more_vert, // vertical dots like the reference
                           color: _isMoreHovered
                               ? const Color(0xFF111111)
                               : const Color(0xFF888888),
-                          size: 18,
+                          size: 20,
                         ),
                         padding: EdgeInsets.zero,
+                        position:
+                            PopupMenuPosition.under, // opens below the button
+                        offset: const Offset(0, 4),
                         color: Colors.white,
-                        elevation: 8,
+                        surfaceTintColor: Colors.transparent,
+                        shadowColor: const Color(0x33000000),
+                        elevation: 10,
+                        constraints: const BoxConstraints(
+                          minWidth: 190,
+                          maxWidth: 230,
+                        ),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(12),
                           side: const BorderSide(
                             color: Color(0x14000000),
                             width: 1,
                           ),
                         ),
-                        offset: const Offset(0, 36),
                         onSelected: (action) {
                           switch (action) {
                             case 'pin':
@@ -201,92 +211,40 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                           }
                         },
                         itemBuilder: (context) => [
-                          PopupMenuItem(
-                            value: 'pin',
-                            height: 38,
-                            padding: const EdgeInsets.symmetric(horizontal: 14),
-                            child: Row(
-                              children: [
-                                Text(
-                                  post.isPinned ? '📍' : '📌',
-                                  style: const TextStyle(fontSize: 15),
-                                ),
-                                const SizedBox(width: 10),
-                                Text(
-                                  post.isPinned
-                                      ? 'Unpin from Top'
-                                      : 'Pin to Top of Feed',
-                                  style: const TextStyle(
-                                    fontSize: 13.5,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xFF374151),
-                                  ),
-                                ),
-                              ],
+                          _menuItem(
+                            'pin',
+                            '📌',
+                            post.isPinned
+                                ? 'Unpin from Top'
+                                : 'Pin to Top of Feed',
+                          ),
+                          _menuItem('copy', '🔗', 'Copy Notice Link'),
+                          _menuItem(
+                            'mute',
+                            post.isMuted ? '🔔' : '🔕',
+                            post.isMuted
+                                ? 'Unmute School Alerts'
+                                : 'Mute School Alerts',
+                          ),
+                          // Thin light divider (replaces the thick black PopupMenuDivider)
+                          const PopupMenuItem<String>(
+                            enabled: false,
+                            height: 17,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 8,
+                            ),
+                            child: Divider(
+                              height: 1,
+                              thickness: 1,
+                              color: Color(0xFFF0F1F3),
                             ),
                           ),
-                          const PopupMenuItem(
-                            value: 'copy',
-                            height: 38,
-                            padding: EdgeInsets.symmetric(horizontal: 14),
-                            child: Row(
-                              children: [
-                                Text('🔗', style: TextStyle(fontSize: 15)),
-                                SizedBox(width: 10),
-                                Text(
-                                  'Copy Notice Link',
-                                  style: TextStyle(
-                                    fontSize: 13.5,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xFF374151),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          PopupMenuItem(
-                            value: 'mute',
-                            height: 38,
-                            padding: const EdgeInsets.symmetric(horizontal: 14),
-                            child: Row(
-                              children: [
-                                Text(
-                                  post.isMuted ? '🔔' : '🔕',
-                                  style: const TextStyle(fontSize: 15),
-                                ),
-                                const SizedBox(width: 10),
-                                Text(
-                                  post.isMuted
-                                      ? 'Unmute School Alerts'
-                                      : 'Mute School Alerts',
-                                  style: const TextStyle(
-                                    fontSize: 13.5,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xFF374151),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const PopupMenuDivider(height: 8),
-                          const PopupMenuItem(
-                            value: 'report',
-                            height: 38,
-                            padding: EdgeInsets.symmetric(horizontal: 14),
-                            child: Row(
-                              children: [
-                                Text('🚩', style: TextStyle(fontSize: 15)),
-                                SizedBox(width: 10),
-                                Text(
-                                  'Report Announcement',
-                                  style: TextStyle(
-                                    fontSize: 13.5,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xFFEF4444),
-                                  ),
-                                ),
-                              ],
-                            ),
+                          _menuItem(
+                            'report',
+                            '🚩',
+                            'Report Announcement',
+                            color: const Color(0xFFEF4444),
                           ),
                         ],
                       ),
@@ -341,10 +299,11 @@ class _PostCardWidgetState extends State<PostCardWidget> {
             // Post Title
             Text(
               post.title,
-              style: AppTypography.heading2(
+              style: GoogleFonts.montserrat(
                 fontSize: 18.8,
                 fontWeight: FontWeight.w800,
                 color: const Color(0xFF111111),
+                letterSpacing: -0.2,
               ),
             ),
             const SizedBox(height: 8),
@@ -352,10 +311,12 @@ class _PostCardWidgetState extends State<PostCardWidget> {
             // Post Text
             Text(
               post.content,
-              style: AppTypography.bodyMedium(
+              style: GoogleFonts.inter(
                 fontSize: 14.7,
                 color: const Color(0xFF4B5563),
-              ).copyWith(height: 1.52),
+                fontWeight: FontWeight.w400,
+                height: 1.52,
+              ),
             ),
 
             // PDF Attachment Card
@@ -409,18 +370,19 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                             children: [
                               Text(
                                 post.attachmentName!,
-                                style: const TextStyle(
+                                style: GoogleFonts.inter(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w700,
-                                  color: Color(0xFF111111),
+                                  color: const Color(0xFF111111),
                                 ),
                               ),
                               if (post.attachmentSize != null)
                                 Text(
                                   post.attachmentSize!,
-                                  style: const TextStyle(
+                                  style: GoogleFonts.inter(
                                     fontSize: 12.5,
-                                    color: Color(0xFF6B7280),
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xFF6B7280),
                                   ),
                                 ),
                             ],
@@ -609,6 +571,38 @@ class _PostCardWidgetState extends State<PostCardWidget> {
     );
   }
 
+  PopupMenuItem<String> _menuItem(
+    String value,
+    String emoji,
+    String label, {
+    Color color = const Color(0xFF1F2937),
+  }) {
+    return PopupMenuItem<String>(
+      value: value,
+      height: 42,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 22,
+            child: Text(emoji, style: const TextStyle(fontSize: 15)),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              label,
+              style: GoogleFonts.inter(
+                fontSize: 13.5,
+                fontWeight: FontWeight.w600,
+                color: color,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildBadge(PostModel post) {
     Color bg;
     Color fg;
@@ -645,7 +639,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
       ),
       child: Text(
         post.badgeText,
-        style: TextStyle(
+        style: GoogleFonts.inter(
           color: fg,
           fontSize: 12,
           fontWeight: FontWeight.w800,

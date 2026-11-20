@@ -89,6 +89,8 @@ class _FeedSearchBarState extends State<FeedSearchBar> {
                 color: const Color(0xFF111111),
               ),
               decoration: InputDecoration(
+                filled: false,
+                fillColor: Colors.transparent,
                 hintText: 'Search notices, homework, events...',
                 hintStyle: GoogleFonts.inter(
                   color: const Color(0xFF9CA3AF),

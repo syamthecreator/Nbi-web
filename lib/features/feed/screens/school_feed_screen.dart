@@ -174,109 +174,115 @@ class _SchoolFeedScreenState extends State<SchoolFeedScreen> {
   ) {
     final posts = feedProvider.filteredPosts;
 
-    return CustomScrollView(
-      slivers: [
-        // Sticky / Top Header Card
-        SliverToBoxAdapter(
-          child: Container(
-            margin: const EdgeInsets.only(bottom: 20),
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: const Color(0x0A000000), width: 1),
-              boxShadow: const [
-                BoxShadow(
-                  color: Color(0x0D000000),
-                  blurRadius: 20,
-                  offset: Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Top Row: Title & Updates Count
-                Row(
-                  children: [
-                    Text(
-                      'School Feed',
-                      style: AppTypography.heading1(
-                        fontSize: 23,
-                        fontWeight: FontWeight.w800,
-                        color: const Color(0xFF111111),
+    return Column(
+      children: [
+        // FIXED header card (does not scroll)
+        Container(
+          margin: const EdgeInsets.only(bottom: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: const Color(0x0A000000), width: 1),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x0D000000),
+                blurRadius: 20,
+                offset: Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    'School Feed',
+                    style: AppTypography.heading1(
+                      fontSize: 23,
+                      fontWeight: FontWeight.w800,
+                      color: const Color(0xFF111111),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 11,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color(0x1AFF5A00),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      '${posts.length} ${posts.length == 1 ? 'Update' : 'Updates'}',
+                      style: const TextStyle(
+                        color: AppColors.primaryOrange,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
-                    const SizedBox(width: 10),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 11,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0x1AFF5A00),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        '${posts.length} ${posts.length == 1 ? 'Update' : 'Updates'}',
-                        style: const TextStyle(
-                          color: AppColors.primaryOrange,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 14),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  if (constraints.maxWidth > 760) {
+                    return Row(
+                      children: [
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            maxWidth: 360,
+                            minWidth: 200,
+                          ),
+                          child: FeedSearchBar(feedProvider: feedProvider),
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 14),
-
-                // Controls Row: Search Input (Left) & Category Filters (Right)
-                LayoutBuilder(
-                  builder: (context, constraints) {
-                    if (constraints.maxWidth > 760) {
-                      return Row(
-                        children: [
-                          ConstrainedBox(
-                            constraints: const BoxConstraints(
-                              maxWidth: 360,
-                              minWidth: 200,
-                            ),
-                            child: FeedSearchBar(feedProvider: feedProvider),
+                        const Spacer(),
+                        CategoryFilterChips(feedProvider: feedProvider),
+                      ],
+                    );
+                  } else {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        FeedSearchBar(feedProvider: feedProvider),
+                        const SizedBox(height: 12),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: CategoryFilterChips(
+                            feedProvider: feedProvider,
                           ),
-                          const Spacer(),
-                          CategoryFilterChips(feedProvider: feedProvider),
-                        ],
-                      );
-                    } else {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          FeedSearchBar(feedProvider: feedProvider),
-                          const SizedBox(height: 12),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: CategoryFilterChips(feedProvider: feedProvider),
-                          ),
-                        ],
-                      );
-                    }
-                  },
-                ),
-              ],
-            ),
+                        ),
+                      ],
+                    );
+                  }
+                },
+              ),
+            ],
           ),
         ),
 
-        // Feed Posts Stream
-        if (posts.isEmpty)
-          const SliverToBoxAdapter(child: _EmptyFeedState())
-        else
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => PostCardWidget(post: posts[index]),
-              childCount: posts.length,
-            ),
-          ),
+        // SCROLLABLE posts only
+        Expanded(
+          child: posts.isEmpty
+              ? const SingleChildScrollView(child: _EmptyFeedState())
+              : LayoutBuilder(
+                  builder: (context, c) => OverflowBox(
+                    maxWidth: c.maxWidth + 40,
+                    child: SizedBox(
+                      width: c.maxWidth + 40,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                        itemCount: posts.length,
+                        itemBuilder: (context, index) =>
+                            PostCardWidget(post: posts[index]),
+                      ),
+                    ),
+                  ),
+                ),
+        ),
       ],
     );
   }
