@@ -73,4 +73,46 @@ class PostModel {
       isMuted: isMuted ?? this.isMuted,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'schoolName': schoolName,
+      'schoolLogo': schoolLogo,
+      'authorMeta': authorMeta,
+      'category': category,
+      'badgeText': badgeText,
+      'badgeType': badgeType,
+      'title': title,
+      'content': content,
+      'attachmentName': attachmentName,
+      'attachmentSize': attachmentSize,
+      'likesCount': likesCount,
+      'isLiked': isLiked,
+      'isBookmarked': isBookmarked,
+      'isPinned': isPinned,
+      'isMuted': isMuted,
+    };
+  }
+
+  factory PostModel.fromJson(Map<String, dynamic> json) {
+    return PostModel(
+      id: json['id'] as String,
+      schoolName: json['schoolName'] as String,
+      schoolLogo: json['schoolLogo'] as String,
+      authorMeta: json['authorMeta'] as String,
+      category: json['category'] as String,
+      badgeText: json['badgeText'] as String,
+      badgeType: json['badgeType'] as String,
+      title: json['title'] as String,
+      content: json['content'] as String,
+      attachmentName: json['attachmentName'] as String?,
+      attachmentSize: json['attachmentSize'] as String?,
+      likesCount: json['likesCount'] as int? ?? 0,
+      isLiked: json['isLiked'] as bool? ?? false,
+      isBookmarked: json['isBookmarked'] as bool? ?? false,
+      isPinned: json['isPinned'] as bool? ?? false,
+      isMuted: json['isMuted'] as bool? ?? false,
+    );
+  }
 }

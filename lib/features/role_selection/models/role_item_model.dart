@@ -25,6 +25,70 @@ class RoleItemModel {
     required this.tagColor,
   });
 
+  RoleItemModel copyWith({
+    UserRole? role,
+    String? title,
+    String? description,
+    String? tagText,
+    IconData? icon,
+    Color? iconBgColor,
+    Color? iconColor,
+    Color? tagBgColor,
+    Color? tagColor,
+  }) {
+    return RoleItemModel(
+      role: role ?? this.role,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      tagText: tagText ?? this.tagText,
+      icon: icon ?? this.icon,
+      iconBgColor: iconBgColor ?? this.iconBgColor,
+      iconColor: iconColor ?? this.iconColor,
+      tagBgColor: tagBgColor ?? this.tagBgColor,
+      tagColor: tagColor ?? this.tagColor,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'role': role.value,
+      'title': title,
+      'description': description,
+      'tagText': tagText,
+      'iconCodePoint': icon.codePoint,
+      'iconBgColor': iconBgColor.toARGB32(),
+      'iconColor': iconColor.toARGB32(),
+      'tagBgColor': tagBgColor.toARGB32(),
+      'tagColor': tagColor.toARGB32(),
+    };
+  }
+
+  static IconData _iconForRole(UserRole role) {
+    switch (role) {
+      case UserRole.institution:
+        return Icons.school_outlined;
+      case UserRole.teacher:
+        return Icons.person_outline;
+      case UserRole.parent:
+        return Icons.people_alt_outlined;
+    }
+  }
+
+  factory RoleItemModel.fromJson(Map<String, dynamic> json) {
+    final parsedRole = UserRoleExtension.fromString(json['role'] as String?);
+    return RoleItemModel(
+      role: parsedRole,
+      title: json['title'] as String,
+      description: json['description'] as String,
+      tagText: json['tagText'] as String,
+      icon: _iconForRole(parsedRole),
+      iconBgColor: Color(json['iconBgColor'] as int? ?? 0xFFFFEADF),
+      iconColor: Color(json['iconColor'] as int? ?? 0xFFFF5A00),
+      tagBgColor: Color(json['tagBgColor'] as int? ?? 0xFFFFEADF),
+      tagColor: Color(json['tagColor'] as int? ?? 0xFFD94800),
+    );
+  }
+
   static List<RoleItemModel> defaultRoles() => const [
         RoleItemModel(
           role: UserRole.institution,

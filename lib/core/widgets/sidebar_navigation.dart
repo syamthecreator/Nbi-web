@@ -4,7 +4,7 @@ import '../../app/routes/app_routes.dart';
 import '../constants/app_assets.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_typography.dart';
-
+import 'hover_builder.dart';
 class SidebarNavigation extends StatelessWidget {
   final String activeRoute;
   final double width;
@@ -159,7 +159,7 @@ class SidebarNavigation extends StatelessWidget {
   }
 }
 
-class _SidebarItem extends StatefulWidget {
+class _SidebarItem extends StatelessWidget {
   final IconData icon;
   final String title;
   final bool isActive;
@@ -173,80 +173,72 @@ class _SidebarItem extends StatefulWidget {
   });
 
   @override
-  State<_SidebarItem> createState() => _SidebarItemState();
-}
-
-class _SidebarItemState extends State<_SidebarItem> {
-  bool _isHovered = false;
-
-  @override
   Widget build(BuildContext context) {
-    final bool active = widget.isActive;
-    final Color itemColor = active || _isHovered
-        ? AppColors.primaryOrange
-        : const Color(0xFF444444);
-    final Color iconColor = active || _isHovered
-        ? AppColors.primaryOrange
-        : const Color(0xFF666666);
-    final Color bgColor = active
-        ? const Color(0xFFFFF0E6)
-        : (_isHovered ? const Color(0xFFF9FAFB) : Colors.transparent);
-
-    return MouseRegion(
+    return HoverBuilder(
       cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: Container(
-          decoration: BoxDecoration(
-            color: bgColor,
-            borderRadius: BorderRadius.circular(14),
-          ),
-          clipBehavior: Clip.antiAlias,
-          child: Stack(
-            children: [
-              if (active)
-                Positioned(
-                  left: 0,
-                  top: 8,
-                  bottom: 8,
-                  width: 4,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: AppColors.primaryOrange,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(4),
-                        bottomRight: Radius.circular(4),
+      builder: (context, isHovered) {
+        final Color itemColor = isActive || isHovered
+            ? AppColors.primaryOrange
+            : const Color(0xFF444444);
+        final Color iconColor = isActive || isHovered
+            ? AppColors.primaryOrange
+            : const Color(0xFF666666);
+        final Color bgColor = isActive
+            ? const Color(0xFFFFF0E6)
+            : (isHovered ? const Color(0xFFF9FAFB) : Colors.transparent);
+
+        return GestureDetector(
+          onTap: onTap,
+          child: Container(
+            decoration: BoxDecoration(
+              color: bgColor,
+              borderRadius: BorderRadius.circular(14),
+            ),
+            clipBehavior: Clip.antiAlias,
+            child: Stack(
+              children: [
+                if (isActive)
+                  Positioned(
+                    left: 0,
+                    top: 8,
+                    bottom: 8,
+                    width: 4,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: AppColors.primaryOrange,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(4),
+                          bottomRight: Radius.circular(4),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-                child: Row(
-                  children: [
-                    Icon(
-                      widget.icon,
-                      size: 20,
-                      color: iconColor,
-                    ),
-                    const SizedBox(width: 14),
-                    Text(
-                      widget.title,
-                      style: GoogleFonts.montserrat(
-                        fontSize: 15.0,
-                        fontWeight: active ? FontWeight.w700 : FontWeight.w600,
-                        color: itemColor,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                  child: Row(
+                    children: [
+                      Icon(
+                        icon,
+                        size: 20,
+                        color: iconColor,
                       ),
-                    ),
-                  ],
+                      const SizedBox(width: 14),
+                      Text(
+                        title,
+                        style: GoogleFonts.montserrat(
+                          fontSize: 15.0,
+                          fontWeight: isActive ? FontWeight.w700 : FontWeight.w600,
+                          color: itemColor,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

@@ -21,4 +21,22 @@ class SplashModel {
       destinationRoute: destinationRoute ?? this.destinationRoute,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'isInitialized': isInitialized,
+      'displayDurationMs': displayDuration.inMilliseconds,
+      'destinationRoute': destinationRoute,
+    };
+  }
+
+  factory SplashModel.fromJson(Map<String, dynamic> json) {
+    return SplashModel(
+      isInitialized: json['isInitialized'] as bool? ?? false,
+      displayDuration: Duration(
+        milliseconds: json['displayDurationMs'] as int? ?? 3000,
+      ),
+      destinationRoute: json['destinationRoute'] as String? ?? '/select-role',
+    );
+  }
 }

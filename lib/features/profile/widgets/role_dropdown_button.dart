@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/constants/app_colors.dart';
+import '../../../core/widgets/hover_builder.dart';
 
 /// Role Option data model matching source_nbi role dropdown options.
 class RoleOption {
@@ -34,18 +35,18 @@ class RoleDropdownButton extends StatefulWidget {
 
 class _RoleDropdownButtonState extends State<RoleDropdownButton> {
   final LayerLink _layerLink = LayerLink();
+  final ValueNotifier<bool> _isOpen = ValueNotifier<bool>(false);
   OverlayEntry? _overlayEntry;
-  bool _isOpen = false;
-  bool _isButtonHovered = false;
 
   @override
   void dispose() {
     _closeDropdown();
+    _isOpen.dispose();
     super.dispose();
   }
 
   void _toggleDropdown() {
-    if (_isOpen) {
+    if (_isOpen.value) {
       _closeDropdown();
     } else {
       _openDropdown();
@@ -54,14 +55,14 @@ class _RoleDropdownButtonState extends State<RoleDropdownButton> {
 
   void _openDropdown() {
     _closeDropdown();
-    setState(() => _isOpen = true);
+    _isOpen.value = true;
     _overlayEntry = _createOverlayEntry();
     Overlay.of(context).insert(_overlayEntry!);
   }
 
   void _closeDropdown() {
-    if (_isOpen) {
-      setState(() => _isOpen = false);
+    if (_isOpen.value) {
+      _isOpen.value = false;
     }
     _overlayEntry?.remove();
     _overlayEntry = null;
@@ -141,82 +142,87 @@ class _RoleDropdownButtonState extends State<RoleDropdownButton> {
       orElse: () => RoleDropdownButton.roleOptions.first,
     );
 
-    final isHighlighted = _isButtonHovered || _isOpen;
-
     return CompositedTransformTarget(
       link: _layerLink,
-      child: MouseRegion(
+      child: HoverBuilder(
         cursor: SystemMouseCursors.click,
-        onEnter: (_) => setState(() => _isButtonHovered = true),
-        onExit: (_) => setState(() => _isButtonHovered = false),
-        child: GestureDetector(
-          onTap: _toggleDropdown,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-            decoration: BoxDecoration(
-              // .role-dropdown-btn background & hover background (#FFF0E6 -> #FFE8D6)
-              color: isHighlighted
-                  ? const Color(0xFFFFE8D6)
-                  : const Color(0xFFFFF0E6),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: isHighlighted
-                    ? AppColors.primaryOrange
-                    : const Color(0x40FF6000), // rgba(255, 96, 0, 0.25)
-                width: 1,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: isHighlighted
-                      ? const Color(0x29FF6000) // rgba(255, 96, 0, 0.16)
-                      : const Color(0x14FF6000), // rgba(255, 96, 0, 0.08)
-                  blurRadius: isHighlighted ? 12 : 8,
-                  offset: Offset(0, isHighlighted ? 4 : 2),
-                ),
-              ],
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Emoji Icon (.role-icon)
-                Text(currentOption.emoji, style: const TextStyle(fontSize: 15)),
-                const SizedBox(width: 8),
+        builder: (context, isButtonHovered) {
+          return ValueListenableBuilder<bool>(
+            valueListenable: _isOpen,
+            builder: (context, isOpen, _) {
+              final isHighlighted = isButtonHovered || isOpen;
 
-                // Role Text (.role-text)
-                Text(
-                  currentOption.label,
-                  style: GoogleFonts.montserrat(
-                    fontSize: 13.6,
-                    fontWeight: FontWeight.w800,
-                    color: AppColors.primaryOrange,
-                    letterSpacing: 0.2,
+              return GestureDetector(
+                onTap: _toggleDropdown,
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                  decoration: BoxDecoration(
+                    // .role-dropdown-btn background & hover background (#FFF0E6 -> #FFE8D6)
+                    color: isHighlighted
+                        ? const Color(0xFFFFE8D6)
+                        : const Color(0xFFFFF0E6),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: isHighlighted
+                          ? AppColors.primaryOrange
+                          : const Color(0x40FF6000), // rgba(255, 96, 0, 0.25)
+                      width: 1,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: isHighlighted
+                            ? const Color(0x29FF6000) // rgba(255, 96, 0, 0.16)
+                            : const Color(0x14FF6000), // rgba(255, 96, 0, 0.08)
+                        blurRadius: isHighlighted ? 12 : 8,
+                        offset: Offset(0, isHighlighted ? 4 : 2),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // Emoji Icon (.role-icon)
+                      Text(currentOption.emoji, style: const TextStyle(fontSize: 15)),
+                      const SizedBox(width: 8),
+
+                      // Role Text (.role-text)
+                      Text(
+                        currentOption.label,
+                        style: GoogleFonts.montserrat(
+                          fontSize: 13.6,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.primaryOrange,
+                          letterSpacing: 0.2,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+
+                      // Role Chevron (.role-chevron with 180° rotation on open)
+                      AnimatedRotation(
+                        turns: isOpen ? 0.5 : 0.0,
+                        duration: const Duration(milliseconds: 250),
+                        child: const Icon(
+                          Icons.keyboard_arrow_down,
+                          size: 15,
+                          color: AppColors.primaryOrange,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(width: 8),
-
-                // Role Chevron (.role-chevron with 180° rotation on open)
-                AnimatedRotation(
-                  turns: _isOpen ? 0.5 : 0.0,
-                  duration: const Duration(milliseconds: 250),
-                  child: const Icon(
-                    Icons.keyboard_arrow_down,
-                    size: 15,
-                    color: AppColors.primaryOrange,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+              );
+            },
+          );
+        },
       ),
     );
   }
 }
 
 /// Single item tile inside the Role Dropdown menu matching source_nbi (.role-dropdown-item)
-class _RoleDropdownItemTile extends StatefulWidget {
+class _RoleDropdownItemTile extends StatelessWidget {
   final RoleOption option;
   final bool isSelected;
   final VoidCallback onTap;
@@ -228,63 +234,56 @@ class _RoleDropdownItemTile extends StatefulWidget {
   });
 
   @override
-  State<_RoleDropdownItemTile> createState() => _RoleDropdownItemTileState();
-}
-
-class _RoleDropdownItemTileState extends State<_RoleDropdownItemTile> {
-  bool _isHovered = false;
-
-  @override
   Widget build(BuildContext context) {
-    final active = _isHovered;
-
-    return MouseRegion(
+    return HoverBuilder(
       cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 150),
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-          decoration: BoxDecoration(
-            color: active ? const Color(0xFFFFF0E6) : null,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Row(
-            children: [
-              // Item Emoji (.item-icon)
-              Text(widget.option.emoji, style: const TextStyle(fontSize: 16)),
-              const SizedBox(width: 10),
+      builder: (context, isHovered) {
+        final active = isHovered;
 
-              // Item Text (.item-text)
-              Expanded(
-                child: Text(
-                  widget.option.label,
-                  style: GoogleFonts.montserrat(
-                    fontSize: 13.8,
-                    fontWeight: FontWeight.w700,
-                    color: active
-                        ? AppColors.primaryOrange
-                        : const Color(0xFF374151),
+        return GestureDetector(
+          onTap: onTap,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 150),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            decoration: BoxDecoration(
+              color: active ? const Color(0xFFFFF0E6) : null,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              children: [
+                // Item Emoji (.item-icon)
+                Text(option.emoji, style: const TextStyle(fontSize: 16)),
+                const SizedBox(width: 10),
+
+                // Item Text (.item-text)
+                Expanded(
+                  child: Text(
+                    option.label,
+                    style: GoogleFonts.montserrat(
+                      fontSize: 13.8,
+                      fontWeight: FontWeight.w700,
+                      color: active
+                          ? AppColors.primaryOrange
+                          : const Color(0xFF374151),
+                    ),
                   ),
                 ),
-              ),
 
-              // Item Checkmark (.item-check: visible when active/selected)
-              AnimatedOpacity(
-                duration: const Duration(milliseconds: 150),
-                opacity: widget.isSelected ? 1.0 : 0.0,
-                child: const Icon(
-                  Icons.check,
-                  size: 16,
-                  color: AppColors.primaryOrange,
+                // Item Checkmark (.item-check: visible when active/selected)
+                AnimatedOpacity(
+                  duration: const Duration(milliseconds: 150),
+                  opacity: isSelected ? 1.0 : 0.0,
+                  child: const Icon(
+                    Icons.check,
+                    size: 16,
+                    color: AppColors.primaryOrange,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

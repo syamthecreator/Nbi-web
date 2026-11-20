@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_typography.dart';
+import '../../../core/widgets/hover_builder.dart';
 import '../providers/feed_provider.dart';
 
 /// Category Filter Chips for filtering posts in School Feed.
@@ -12,7 +13,7 @@ class CategoryFilterChips extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categories = [
+    const categories = [
       {'key': 'all', 'label': 'All'},
       {'key': 'announcements', 'label': 'Announcements'},
       {'key': 'homework', 'label': 'Homework'},
@@ -35,7 +36,7 @@ class CategoryFilterChips extends StatelessWidget {
   }
 }
 
-class _FilterChipItem extends StatefulWidget {
+class _FilterChipItem extends StatelessWidget {
   final String label;
   final bool isSelected;
   final VoidCallback onTap;
@@ -47,57 +48,50 @@ class _FilterChipItem extends StatefulWidget {
   });
 
   @override
-  State<_FilterChipItem> createState() => _FilterChipItemState();
-}
-
-class _FilterChipItemState extends State<_FilterChipItem> {
-  bool _isHovered = false;
-
-  @override
   Widget build(BuildContext context) {
-    final bool active = widget.isSelected;
-    final Color bgColor = active
-        ? AppColors.primaryOrange
-        : (_isHovered ? const Color(0xFFE5E7EB) : const Color(0xFFF2F3F5));
-    final Color textColor = active
-        ? Colors.white
-        : (_isHovered ? const Color(0xFF111111) : const Color(0xFF555555));
-
-    return MouseRegion(
+    return HoverBuilder(
       cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 180),
-          transform: _isHovered && !active
-              ? Matrix4.translationValues(0, -1, 0)
-              : Matrix4.identity(),
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 7),
-          decoration: BoxDecoration(
-            color: bgColor,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: active
-                ? const [
-                    BoxShadow(
-                      color: Color(0x47FF5A00),
-                      blurRadius: 12,
-                      offset: Offset(0, 4),
-                    ),
-                  ]
-                : null,
-          ),
-          child: Text(
-            widget.label,
-            style: AppTypography.bodyMedium(
-              fontSize: 13.5,
-              fontWeight: FontWeight.w600,
-              color: textColor,
+      builder: (context, isHovered) {
+        final bool active = isSelected;
+        final Color bgColor = active
+            ? AppColors.primaryOrange
+            : (isHovered ? const Color(0xFFE5E7EB) : const Color(0xFFF2F3F5));
+        final Color textColor = active
+            ? Colors.white
+            : (isHovered ? const Color(0xFF111111) : const Color(0xFF555555));
+
+        return GestureDetector(
+          onTap: onTap,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 180),
+            transform: isHovered && !active
+                ? Matrix4.translationValues(0, -1, 0)
+                : Matrix4.identity(),
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 7),
+            decoration: BoxDecoration(
+              color: bgColor,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: active
+                  ? const [
+                      BoxShadow(
+                        color: Color(0x47FF5A00),
+                        blurRadius: 12,
+                        offset: Offset(0, 4),
+                      ),
+                    ]
+                  : null,
+            ),
+            child: Text(
+              label,
+              style: AppTypography.bodyMedium(
+                fontSize: 13.5,
+                fontWeight: FontWeight.w600,
+                color: textColor,
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

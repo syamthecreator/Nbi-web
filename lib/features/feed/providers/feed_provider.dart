@@ -12,6 +12,16 @@ class FeedProvider extends ChangeNotifier {
   String _selectedCategory = 'all';
   String get selectedCategory => _selectedCategory;
 
+  String _activeSection = '/school-feed';
+  String get activeSection => _activeSection;
+
+  void setActiveSection(String section) {
+    if (_activeSection != section) {
+      _activeSection = section;
+      notifyListeners();
+    }
+  }
+
   String _searchQuery = '';
   String get searchQuery => _searchQuery;
 

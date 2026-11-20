@@ -66,4 +66,43 @@ class AuthStateModel {
       verifiedUser: verifiedUser ?? this.verifiedUser,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'currentStep': currentStep.index,
+      'fullName': fullName,
+      'email': email,
+      'phone': phone,
+      'termsAgreed': termsAgreed,
+      'otpDigits': otpDigits,
+      'resendCountdown': resendCountdown,
+      'canResendOtp': canResendOtp,
+      'isLoading': isLoading,
+      'errorMessage': errorMessage,
+      'selectedRole': selectedRole.value,
+      'verifiedUser': verifiedUser?.toJson(),
+    };
+  }
+
+  factory AuthStateModel.fromJson(Map<String, dynamic> json) {
+    return AuthStateModel(
+      currentStep: SignupStep.values[json['currentStep'] as int? ?? 0],
+      fullName: json['fullName'] as String? ?? 'Rahul Sharma',
+      email: json['email'] as String? ?? 'email@gmail.com',
+      phone: json['phone'] as String? ?? '8787878888',
+      termsAgreed: json['termsAgreed'] as bool? ?? true,
+      otpDigits: (json['otpDigits'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          const ['', '', '', ''],
+      resendCountdown: json['resendCountdown'] as int? ?? 30,
+      canResendOtp: json['canResendOtp'] as bool? ?? false,
+      isLoading: json['isLoading'] as bool? ?? false,
+      errorMessage: json['errorMessage'] as String?,
+      selectedRole: UserRoleExtension.fromString(json['selectedRole'] as String?),
+      verifiedUser: json['verifiedUser'] != null
+          ? UserModel.fromJson(json['verifiedUser'] as Map<String, dynamic>)
+          : null,
+    );
+  }
 }

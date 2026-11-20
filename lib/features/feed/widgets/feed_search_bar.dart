@@ -16,7 +16,7 @@ class FeedSearchBar extends StatefulWidget {
 class _FeedSearchBarState extends State<FeedSearchBar> {
   late TextEditingController _controller;
   late FocusNode _focusNode;
-  bool _isFocused = false;
+  final ValueNotifier<bool> _isFocused = ValueNotifier<bool>(false);
 
   @override
   void initState() {
@@ -24,9 +24,7 @@ class _FeedSearchBarState extends State<FeedSearchBar> {
     _controller = TextEditingController(text: widget.feedProvider.searchQuery);
     _focusNode = FocusNode();
     _focusNode.addListener(() {
-      setState(() {
-        _isFocused = _focusNode.hasFocus;
-      });
+      _isFocused.value = _focusNode.hasFocus;
     });
   }
 
@@ -42,94 +40,101 @@ class _FeedSearchBarState extends State<FeedSearchBar> {
   void dispose() {
     _controller.dispose();
     _focusNode.dispose();
+    _isFocused.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final Color iconColor = _isFocused ? AppColors.primaryOrange : const Color(0xFF9CA3AF);
+    return ValueListenableBuilder<bool>(
+      valueListenable: _isFocused,
+      builder: (context, isFocused, _) {
+        final Color iconColor =
+            isFocused ? AppColors.primaryOrange : const Color(0xFF9CA3AF);
 
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 250),
-      curve: const Cubic(0.16, 1, 0.3, 1),
-      height: 42,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: _isFocused ? Colors.white : const Color(0xFFF3F4F6),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: _isFocused ? AppColors.primaryOrange : Colors.transparent,
-          width: 1.5,
-        ),
-        boxShadow: _isFocused
-            ? const [
-                BoxShadow(
-                  color: Color(0x26FF5A00),
-                  blurRadius: 4,
-                  spreadRadius: 2,
-                ),
-              ]
-            : null,
-      ),
-      child: Row(
-        children: [
-          CustomPaint(
-            size: const Size(17, 17),
-            painter: _SearchIconPainter(color: iconColor),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: TextField(
-              controller: _controller,
-              focusNode: _focusNode,
-              onChanged: widget.feedProvider.setSearchQuery,
-              style: GoogleFonts.inter(
-                fontSize: 13.8,
-                fontWeight: FontWeight.w500,
-                color: const Color(0xFF111111),
-              ),
-              decoration: InputDecoration(
-                filled: false,
-                fillColor: Colors.transparent,
-                hintText: 'Search notices, homework, events...',
-                hintStyle: GoogleFonts.inter(
-                  color: const Color(0xFF9CA3AF),
-                  fontSize: 13.8,
-                  fontWeight: FontWeight.w400,
-                ),
-                contentPadding: EdgeInsets.zero,
-                isDense: true,
-                border: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-              ),
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
+          curve: const Cubic(0.16, 1, 0.3, 1),
+          height: 42,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            color: isFocused ? Colors.white : const Color(0xFFF3F4F6),
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(
+              color: isFocused ? AppColors.primaryOrange : Colors.transparent,
+              width: 1.5,
             ),
+            boxShadow: isFocused
+                ? const [
+                    BoxShadow(
+                      color: Color(0x26FF5A00),
+                      blurRadius: 4,
+                      spreadRadius: 2,
+                    ),
+                  ]
+                : null,
           ),
-          if (widget.feedProvider.searchQuery.isNotEmpty)
-            GestureDetector(
-              onTap: () {
-                _controller.clear();
-                widget.feedProvider.clearSearch();
-              },
-              child: Container(
-                width: 20,
-                height: 20,
-                margin: const EdgeInsets.only(left: 6),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color(0xFFE2E4E8),
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.close,
-                    size: 12,
-                    color: Color(0xFF555555),
+          child: Row(
+            children: [
+              CustomPaint(
+                size: const Size(17, 17),
+                painter: _SearchIconPainter(color: iconColor),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: TextField(
+                  controller: _controller,
+                  focusNode: _focusNode,
+                  onChanged: widget.feedProvider.setSearchQuery,
+                  style: GoogleFonts.inter(
+                    fontSize: 13.8,
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xFF111111),
+                  ),
+                  decoration: InputDecoration(
+                    filled: false,
+                    fillColor: Colors.transparent,
+                    hintText: 'Search notices, homework, events...',
+                    hintStyle: GoogleFonts.inter(
+                      color: const Color(0xFF9CA3AF),
+                      fontSize: 13.8,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    contentPadding: EdgeInsets.zero,
+                    isDense: true,
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
                   ),
                 ),
               ),
-            ),
-        ],
-      ),
+              if (widget.feedProvider.searchQuery.isNotEmpty)
+                GestureDetector(
+                  onTap: () {
+                    _controller.clear();
+                    widget.feedProvider.clearSearch();
+                  },
+                  child: Container(
+                    width: 20,
+                    height: 20,
+                    margin: const EdgeInsets.only(left: 6),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFE2E4E8),
+                    ),
+                    child: const Center(
+                      child: Icon(
+                        Icons.close,
+                        size: 12,
+                        color: Color(0xFF555555),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

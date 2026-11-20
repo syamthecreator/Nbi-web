@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/widgets/hover_builder.dart';
 import '../providers/feed_provider.dart';
 
 class CommunityWidget extends StatelessWidget {
@@ -81,7 +82,7 @@ class CommunityWidget extends StatelessWidget {
   }
 }
 
-class _SocialPillBtn extends StatefulWidget {
+class _SocialPillBtn extends StatelessWidget {
   final String emoji;
   final String name;
   final String badge;
@@ -97,96 +98,89 @@ class _SocialPillBtn extends StatefulWidget {
   });
 
   @override
-  State<_SocialPillBtn> createState() => _SocialPillBtnState();
-}
-
-class _SocialPillBtnState extends State<_SocialPillBtn> {
-  bool _isHovered = false;
-
-  @override
   Widget build(BuildContext context) {
-    return MouseRegion(
+    return HoverBuilder(
       cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          transform: _isHovered
-              ? Matrix4.translationValues(0, -1, 0)
-              : Matrix4.identity(),
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-          decoration: BoxDecoration(
-            color: _isHovered ? Colors.white : const Color(0xFFF9FAFB),
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: _isHovered ? const Color(0xFFFFB380) : const Color(0xFFF3F4F6),
-              width: 1,
+      builder: (context, isHovered) {
+        return GestureDetector(
+          onTap: onTap,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            transform: isHovered
+                ? Matrix4.translationValues(0, -1, 0)
+                : Matrix4.identity(),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            decoration: BoxDecoration(
+              color: isHovered ? Colors.white : const Color(0xFFF9FAFB),
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(
+                color: isHovered ? const Color(0xFFFFB380) : const Color(0xFFF3F4F6),
+                width: 1,
+              ),
+              boxShadow: isHovered
+                  ? const [
+                      BoxShadow(
+                        color: Color(0x0A000000),
+                        blurRadius: 14,
+                        offset: Offset(0, 4),
+                      ),
+                    ]
+                  : null,
             ),
-            boxShadow: _isHovered
-                ? const [
-                    BoxShadow(
-                      color: Color(0x0A000000),
-                      blurRadius: 14,
-                      offset: Offset(0, 4),
-                    ),
-                  ]
-                : null,
-          ),
-          child: Row(
-            children: [
-              Text(
-                widget.emoji,
-                style: const TextStyle(fontSize: 20),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.name,
-                      style: GoogleFonts.montserrat(
-                        fontSize: 13.8,
-                        fontWeight: FontWeight.w700,
-                        color: const Color(0xFF111111),
-                      ),
-                    ),
-                    const SizedBox(height: 1),
-                    Text(
-                      widget.badge,
-                      style: GoogleFonts.inter(
-                        fontSize: 11.8,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xFF6B7280),
-                      ),
-                    ),
-                  ],
+            child: Row(
+              children: [
+                Text(
+                  emoji,
+                  style: const TextStyle(fontSize: 20),
                 ),
-              ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: _isHovered
-                      ? AppColors.primaryOrange
-                      : const Color(0xFFFFF0E6),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  widget.actionText,
-                  style: GoogleFonts.montserrat(
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.w700,
-                    color: _isHovered ? Colors.white : AppColors.primaryOrange,
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        name,
+                        style: GoogleFonts.montserrat(
+                          fontSize: 13.8,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xFF111111),
+                        ),
+                      ),
+                      const SizedBox(height: 1),
+                      Text(
+                        badge,
+                        style: GoogleFonts.inter(
+                          fontSize: 11.8,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xFF6B7280),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: isHovered
+                        ? AppColors.primaryOrange
+                        : const Color(0xFFFFF0E6),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    actionText,
+                    style: GoogleFonts.montserrat(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w700,
+                      color: isHovered ? Colors.white : AppColors.primaryOrange,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

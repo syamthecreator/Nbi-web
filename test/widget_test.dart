@@ -10,12 +10,16 @@ void main() {
     await tester.pumpWidget(const NbiApp());
 
     // Verify splash screen elements exist in RichText
-    expect(find.textContaining('NOTICE BOARD', findRichText: true), findsOneWidget);
+    expect(
+      find.textContaining('NOTICE BOARD', findRichText: true),
+      findsOneWidget,
+    );
     expect(find.textContaining('INDIA', findRichText: true), findsOneWidget);
 
     // Cancel timer cleanly and settle pending async tasks
     final element = tester.element(find.byType(MaterialApp));
     element.read<SplashProvider>().cancelSplashTimer();
     await tester.pump(const Duration(milliseconds: 600));
+    await tester.pump(const Duration(milliseconds: 1200));
   });
 }

@@ -18,41 +18,13 @@ import '../widgets/sponsored_store_widget.dart';
 /// School Feed Screen - Pixel-perfect match for client-approved source_nbi reference.
 /// Left SidebarNavigation and Right CommunityWidget & SponsoredStoreWidget remain
 /// strictly fixed across navigation between School Feed, Settings, and Profile.
-class SchoolFeedScreen extends StatefulWidget {
+class SchoolFeedScreen extends StatelessWidget {
   final String initialSection;
 
   const SchoolFeedScreen({
     super.key,
     this.initialSection = AppRoutes.schoolFeed,
   });
-
-  @override
-  State<SchoolFeedScreen> createState() => _SchoolFeedScreenState();
-}
-
-class _SchoolFeedScreenState extends State<SchoolFeedScreen> {
-  late String _activeSection;
-
-  @override
-  void initState() {
-    super.initState();
-    _activeSection = widget.initialSection;
-  }
-
-  @override
-  void didUpdateWidget(covariant SchoolFeedScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.initialSection != widget.initialSection) {
-      _activeSection = widget.initialSection;
-    }
-  }
-
-  void _onSectionSelected(String route) {
-    if (_activeSection == route) return;
-    setState(() {
-      _activeSection = route;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +43,12 @@ class _SchoolFeedScreenState extends State<SchoolFeedScreen> {
       backgroundColor: AppColors.feedBg,
       body: Consumer<FeedProvider>(
         builder: (context, feedProvider, _) {
+          final activeSection =
+              initialSection != AppRoutes.schoolFeed &&
+                      feedProvider.activeSection == AppRoutes.schoolFeed
+                  ? initialSection
+                  : feedProvider.activeSection;
+
           return Stack(
             children: [
               ScrollConfiguration(
@@ -89,9 +67,11 @@ class _SchoolFeedScreenState extends State<SchoolFeedScreen> {
                         SizedBox(
                           height: double.infinity,
                           child: SidebarNavigation(
-                            activeRoute: _activeSection,
+                            activeRoute: activeSection,
                             width: sidebarWidth,
-                            onRouteSelected: _onSectionSelected,
+                            onRouteSelected: (route) {
+                              feedProvider.setActiveSection(route);
+                            },
                           ),
                         ),
                         SizedBox(width: columnGap),
@@ -103,6 +83,7 @@ class _SchoolFeedScreenState extends State<SchoolFeedScreen> {
                           height: double.infinity,
                           child: _buildCenterContent(
                             context,
+                            activeSection,
                             feedProvider,
                             isDesktop,
                           ),
@@ -143,9 +124,20 @@ class _SchoolFeedScreenState extends State<SchoolFeedScreen> {
         },
       ),
       bottomNavigationBar: !isTabletOrDesktop
-          ? MobileBottomNavBar(
-              activeRoute: _activeSection,
-              onRouteSelected: _onSectionSelected,
+          ? Consumer<FeedProvider>(
+              builder: (context, feedProvider, _) {
+                final activeSection =
+                    initialSection != AppRoutes.schoolFeed &&
+                            feedProvider.activeSection == AppRoutes.schoolFeed
+                        ? initialSection
+                        : feedProvider.activeSection;
+                return MobileBottomNavBar(
+                  activeRoute: activeSection,
+                  onRouteSelected: (route) {
+                    feedProvider.setActiveSection(route);
+                  },
+                );
+              },
             )
           : null,
     );
@@ -153,10 +145,11 @@ class _SchoolFeedScreenState extends State<SchoolFeedScreen> {
 
   Widget _buildCenterContent(
     BuildContext context,
+    String activeSection,
     FeedProvider feedProvider,
     bool isDesktop,
   ) {
-    switch (_activeSection) {
+    switch (activeSection) {
       case AppRoutes.settings:
         return const SettingsContent();
       case AppRoutes.profile:

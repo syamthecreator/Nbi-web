@@ -20,6 +20,23 @@ class ProfileProvider extends ChangeNotifier {
   bool _isEditModalOpen = false;
   bool get isEditModalOpen => _isEditModalOpen;
 
+  String? _editErrorMessage;
+  String? get editErrorMessage => _editErrorMessage;
+
+  void setEditErrorMessage(String? msg) {
+    if (_editErrorMessage != msg) {
+      _editErrorMessage = msg;
+      notifyListeners();
+    }
+  }
+
+  void clearEditErrorMessage() {
+    if (_editErrorMessage != null) {
+      _editErrorMessage = null;
+      notifyListeners();
+    }
+  }
+
   String _editFullName = '';
   String _editEmail = '';
   String _editPhone = '';
@@ -62,11 +79,13 @@ class ProfileProvider extends ChangeNotifier {
     _editFullName = _fullName;
     _editEmail = _email;
     _editPhone = _phone;
+    _editErrorMessage = null;
     _isEditModalOpen = true;
     notifyListeners();
   }
 
   void closeEditModal() {
+    _editErrorMessage = null;
     _isEditModalOpen = false;
     notifyListeners();
   }
@@ -92,9 +111,12 @@ class ProfileProvider extends ChangeNotifier {
     final newPhone = (phone ?? _editPhone).trim();
 
     if (newName.isEmpty || newEmail.isEmpty || newPhone.isEmpty) {
+      _editErrorMessage = 'Please fill in all profile fields.';
+      notifyListeners();
       return false;
     }
 
+    _editErrorMessage = null;
     _fullName = newName;
     _email = newEmail;
     _phone = newPhone;

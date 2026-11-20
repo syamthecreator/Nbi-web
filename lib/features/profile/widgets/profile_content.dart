@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../app/routes/app_routes.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/widgets/hover_builder.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../providers/profile_provider.dart';
 import 'edit_profile_dialog.dart';
@@ -42,18 +43,10 @@ class ProfileContent extends StatelessWidget {
 }
 
 /// Profile Hero Card matching source_nbi (.profile-hero-card)
-class _ProfileHeroCard extends StatefulWidget {
+class _ProfileHeroCard extends StatelessWidget {
   final ProfileProvider profileProvider;
 
   const _ProfileHeroCard({required this.profileProvider});
-
-  @override
-  State<_ProfileHeroCard> createState() => _ProfileHeroCardState();
-}
-
-class _ProfileHeroCardState extends State<_ProfileHeroCard> {
-  bool _isEditHovered = false;
-  bool _isLogoutHovered = false;
 
   @override
   Widget build(BuildContext context) {
@@ -133,142 +126,156 @@ class _ProfileHeroCardState extends State<_ProfileHeroCard> {
                   child: Row(
                     children: [
                       // Edit Profile Button (.btn-profile-edit)
-                      MouseRegion(
+                      HoverBuilder(
                         cursor: SystemMouseCursors.click,
-                        onEnter: (_) => setState(() => _isEditHovered = true),
-                        onExit: (_) => setState(() => _isEditHovered = false),
-                        child: GestureDetector(
-                          onTap: () {
-                            widget.profileProvider.openEditModal();
-                            showDialog(
-                              context: context,
-                              barrierColor: const Color(0x8C0F172A), // rgba(15, 23, 42, 0.55)
-                              barrierDismissible: true,
-                              builder: (_) => const EditProfileDialog(),
-                            );
-                          },
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 200),
-                            transform: _isEditHovered
-                                ? Matrix4.translationValues(0, -2, 0)
-                                : Matrix4.identity(),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 18,
-                              vertical: 9.5,
-                            ),
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: _isEditHovered
-                                    ? const [Color(0xFFE04E00), Color(0xFFC74400)]
-                                    : const [Color(0xFFFF5A00), Color(0xFFE04E00)],
+                        builder: (context, isEditHovered) {
+                          return GestureDetector(
+                            onTap: () {
+                              profileProvider.openEditModal();
+                              showDialog(
+                                context: context,
+                                barrierColor: const Color(
+                                  0x8C0F172A,
+                                ), // rgba(15, 23, 42, 0.55)
+                                barrierDismissible: true,
+                                builder: (_) => const EditProfileDialog(),
+                              );
+                            },
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 200),
+                              transform: isEditHovered
+                                  ? Matrix4.translationValues(0, -2, 0)
+                                  : Matrix4.identity(),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 18,
+                                vertical: 9.5,
                               ),
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color(0x40FF5A00),
-                                  blurRadius: _isEditHovered ? 18 : 14,
-                                  offset: Offset(0, _isEditHovered ? 6 : 4),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: isEditHovered
+                                      ? const [
+                                          Color(0xFFE04E00),
+                                          Color(0xFFC74400),
+                                        ]
+                                      : const [
+                                          Color(0xFFFF5A00),
+                                          Color(0xFFE04E00),
+                                        ],
                                 ),
-                              ],
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(
-                                  Icons.edit_outlined,
-                                  size: 17,
-                                  color: Colors.white,
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  'Edit Profile',
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0x40FF5A00),
+                                    blurRadius: isEditHovered ? 18 : 14,
+                                    offset: Offset(0, isEditHovered ? 6 : 4),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(
+                                    Icons.edit_outlined,
+                                    size: 17,
                                     color: Colors.white,
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    'Edit Profile',
+                                    style: GoogleFonts.montserrat(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       ),
                       const SizedBox(width: 10),
 
                       // Log Out Button (.btn-profile-logout)
-                      MouseRegion(
+                      HoverBuilder(
                         cursor: SystemMouseCursors.click,
-                        onEnter: (_) => setState(() => _isLogoutHovered = true),
-                        onExit: (_) => setState(() => _isLogoutHovered = false),
-                        child: GestureDetector(
-                          onTap: () {
-                            final authProvider = context.read<AuthProvider>();
-                            authProvider.logout();
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              AppRoutes.signup,
-                              (route) => false,
-                            );
-                          },
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 200),
-                            transform: _isLogoutHovered
-                                ? Matrix4.translationValues(0, -2, 0)
-                                : Matrix4.identity(),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 18,
-                              vertical: 9,
-                            ),
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: _isLogoutHovered
-                                    ? const [Color(0xFFEF4444), Color(0xFFDC2626)]
-                                    : const [Color(0xFFFEF2F2), Color(0xFFFFE4E6)],
+                        builder: (context, isLogoutHovered) {
+                          return GestureDetector(
+                            onTap: () {
+                              final authProvider = context.read<AuthProvider>();
+                              authProvider.logout();
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                AppRoutes.signup,
+                                (route) => false,
+                              );
+                            },
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 200),
+                              transform: isLogoutHovered
+                                  ? Matrix4.translationValues(0, -2, 0)
+                                  : Matrix4.identity(),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 18,
+                                vertical: 9,
                               ),
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: _isLogoutHovered
-                                    ? const Color(0xFFDC2626)
-                                    : const Color(0xFFFCA5A5),
-                                width: 1.5,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: isLogoutHovered
+                                      ? const [
+                                          Color(0xFFEF4444),
+                                          Color(0xFFDC2626),
+                                        ]
+                                      : const [
+                                          Color(0xFFFEF2F2),
+                                          Color(0xFFFFE4E6),
+                                        ],
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: isLogoutHovered
+                                      ? const Color(0xFFDC2626)
+                                      : const Color(0xFFFCA5A5),
+                                  width: 1.5,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0x14DC2626),
+                                    blurRadius: isLogoutHovered ? 18 : 8,
+                                    offset: Offset(0, isLogoutHovered ? 6 : 2),
+                                  ),
+                                ],
                               ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color(0x14DC2626),
-                                  blurRadius: _isLogoutHovered ? 18 : 8,
-                                  offset: Offset(0, _isLogoutHovered ? 6 : 2),
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.power_settings_new,
-                                  size: 17,
-                                  color: _isLogoutHovered
-                                      ? Colors.white
-                                      : const Color(0xFFDC2626),
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  'Log Out',
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: _isLogoutHovered
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.power_settings_new,
+                                    size: 17,
+                                    color: isLogoutHovered
                                         ? Colors.white
                                         : const Color(0xFFDC2626),
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    'Log Out',
+                                    style: GoogleFonts.montserrat(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: isLogoutHovered
+                                          ? Colors.white
+                                          : const Color(0xFFDC2626),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -287,7 +294,7 @@ class _ProfileHeroCardState extends State<_ProfileHeroCard> {
                 Row(
                   children: [
                     Text(
-                      widget.profileProvider.fullName,
+                      profileProvider.fullName,
                       style: GoogleFonts.montserrat(
                         fontSize: 22.4,
                         fontWeight: FontWeight.w900,
@@ -324,9 +331,9 @@ class _ProfileHeroCardState extends State<_ProfileHeroCard> {
                   children: [
                     // Role Dropdown Button (Select2 Style matching source_nbi)
                     RoleDropdownButton(
-                      selectedRole: widget.profileProvider.role,
+                      selectedRole: profileProvider.role,
                       onRoleSelected: (newRole) {
-                        widget.profileProvider.setRole(newRole);
+                        profileProvider.setRole(newRole);
                       },
                     ),
 
@@ -630,7 +637,7 @@ class _FollowingSchoolsSection extends StatelessWidget {
 }
 
 /// Single Followed School Card Item matching source_nbi (.following-school-card)
-class _FollowingSchoolCard extends StatefulWidget {
+class _FollowingSchoolCard extends StatelessWidget {
   final String name;
   final String logo;
   final String className;
@@ -644,244 +651,241 @@ class _FollowingSchoolCard extends StatefulWidget {
   });
 
   @override
-  State<_FollowingSchoolCard> createState() => _FollowingSchoolCardState();
-}
-
-class _FollowingSchoolCardState extends State<_FollowingSchoolCard> {
-  bool _isCardHovered = false;
-  bool _isChangeSchoolHovered = false;
-  bool _isChangeClassHovered = false;
-
-  @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _isCardHovered = true),
-      onExit: (_) => setState(() => _isCardHovered = false),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        transform: _isCardHovered
-            ? Matrix4.translationValues(0, -2, 0)
-            : Matrix4.identity(),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        decoration: BoxDecoration(
-          color: const Color(0xFFF9FAFB),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: const Color(0xFFF3F4F6)),
-          boxShadow: _isCardHovered
-              ? const [
-                  BoxShadow(
-                    color: Color(0x0A000000), // rgba(0, 0, 0, 0.04)
-                    blurRadius: 16,
-                    offset: Offset(0, 4),
-                  ),
-                ]
-              : null,
-        ),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final isNarrow = constraints.maxWidth < 560;
+    return HoverBuilder(
+      builder: (context, isCardHovered) {
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          transform: isCardHovered
+              ? Matrix4.translationValues(0, -2, 0)
+              : Matrix4.identity(),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          decoration: BoxDecoration(
+            color: const Color(0xFFF9FAFB),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: const Color(0xFFF3F4F6)),
+            boxShadow: isCardHovered
+                ? const [
+                    BoxShadow(
+                      color: Color(0x0A000000), // rgba(0, 0, 0, 0.04)
+                      blurRadius: 16,
+                      offset: Offset(0, 4),
+                    ),
+                  ]
+                : null,
+          ),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final isNarrow = constraints.maxWidth < 560;
 
-            final schoolDetails = Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: const Color(0xFFE5E7EB)),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Color(0x0D000000),
-                        blurRadius: 8,
-                        offset: Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  padding: const EdgeInsets.all(6),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.asset(widget.logo, fit: BoxFit.contain),
-                  ),
-                ),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.name,
-                        style: GoogleFonts.montserrat(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                          color: const Color(0xFF111111),
+              final schoolDetails = Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: const Color(0xFFE5E7EB)),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0x0D000000),
+                          blurRadius: 8,
+                          offset: Offset(0, 2),
                         ),
-                      ),
-                      const SizedBox(height: 6),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 4,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 3,
-                            ),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFEFF6FF),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              widget.className,
-                              style: GoogleFonts.inter(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color: const Color(0xFF1D4ED8),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(6),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.asset(logo, fit: BoxFit.contain),
+                    ),
+                  ),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          name,
+                          style: GoogleFonts.montserrat(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w800,
+                            color: const Color(0xFF111111),
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 4,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 3,
+                              ),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFEFF6FF),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                className,
+                                style: GoogleFonts.inter(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: const Color(0xFF1D4ED8),
+                                ),
                               ),
                             ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 3,
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 3,
+                              ),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF0FDF4),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                division,
+                                style: GoogleFonts.inter(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: const Color(0xFF15803D),
+                                ),
+                              ),
                             ),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF0FDF4),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              widget.division,
+                            Text(
+                              '🟢 Active Feed',
                               style: GoogleFonts.inter(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w700,
                                 color: const Color(0xFF15803D),
                               ),
                             ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+
+              final actionButtons = Wrap(
+                spacing: 10,
+                runSpacing: 8,
+                children: [
+                  // Change School Button (.btn-manage-school)
+                  HoverBuilder(
+                    cursor: SystemMouseCursors.click,
+                    builder: (context, isChangeSchoolHovered) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.selectInstitution,
+                          );
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 180),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 7,
                           ),
-                          Text(
-                            '🟢 Active Feed',
-                            style: GoogleFonts.inter(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: const Color(0xFF15803D),
+                          decoration: BoxDecoration(
+                            color: isChangeSchoolHovered
+                                ? const Color(0xFFF3F4F6)
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: isChangeSchoolHovered
+                                  ? const Color(0xFF9CA3AF)
+                                  : const Color(0xFFD1D5DB),
                             ),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            );
-
-            final actionButtons = Wrap(
-              spacing: 10,
-              runSpacing: 8,
-              children: [
-                // Change School Button (.btn-manage-school)
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  onEnter: (_) => setState(() => _isChangeSchoolHovered = true),
-                  onExit: (_) => setState(() => _isChangeSchoolHovered = false),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.selectInstitution);
+                          child: Text(
+                            'Change School',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w700,
+                              color: isChangeSchoolHovered
+                                  ? const Color(0xFF111111)
+                                  : const Color(0xFF374151),
+                            ),
+                          ),
+                        ),
+                      );
                     },
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 180),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 7,
-                      ),
-                      decoration: BoxDecoration(
-                        color: _isChangeSchoolHovered
-                            ? const Color(0xFFF3F4F6)
-                            : Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: _isChangeSchoolHovered
-                              ? const Color(0xFF9CA3AF)
-                              : const Color(0xFFD1D5DB),
-                        ),
-                      ),
-                      child: Text(
-                        'Change School',
-                        style: GoogleFonts.montserrat(
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.w700,
-                          color: _isChangeSchoolHovered
-                              ? const Color(0xFF111111)
-                              : const Color(0xFF374151),
-                        ),
-                      ),
-                    ),
                   ),
-                ),
 
-                // Change Class/Div Button (.btn-manage-class)
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  onEnter: (_) => setState(() => _isChangeClassHovered = true),
-                  onExit: (_) => setState(() => _isChangeClassHovered = false),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.selectClassDivision);
+                  // Change Class/Div Button (.btn-manage-class)
+                  HoverBuilder(
+                    cursor: SystemMouseCursors.click,
+                    builder: (context, isChangeClassHovered) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.selectClassDivision,
+                          );
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 180),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 7,
+                          ),
+                          decoration: BoxDecoration(
+                            color: isChangeClassHovered
+                                ? const Color(0xFFE04E00)
+                                : AppColors.primaryOrange,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: isChangeClassHovered
+                                  ? const Color(0xFFE04E00)
+                                  : AppColors.primaryOrange,
+                            ),
+                          ),
+                          child: Text(
+                            'Change Class/Div',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      );
                     },
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 180),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 7,
-                      ),
-                      decoration: BoxDecoration(
-                        color: _isChangeClassHovered
-                            ? const Color(0xFFE04E00)
-                            : AppColors.primaryOrange,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: _isChangeClassHovered
-                              ? const Color(0xFFE04E00)
-                              : AppColors.primaryOrange,
-                        ),
-                      ),
-                      child: Text(
-                        'Change Class/Div',
-                        style: GoogleFonts.montserrat(
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
                   ),
-                ),
-              ],
-            );
+                ],
+              );
 
-            if (isNarrow) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              if (isNarrow) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    schoolDetails,
+                    const SizedBox(height: 14),
+                    actionButtons,
+                  ],
+                );
+              }
+
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  schoolDetails,
-                  const SizedBox(height: 14),
+                  Expanded(child: schoolDetails),
+                  const SizedBox(width: 16),
                   actionButtons,
                 ],
               );
-            }
-
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(child: schoolDetails),
-                const SizedBox(width: 16),
-                actionButtons,
-              ],
-            );
-          },
-        ),
-      ),
+            },
+          ),
+        );
+      },
     );
   }
 }
